@@ -57,4 +57,22 @@
   <ItemGroup>
     <Folder Include="Properties" />
   </ItemGroup>
+  <ItemGroup>
+    <Build Include="UserTypes.sql" />
+    <Build Include="LoginInfo.sql" />
+    <Build Include="Customers.sql" />
+    <Build Include="Admins.sql" />
+    <Build Include="Practitioner_Types.sql" />
+    <Build Include="Practitioners.sql" />
+    <Build Include="Bookings.sql" />
+    <Build Include="Payment_Types.sql" />
+    <Build Include="Payments.sql" />
+    <Build Include="CustomerBookings.sql" />
+    <Build Include="CustomerPayments.sql" />
+    <Build Include="Booking_Services.sql" />
+    <Build Include="Services.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="MedicalCentreDB.refactorlog" />
+  </ItemGroup>
 </Project>
