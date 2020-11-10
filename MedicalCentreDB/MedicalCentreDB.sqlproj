@@ -75,4 +75,7 @@
   <ItemGroup>
     <RefactorLog Include="MedicalCentreDB.refactorlog" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="MedicalCentreDB.publish.xml" />
+  </ItemGroup>
 </Project>

@@ -6,5 +6,5 @@
     [ServicePrice] DECIMAL NOT NULL, 
     [PractitionerTypeID] int NOT NULL, 
     [MSPCoverage] DECIMAL NULL, 
-    CONSTRAINT [FK_Services_Practitioner_Types] FOREIGN KEY ([PractitionerTypeID]) REFERENCES [Practitioner_Types]([TypeId])
+    CONSTRAINT [FK_Services_Practitioner_Types] FOREIGN KEY ([PractitionerTypeID]) REFERENCES [Practitioner_Types]([TypeID])
 )

@@ -5,7 +5,7 @@
     [PractitionerID] INT NOT NULL, 
     [Time] TIME NOT NULL, 
     [Date] DATE NOT NULL, 
-    [DoctorComment] TEXT NULL, 
+    [PractitionerComment] TEXT NULL, 
     [BookingPrice] DECIMAL NOT NULL, 
     [BookingStatus] VARCHAR(50) NOT NULL, 
     CONSTRAINT [FK_Bookings_Customers] FOREIGN KEY ([CustomerID]) REFERENCES [Customers]([CustomerID]), 
