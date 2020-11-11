@@ -19,17 +19,7 @@ namespace MedicalCentreCodeFirstFromDB
 
             context.SaveChanges();
 
-            context.Database.ExecuteSqlCommand("drop table CustomerBookings");
-
-            // Now add the view
-
-            string createViewCustomerBookings = "CREATE VIEW[dbo].[CustomerBookings] AS " +
-                "SELECT[Customers].*, [Bookings].* FROM[Bookings] " +
-                "inner join[Customers] on[Customers].CustomerId = [Bookings].CustomerId ";
-
-            context.Database.ExecuteSqlCommand(createViewCustomerBookings);
-
-
+    
             List<UserType> userTypes = new List<UserType>()
             {
                 new UserType { UserTypeTitle = "Administrator", UserTypeDescription = "Backup/Reset database and request password changes" },
