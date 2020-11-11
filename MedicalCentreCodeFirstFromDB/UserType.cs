@@ -17,10 +17,10 @@ namespace MedicalCentreCodeFirstFromDB
 
         public int UserTypeID { get; set; }
 
-        [Column("UserType")]
+        [Column("UserTypeTitle")]
         [Required]
         [StringLength(50)]
-        public string UserType1 { get; set; }
+        public string UserTypeTitle { get; set; }
 
         [StringLength(100)]
         public string UserTypeDescription { get; set; }
