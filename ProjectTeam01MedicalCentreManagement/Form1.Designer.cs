@@ -1,4 +1,6 @@
-﻿namespace ProjectTeam01MedicalCentreManagement
+﻿using System;
+
+namespace ProjectTeam01MedicalCentreManagement
 {
     partial class Form1
     {
