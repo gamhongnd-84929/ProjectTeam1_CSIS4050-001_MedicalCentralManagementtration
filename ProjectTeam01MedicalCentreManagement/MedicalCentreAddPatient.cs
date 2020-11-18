@@ -1,0 +1,23 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace ProjectTeam01MedicalCentreManagement
+{
+    public partial class MedicalCentreAddPatient : Form
+    {
+        public MedicalCentreAddPatient()
+        {
+            this.Text = "Medical Centre:Register New Patient";
+            InitializeComponent();
+        }
+
+ 
+    }
+}

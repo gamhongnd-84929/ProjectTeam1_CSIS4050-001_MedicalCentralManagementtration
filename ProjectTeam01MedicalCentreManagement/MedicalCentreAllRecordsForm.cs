@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MedicalCentreCodeFirstFromDB;
 using EFControllerUtilities;
+using ProjectTeam01MedicalCentreManagement;
 
 namespace MedicalCentreMainMenuFormApp
 {
@@ -16,9 +17,31 @@ namespace MedicalCentreMainMenuFormApp
     {
         public MedicalCentreAllRecordsForm()
         {
-            this.Text = " Medical Centre All Records";
+            this.Text = "Medical Centre All Records";
             InitializeComponent();
-            this.Load += (s, e) => MedicalCentreAllRecordsForm_Load();
+            //this.Load += (s, e) => MedicalCentreAllRecordsForm_Load();
+            // create child forms
+            MedicalCentreAddPatient addPatient = new MedicalCentreAddPatient();
+            MedicalCentreAddPractitioner addPractitioner = new MedicalCentreAddPractitioner();
+            // add events to buttons
+            buttonAddPatient.Click += (s, e) => AddNewUserForm<Customer>(dataGridViewPatients, addPatient);
+            buttonAddPractitioner.Click += (s, e) => AddNewUserForm<Practitioner>(dataGridViewPractitioners, addPractitioner);
+
+        }
+
+        private void AddNewUserForm<T>(DataGridView dataGridView, Form form) where T:class
+        {
+            // if okay was clicked on the child
+            var result = form.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                // reload the datagridview
+                dataGridView.DataSource = Controller<MedicalCentreManagementEntities, T>.SetBindingList();
+                dataGridView.Refresh();
+
+            }
+            // hide the child form
+            form.Hide();
         }
 
         private void MedicalCentreAllRecordsForm_Load()
@@ -47,8 +70,6 @@ namespace MedicalCentreMainMenuFormApp
             // set the handler used to delete an item. Note use of generics.
 
            // gridView.UserDeletingRow += (s, e) => DeletingRow<T>(s as DataGridView, e);
-
-            // probably not needed, but just in case we have some issues
 
            
             gridView.DataSource = Controller<MedicalCentreManagementEntities, T>.SetBindingList();
