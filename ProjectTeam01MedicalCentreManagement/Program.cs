@@ -16,7 +16,7 @@ namespace ProjectTeam01MedicalCentreManagement
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new MedicalCentreMainMenuForm());
         }
     }
 }
