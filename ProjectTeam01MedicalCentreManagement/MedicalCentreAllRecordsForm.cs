@@ -22,14 +22,38 @@ namespace MedicalCentreMainMenuFormApp
             //this.Load += (s, e) => MedicalCentreAllRecordsForm_Load();
             // create child forms
             MedicalCentreAddPatient addPatient = new MedicalCentreAddPatient();
+
             MedicalCentreAddPractitioner addPractitioner = new MedicalCentreAddPractitioner();
             // add events to buttons
             buttonAddPatient.Click += (s, e) => AddNewUserForm<Customer>(dataGridViewPatients, addPatient);
             buttonAddPractitioner.Click += (s, e) => AddNewUserForm<Practitioner>(dataGridViewPractitioners, addPractitioner);
-
+            buttonPatientOptions.Click += (s, e) => AddingPatientOptionsForm();
         }
 
-        private void AddNewUserForm<T>(DataGridView dataGridView, Form form) where T:class
+        private void AddingPatientOptionsForm()
+        {
+            if (dataGridViewPatients.SelectedRows.Count != 1)
+            {
+                MessageBox.Show("Please Select a Patient to View their Options");
+            }
+            else
+            {
+                int patientIdToView = (int)dataGridViewPatients.SelectedRows[0].Cells[0].Value;
+                MedicalCentrePatientOptionsMainForm patientOptionsMainForm = new MedicalCentrePatientOptionsMainForm(patientIdToView);
+                var result = patientOptionsMainForm.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    // reload the datagridview
+                    dataGridViewPatients.DataSource = Controller<MedicalCentreManagementEntities, Customer>.SetBindingList();
+                    dataGridViewPatients.Refresh();
+
+                }
+                // hide the child form
+                patientOptionsMainForm.Hide();
+            }
+        }
+
+        private void AddNewUserForm<T>(DataGridView dataGridView, Form form) where T : class
         {
             // if okay was clicked on the child
             var result = form.ShowDialog();
@@ -54,7 +78,7 @@ namespace MedicalCentreMainMenuFormApp
 
             InitializeDataGridView<Practitioner>(dataGridViewPractitioners);
             InitializeDataGridView<Customer>(dataGridViewPatients);
-            
+
         }
 
         private void InitializeDataGridView<T>(DataGridView gridView, params string[] columnsToHide) where T : class
@@ -69,9 +93,9 @@ namespace MedicalCentreMainMenuFormApp
 
             // set the handler used to delete an item. Note use of generics.
 
-           // gridView.UserDeletingRow += (s, e) => DeletingRow<T>(s as DataGridView, e);
+            // gridView.UserDeletingRow += (s, e) => DeletingRow<T>(s as DataGridView, e);
 
-           
+
             gridView.DataSource = Controller<MedicalCentreManagementEntities, T>.SetBindingList();
 
 
@@ -80,5 +104,5 @@ namespace MedicalCentreMainMenuFormApp
         }
     }
 
-  
+
 }
