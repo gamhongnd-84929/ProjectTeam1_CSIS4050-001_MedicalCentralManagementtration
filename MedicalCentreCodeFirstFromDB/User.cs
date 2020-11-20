@@ -27,6 +27,9 @@ namespace MedicalCentreCodeFirstFromDB
         public string LastName { get; set; }
 
         [StringLength(50)]
+        public string Birthdate { get; set; }
+
+        [StringLength(50)]
         public string Address { get; set; }
 
         [StringLength(50)]

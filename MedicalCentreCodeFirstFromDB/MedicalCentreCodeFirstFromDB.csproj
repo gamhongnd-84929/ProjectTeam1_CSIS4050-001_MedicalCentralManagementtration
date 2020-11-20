@@ -53,11 +53,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Admin.cs" />
     <Compile Include="Booking.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="C__RefactorLog.cs" />
-    <Compile Include="LoginInfo.cs" />
     <Compile Include="MedicalCentreManagementEntities.cs" />
     <Compile Include="Payment.cs" />
     <Compile Include="Payment_Types.cs" />
@@ -67,7 +65,6 @@
     <Compile Include="SeedDatabaseExtensionMethods.cs" />
     <Compile Include="Service.cs" />
     <Compile Include="User.cs" />
-    <Compile Include="UserType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

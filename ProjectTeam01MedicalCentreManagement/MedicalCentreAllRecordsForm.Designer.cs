@@ -47,7 +47,7 @@
             this.dataGridViewPatients.Name = "dataGridViewPatients";
             this.dataGridViewPatients.RowHeadersWidth = 51;
             this.dataGridViewPatients.RowTemplate.Height = 24;
-            this.dataGridViewPatients.Size = new System.Drawing.Size(551, 202);
+            this.dataGridViewPatients.Size = new System.Drawing.Size(765, 202);
             this.dataGridViewPatients.TabIndex = 0;
             // 
             // labelPatients
@@ -68,7 +68,7 @@
             this.dataGridViewPractitioners.Name = "dataGridViewPractitioners";
             this.dataGridViewPractitioners.RowHeadersWidth = 51;
             this.dataGridViewPractitioners.RowTemplate.Height = 24;
-            this.dataGridViewPractitioners.Size = new System.Drawing.Size(551, 201);
+            this.dataGridViewPractitioners.Size = new System.Drawing.Size(765, 201);
             this.dataGridViewPractitioners.TabIndex = 2;
             // 
             // labelPractitioners
@@ -84,7 +84,7 @@
             // 
             // buttonAddPatient
             // 
-            this.buttonAddPatient.Location = new System.Drawing.Point(656, 60);
+            this.buttonAddPatient.Location = new System.Drawing.Point(900, 60);
             this.buttonAddPatient.Name = "buttonAddPatient";
             this.buttonAddPatient.Size = new System.Drawing.Size(147, 68);
             this.buttonAddPatient.TabIndex = 4;
@@ -94,7 +94,7 @@
             // buttonPatientOptions
             // 
             this.buttonPatientOptions.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.buttonPatientOptions.Location = new System.Drawing.Point(656, 194);
+            this.buttonPatientOptions.Location = new System.Drawing.Point(900, 194);
             this.buttonPatientOptions.Name = "buttonPatientOptions";
             this.buttonPatientOptions.Size = new System.Drawing.Size(147, 68);
             this.buttonPatientOptions.TabIndex = 5;
@@ -103,7 +103,7 @@
             // 
             // buttonAddPractitioner
             // 
-            this.buttonAddPractitioner.Location = new System.Drawing.Point(656, 345);
+            this.buttonAddPractitioner.Location = new System.Drawing.Point(900, 345);
             this.buttonAddPractitioner.Name = "buttonAddPractitioner";
             this.buttonAddPractitioner.Size = new System.Drawing.Size(147, 68);
             this.buttonAddPractitioner.TabIndex = 6;
@@ -113,18 +113,18 @@
             // buttonPractitionerOptions
             // 
             this.buttonPractitionerOptions.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.buttonPractitionerOptions.Location = new System.Drawing.Point(656, 466);
+            this.buttonPractitionerOptions.Location = new System.Drawing.Point(900, 466);
             this.buttonPractitionerOptions.Name = "buttonPractitionerOptions";
             this.buttonPractitionerOptions.Size = new System.Drawing.Size(147, 68);
             this.buttonPractitionerOptions.TabIndex = 7;
             this.buttonPractitionerOptions.Text = "View Practitioner\'s Options";
             this.buttonPractitionerOptions.UseVisualStyleBackColor = true;
             // 
-            // MedicalCentreRecordsForm
+            // MedicalCentreAllRecordsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(900, 590);
+            this.ClientSize = new System.Drawing.Size(1098, 590);
             this.Controls.Add(this.buttonPractitionerOptions);
             this.Controls.Add(this.buttonAddPractitioner);
             this.Controls.Add(this.buttonPatientOptions);
@@ -133,7 +133,7 @@
             this.Controls.Add(this.dataGridViewPractitioners);
             this.Controls.Add(this.labelPatients);
             this.Controls.Add(this.dataGridViewPatients);
-            this.Name = "MedicalCentreRecordsForm";
+            this.Name = "MedicalCentreAllRecordsForm";
             this.Text = "MedicalCentreRecordsForm";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPatients)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPractitioners)).EndInit();

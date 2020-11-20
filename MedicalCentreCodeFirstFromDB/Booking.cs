@@ -22,10 +22,10 @@ namespace MedicalCentreCodeFirstFromDB
 
         public int PractitionerID { get; set; }
 
-        public TimeSpan Time { get; set; }
+        public string Time { get; set; }
 
-        [Column(TypeName = "date")]
-        public DateTime Date { get; set; }
+     
+        public string Date { get; set; }
 
         [Column(TypeName = "text")]
         public string PractitionerComment { get; set; }

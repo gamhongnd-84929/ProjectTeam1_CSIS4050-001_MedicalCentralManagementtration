@@ -13,35 +13,21 @@ namespace MedicalCentreCodeFirstFromDB
         }
 
         public virtual DbSet<C__RefactorLog> C__RefactorLog { get; set; }
-        public virtual DbSet<Admin> Admins { get; set; }
+
         public virtual DbSet<Booking> Bookings { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
-        public virtual DbSet<LoginInfo> LoginInfoes { get; set; }
+     
         public virtual DbSet<Payment_Types> Payment_Types { get; set; }
         public virtual DbSet<Payment> Payments { get; set; }
         public virtual DbSet<Practitioner_Types> Practitioner_Types { get; set; }
         public virtual DbSet<Practitioner> Practitioners { get; set; }
         public virtual DbSet<Service> Services { get; set; }
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<UserType> UserTypes { get; set; }
+  
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Admin>()
-                .Property(e => e.FirstName)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Admin>()
-                .Property(e => e.LastName)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Admin>()
-                .Property(e => e.PhoneNumber)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Admin>()
-                .Property(e => e.Email)
-                .IsUnicode(false);
+           
 
             modelBuilder.Entity<Booking>()
                 .Property(e => e.PractitionerComment)
@@ -83,19 +69,6 @@ namespace MedicalCentreCodeFirstFromDB
                 .WillCascadeOnDelete(false);
 
            
-            modelBuilder.Entity<LoginInfo>()
-                .Property(e => e.UserName)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<LoginInfo>()
-                .Property(e => e.Password)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<LoginInfo>()
-                .HasMany(e => e.Admins)
-                .WithRequired(e => e.LoginInfo)
-                .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<Payment_Types>()
                 .Property(e => e.PaymentType)
                 .IsUnicode(false);
@@ -199,18 +172,6 @@ namespace MedicalCentreCodeFirstFromDB
                 .WithRequired(e => e.User)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<UserType>()
-                .Property(e => e.UserTypeTitle)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<UserType>()
-                .Property(e => e.UserTypeDescription)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<UserType>()
-                .HasMany(e => e.LoginInfoes)
-                .WithRequired(e => e.UserType)
-                .WillCascadeOnDelete(false);
         }
     }
 }

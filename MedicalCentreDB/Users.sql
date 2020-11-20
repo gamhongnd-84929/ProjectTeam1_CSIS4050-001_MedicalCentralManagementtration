@@ -2,6 +2,7 @@
 (
 	[UserID] INT NOT NULL  IDENTITY(1,1),
 	[FirstName] VARCHAR(50) NOT NULL, 
+    [Birthdate] VARCHAR(50)  NULL, 
     [LastName] VARCHAR(50) NOT NULL, 
     [Address] VARCHAR(50) NULL, 
     [City] VARCHAR(50) NULL, 

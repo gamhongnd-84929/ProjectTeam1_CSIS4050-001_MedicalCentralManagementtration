@@ -38,13 +38,13 @@ namespace MedicalCentreMainMenuFormApp
             }
             else
             {
-                int patientIdToView = (int)dataGridViewPatients.SelectedRows[0].Cells[0].Value;
+                int patientIdToView = Convert.ToInt32(dataGridViewPatients.SelectedRows[0].Cells[0].Value);
                 MedicalCentrePatientOptionsMainForm patientOptionsMainForm = new MedicalCentrePatientOptionsMainForm(patientIdToView);
                 var result = patientOptionsMainForm.ShowDialog();
                 if (result == DialogResult.OK)
                 {
                     // reload the datagridview
-                    dataGridViewPatients.DataSource = Controller<MedicalCentreManagementEntities, Customer>.SetBindingList();
+                    InitializePatientsRecordsView(dataGridViewPatients);
                     dataGridViewPatients.Refresh();
 
                 }
@@ -60,7 +60,10 @@ namespace MedicalCentreMainMenuFormApp
             if (result == DialogResult.OK)
             {
                 // reload the datagridview
-                dataGridView.DataSource = Controller<MedicalCentreManagementEntities, T>.SetBindingList();
+               if (typeof(T) == typeof( Customer))
+                {
+                    InitializePatientsRecordsView(dataGridView);
+                }
                 dataGridView.Refresh();
 
             }
@@ -76,31 +79,45 @@ namespace MedicalCentreMainMenuFormApp
             }
             // common setup for datagridview controls
 
-            InitializeDataGridView<Practitioner>(dataGridViewPractitioners);
-            InitializeDataGridView<Customer>(dataGridViewPatients, "Bookings","Payments", "User");
+            InitializePatientsRecordsView(dataGridViewPatients);
+            //InitializeDataGridView<Customer>(dataGridViewPatients, "Bookings", "Payments", "User");
 
         }
 
-        private void InitializeDataGridView<T>(DataGridView gridView, params string[] columnsToHide) where T : class
+        private static void InitializePatientsRecordsView(DataGridView datagridview)
         {
-            // Allow users to add/delete rows, and fill out columns to the entire width of the control
+            datagridview.Rows.Clear();
+            // set number of columns
+            datagridview.ColumnCount = 8;
+            // Set the column header names.
+            datagridview.Columns[0].Name = "Customer ID";
+            datagridview.Columns[1].Name = "First Name";
+            datagridview.Columns[2].Name = "Last Name";
+            datagridview.Columns[3].Name = "Address";
+            datagridview.Columns[4].Name = "City";
+            datagridview.Columns[5].Name = "Province";
+            datagridview.Columns[6].Name = "Email";
+            datagridview.Columns[7].Name = "Phone Number";
+            // using unit-of-work context
+            using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
+            {
+                // loop through all courses
+                foreach (Customer customer in context.Customers)
+                {
 
-            gridView.AllowUserToAddRows = false;
+                    // get the needed information
+                    string[] rowAdd = { customer.CustomerID.ToString(), customer.User.FirstName, customer.User.LastName, customer.User.Address, customer.User.City, customer.User.Province, customer.User.Email, customer.User.PhoneNumber };
+                    // add to display
+                    datagridview.Rows.Add(rowAdd);
+                }
 
-            gridView.AllowUserToDeleteRows = true;
-            gridView.ReadOnly = true;
-            gridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            }
+            // set all properties
+            datagridview.AllowUserToAddRows = false;
+            datagridview.AllowUserToDeleteRows = false;
+            datagridview.ReadOnly = true;
+            datagridview.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-            // set the handler used to delete an item. Note use of generics.
-
-            // gridView.UserDeletingRow += (s, e) => DeletingRow<T>(s as DataGridView, e);
-
-
-            gridView.DataSource = Controller<MedicalCentreManagementEntities, T>.SetBindingList();
-
-
-            foreach (string column in columnsToHide)
-                gridView.Columns[column].Visible = false;
         }
     }
 

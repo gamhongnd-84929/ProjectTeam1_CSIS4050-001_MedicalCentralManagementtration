@@ -43,7 +43,7 @@
             // labelPatientName
             // 
             this.labelPatientName.AutoSize = true;
-            this.labelPatientName.Location = new System.Drawing.Point(594, 9);
+            this.labelPatientName.Location = new System.Drawing.Point(550, 9);
             this.labelPatientName.Name = "labelPatientName";
             this.labelPatientName.Size = new System.Drawing.Size(101, 17);
             this.labelPatientName.TabIndex = 0;
