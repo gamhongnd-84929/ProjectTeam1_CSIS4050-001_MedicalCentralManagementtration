@@ -34,9 +34,9 @@ namespace MedicalCentreCodeFirstFromDB
             context.SaveChanges();
             List<User> users = new List<User>()
             {
-                new User { FirstName= "Jane", LastName = "Doe", Address = "100 1st", City="Vancouver",Province="BC",PostalCode="V3V 1G1", Email = "janedoe@email.com", PhoneNumber = "111-111-1111"},
-                new User { FirstName= "John", LastName = "Doe", Address = "200 2nd", City="Burnaby",Province="BC",PostalCode="V3F 9L1", Email = "johndoe@email.com", PhoneNumber = "222-222-2222"},
-                new User { FirstName= "Doctor1", LastName = "Billings", Address = "200 2nd", City="Burnaby",Province="BC",PostalCode="V3F 9L1", Email = "doctor@email.com", PhoneNumber = "222-222-2222"},
+                new User { FirstName= "Jane", LastName = "Doe", Birthdate = "1994-08-20", Address = "100 1st", City="Vancouver",Province="BC",PostalCode="V3V 1G1", Email = "janedoe@email.com", PhoneNumber = "111-111-1111"},
+                new User { FirstName= "John", LastName = "Doe", Birthdate = "1980-07-07", Address = "200 2nd", City="Burnaby",Province="BC",PostalCode="V3F 9L1", Email = "johndoe@email.com", PhoneNumber = "222-222-2222"},
+                new User { FirstName= "Doctor1", LastName = "Billings", Birthdate="1999-12-28", Address = "200 2nd", City="Burnaby",Province="BC",PostalCode="V3F 9L1", Email = "doctor@email.com", PhoneNumber = "222-222-2222"},
 
             };
 

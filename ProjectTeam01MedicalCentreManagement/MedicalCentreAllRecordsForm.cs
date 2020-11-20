@@ -57,7 +57,7 @@ namespace MedicalCentreMainMenuFormApp
         {
             // if okay was clicked on the child
             var result = form.ShowDialog();
-            if (result == DialogResult.OK)
+            if (result == DialogResult.OK || result == DialogResult.Cancel)
             {
                 // reload the datagridview
                if (typeof(T) == typeof( Customer))
@@ -67,6 +67,7 @@ namespace MedicalCentreMainMenuFormApp
                 dataGridView.Refresh();
 
             }
+
             // hide the child form
             form.Hide();
         }

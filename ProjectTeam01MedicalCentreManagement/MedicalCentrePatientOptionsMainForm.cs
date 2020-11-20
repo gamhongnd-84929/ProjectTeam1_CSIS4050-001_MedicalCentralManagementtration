@@ -18,10 +18,11 @@ namespace ProjectTeam01MedicalCentreManagement
 
             this.Text = "Medical Centre: Patient's Options";
             InitializeComponent();
+            
             GetGreeting(patientID);
             InitializePatientsBookings(dataGridViewPatientBookings, patientID);
             MedicalCentreUpdatePatient medicalCentreUpdatePatient = new MedicalCentreUpdatePatient(patientID);
-            buttonUpdateInformation.Click += (s, e) => UpdateUserForm(medicalCentreUpdatePatient);
+            buttonUpdateInformation.Click += (s, e) => UpdateUserForm(medicalCentreUpdatePatient,  patientID);
 
 
         }
@@ -73,18 +74,19 @@ namespace ProjectTeam01MedicalCentreManagement
         }
 
 
-        private void UpdateUserForm(Form form)
+        private void UpdateUserForm(Form form, int patientID)
         {
             // if okay was clicked on the child
             var result = form.ShowDialog();
             if (result == DialogResult.OK)
             {
-                // reload the datagridview
-
+                InitializePatientsBookings(dataGridViewPatientBookings, patientID);
+                GetGreeting(patientID);
 
             }
             // hide the child form
             form.Hide();
+            this.DialogResult = DialogResult.OK;
         }
     }
 }

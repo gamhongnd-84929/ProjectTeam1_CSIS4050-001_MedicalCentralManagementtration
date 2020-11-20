@@ -47,7 +47,7 @@
             this.textBoxEmail = new System.Windows.Forms.TextBox();
             this.labelMSP = new System.Windows.Forms.Label();
             this.textBoxMSP = new System.Windows.Forms.TextBox();
-            this.buttonAddNewPatient = new System.Windows.Forms.Button();
+            this.buttonUpdatePatient = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // labelAddPatient
@@ -206,21 +206,21 @@
             this.textBoxMSP.Size = new System.Drawing.Size(200, 22);
             this.textBoxMSP.TabIndex = 18;
             // 
-            // buttonAddNewPatient
+            // buttonUpdatePatient
             // 
-            this.buttonAddNewPatient.Location = new System.Drawing.Point(57, 520);
-            this.buttonAddNewPatient.Name = "buttonAddNewPatient";
-            this.buttonAddNewPatient.Size = new System.Drawing.Size(313, 32);
-            this.buttonAddNewPatient.TabIndex = 19;
-            this.buttonAddNewPatient.Text = "Update Customer ";
-            this.buttonAddNewPatient.UseVisualStyleBackColor = true;
+            this.buttonUpdatePatient.Location = new System.Drawing.Point(57, 520);
+            this.buttonUpdatePatient.Name = "buttonUpdatePatient";
+            this.buttonUpdatePatient.Size = new System.Drawing.Size(313, 32);
+            this.buttonUpdatePatient.TabIndex = 19;
+            this.buttonUpdatePatient.Text = "Update Customer ";
+            this.buttonUpdatePatient.UseVisualStyleBackColor = true;
             // 
             // MedicalCentreUpdatePatient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(457, 575);
-            this.Controls.Add(this.buttonAddNewPatient);
+            this.Controls.Add(this.buttonUpdatePatient);
             this.Controls.Add(this.textBoxMSP);
             this.Controls.Add(this.labelMSP);
             this.Controls.Add(this.textBoxEmail);
@@ -268,6 +268,6 @@
         private System.Windows.Forms.TextBox textBoxEmail;
         private System.Windows.Forms.Label labelMSP;
         private System.Windows.Forms.TextBox textBoxMSP;
-        private System.Windows.Forms.Button buttonAddNewPatient;
+        private System.Windows.Forms.Button buttonUpdatePatient;
     }
 }
