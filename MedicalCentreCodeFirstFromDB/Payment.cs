@@ -11,7 +11,7 @@ namespace MedicalCentreCodeFirstFromDB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Payment()
         {
-         
+            Customers = new HashSet<Customer>();
         }
 
         public int PaymentID { get; set; }
@@ -36,8 +36,9 @@ namespace MedicalCentreCodeFirstFromDB
 
         public virtual Customer Customer { get; set; }
 
-        public virtual Payment_Type Payment_Types { get; set; }
+        public virtual Payment_Types Payment_Types { get; set; }
 
-       
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Customer> Customers { get; set; }
     }
 }

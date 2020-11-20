@@ -6,25 +6,26 @@ namespace MedicalCentreCodeFirstFromDB
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Payment_Type
+    public partial class Practitioner_Types
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Payment_Type()
+        public Practitioner_Types()
         {
-            Payments = new HashSet<Payment>();
+            Practitioners = new HashSet<Practitioner>();
+            Services = new HashSet<Service>();
         }
 
         [Key]
-        public int PaymentTypeID { get; set; }
+        public int TypeID { get; set; }
 
         [Required]
         [StringLength(50)]
-        public string PaymentType { get; set; }
-
-        [StringLength(100)]
-        public string PaymentTypeDetail { get; set; }
+        public string Title { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Payment> Payments { get; set; }
+        public virtual ICollection<Practitioner> Practitioners { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Service> Services { get; set; }
     }
 }

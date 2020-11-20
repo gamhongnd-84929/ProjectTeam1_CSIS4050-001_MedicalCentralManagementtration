@@ -14,9 +14,27 @@ namespace ProjectTeam01MedicalCentreManagement
     {
         public MedicalCentrePatientOptionsMainForm( int patientID)
         {
+            
             this.Text = "Medical Centre: Patient's Options";
             InitializeComponent();
-            
+
+            MedicalCentreUpdatePatient medicalCentreUpdatePatient = new MedicalCentreUpdatePatient(patientID);
+            buttonUpdateInformation.Click += (s, e) => UpdateUserForm(medicalCentreUpdatePatient);
+
+
+        }
+        private void UpdateUserForm( Form form) 
+        {
+            // if okay was clicked on the child
+            var result = form.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                // reload the datagridview
+             
+
+            }
+            // hide the child form
+            form.Hide();
         }
     }
 }

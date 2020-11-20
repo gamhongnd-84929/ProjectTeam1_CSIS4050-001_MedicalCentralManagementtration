@@ -13,8 +13,6 @@ namespace MedicalCentreCodeFirstFromDB
         public LoginInfo()
         {
             Admins = new HashSet<Admin>();
-            Customers = new HashSet<Customer>();
-            Practitioners = new HashSet<Practitioner>();
         }
 
         [Key]
@@ -35,12 +33,6 @@ namespace MedicalCentreCodeFirstFromDB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Admin> Admins { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Customer> Customers { get; set; }
-
         public virtual UserType UserType { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Practitioner> Practitioners { get; set; }
     }
 }

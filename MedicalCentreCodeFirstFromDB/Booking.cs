@@ -11,9 +11,9 @@ namespace MedicalCentreCodeFirstFromDB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Booking()
         {
-
+            Payments = new HashSet<Payment>();
             Services = new HashSet<Service>();
-          
+            Customers = new HashSet<Customer>();
         }
 
         public int BookingID { get; set; }
@@ -28,7 +28,7 @@ namespace MedicalCentreCodeFirstFromDB
         public DateTime Date { get; set; }
 
         [Column(TypeName = "text")]
-        public string DoctorComment { get; set; }
+        public string PractitionerComment { get; set; }
 
         public decimal BookingPrice { get; set; }
 
@@ -40,9 +40,13 @@ namespace MedicalCentreCodeFirstFromDB
 
         public virtual Practitioner Practitioner { get; set; }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Payment> Payments { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Service> Services { get; set; }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Customer> Customers { get; set; }
     }
 }

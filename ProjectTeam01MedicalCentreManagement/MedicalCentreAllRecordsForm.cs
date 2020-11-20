@@ -19,7 +19,7 @@ namespace MedicalCentreMainMenuFormApp
         {
             this.Text = "Medical Centre All Records";
             InitializeComponent();
-            //this.Load += (s, e) => MedicalCentreAllRecordsForm_Load();
+            this.Load += (s, e) => MedicalCentreAllRecordsForm_Load();
             // create child forms
             MedicalCentreAddPatient addPatient = new MedicalCentreAddPatient();
 
@@ -77,7 +77,7 @@ namespace MedicalCentreMainMenuFormApp
             // common setup for datagridview controls
 
             InitializeDataGridView<Practitioner>(dataGridViewPractitioners);
-            InitializeDataGridView<Customer>(dataGridViewPatients);
+            InitializeDataGridView<Customer>(dataGridViewPatients, "Bookings","Payments", "User");
 
         }
 
