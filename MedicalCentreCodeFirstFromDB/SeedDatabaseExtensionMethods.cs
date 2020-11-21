@@ -36,9 +36,9 @@ namespace MedicalCentreCodeFirstFromDB
 
             List<Service> services = new List<Service>
             {
-                new Service{ ServiceName= "Skin Tag Removal", ServiceDescription="Removing any skin growth", PractitionerTypeID =1},
-                new Service{ ServiceName= "Neuro Exam", ServiceDescription="Performing Neuro Exam", PractitionerTypeID =2},
-                new Service{ ServiceName= "Skin Exam", ServiceDescription="Examining any Skin Conditions", PractitionerTypeID =1},
+                new Service{ ServiceName= "Skin Tag Removal", ServiceDescription="Removing any skin growth", PractitionerTypeID =1, ServicePrice=100, MSPCoverage = 0.4m},
+                new Service{ ServiceName= "Neuro Exam", ServiceDescription="Performing Neuro Exam", PractitionerTypeID =2 ,ServicePrice=500, MSPCoverage =0.40m},
+                new Service{ ServiceName= "Skin Exam", ServiceDescription="Examining any Skin Conditions", PractitionerTypeID =1 ,ServicePrice=800,MSPCoverage = 0.6m},
             };
             context.Services.AddRange(services);
             context.SaveChanges();

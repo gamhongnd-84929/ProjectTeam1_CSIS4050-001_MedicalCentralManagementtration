@@ -124,11 +124,11 @@ namespace MedicalCentreCodeFirstFromDB
 
             modelBuilder.Entity<Service>()
                 .Property(e => e.ServicePrice)
-                .HasPrecision(18, 0);
+                .HasPrecision(18, 2);
 
             modelBuilder.Entity<Service>()
                 .Property(e => e.MSPCoverage)
-                .HasPrecision(18, 0);
+                .HasPrecision(18, 2);
 
             modelBuilder.Entity<User>()
                 .Property(e => e.FirstName)

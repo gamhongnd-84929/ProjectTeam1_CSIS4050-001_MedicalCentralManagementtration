@@ -27,7 +27,7 @@ namespace MedicalCentreCodeFirstFromDB
 
         public int PractitionerTypeID { get; set; }
 
-        public decimal? MSPCoverage { get; set; }
+        public decimal MSPCoverage { get; set; }
 
         public virtual Practitioner_Types Practitioner_Types { get; set; }
 

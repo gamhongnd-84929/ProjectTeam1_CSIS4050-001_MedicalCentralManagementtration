@@ -25,7 +25,7 @@ namespace ProjectTeam01MedicalCentreManagement
         private void AllRecordsForm(Form form) 
         {
             // if okay was clicked on the child
-            var result = form.ShowDialog();
+         form.ShowDialog();
             // hide the child form
             form.Hide();
         }

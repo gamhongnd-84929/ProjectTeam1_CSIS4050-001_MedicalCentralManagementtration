@@ -11,7 +11,7 @@ namespace MedicalCentreCodeFirstFromDB
 
 		public override string ToString()
 		{
-			return ServiceName + ": " + ServiceDescription;
+			return ServiceName + " (" + ServiceDescription+ ")";
 		}
 	}
 

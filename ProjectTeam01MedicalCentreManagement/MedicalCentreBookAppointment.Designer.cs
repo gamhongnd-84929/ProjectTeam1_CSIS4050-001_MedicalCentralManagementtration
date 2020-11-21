@@ -152,7 +152,7 @@
             // 
             this.labelBookingSummary.Location = new System.Drawing.Point(428, 330);
             this.labelBookingSummary.Name = "labelBookingSummary";
-            this.labelBookingSummary.Size = new System.Drawing.Size(235, 108);
+            this.labelBookingSummary.Size = new System.Drawing.Size(260, 149);
             this.labelBookingSummary.TabIndex = 12;
             // 
             // MedicalCentreBookAppointment
