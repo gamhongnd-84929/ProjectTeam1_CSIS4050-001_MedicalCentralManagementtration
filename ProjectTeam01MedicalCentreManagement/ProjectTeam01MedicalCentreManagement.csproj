@@ -42,7 +42,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="System" />
+    <Reference Include="System">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -139,10 +141,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Desktop\CSIS4050_Projects\Class 08 Exercises\EFControllerUtilities\EFControllerUtilities.csproj">
-      <Project>{f7b44d6d-563a-4d6d-9718-b554924b4d97}</Project>
-      <Name>EFControllerUtilities</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MedicalCentreCodeFirstFromDB\MedicalCentreCodeFirstFromDB.csproj">
       <Project>{e5429cce-4af7-4e54-9c4e-f490d086d883}</Project>
       <Name>MedicalCentreCodeFirstFromDB</Name>

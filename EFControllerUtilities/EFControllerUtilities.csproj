@@ -5,11 +5,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E5429CCE-4AF7-4E54-9C4E-F490D086D883}</ProjectGuid>
+    <ProjectGuid>{CB1E5F5D-A033-4B72-AC56-2959B64DD758}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MedicalCentreCodeFirstFromDB</RootNamespace>
-    <AssemblyName>MedicalCentreCodeFirstFromDB</AssemblyName>
+    <RootNamespace>EFControllerUtilities</RootNamespace>
+    <AssemblyName>EFControllerUtilities</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -43,8 +43,6 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -53,29 +51,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Booking.cs" />
-    <Compile Include="Customer.cs" />
-    <Compile Include="C__RefactorLog.cs" />
-    <Compile Include="MedicalCentreManagementEntities.cs" />
-    <Compile Include="Payment.cs" />
-    <Compile Include="Payment_Types.cs" />
-    <Compile Include="Practitioner.cs" />
-    <Compile Include="Practitioner_Types.cs" />
+    <Compile Include="Controller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SeedDatabaseExtensionMethods.cs" />
-    <Compile Include="Service.cs" />
-    <Compile Include="StringOverrides.cs" />
-    <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\MedicalCentreDB\MedicalCentreDB.sqlproj">
-      <Project>{0ebfcf1b-a483-430d-a107-907b4158cbc3}</Project>
-      <Name>MedicalCentreDB</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
