@@ -74,6 +74,12 @@
     <Compile Include="MedicalCentreAllRecordsForm.Designer.cs">
       <DependentUpon>MedicalCentreAllRecordsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="MedicalCentreBookAppointment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MedicalCentreBookAppointment.Designer.cs">
+      <DependentUpon>MedicalCentreBookAppointment.cs</DependentUpon>
+    </Compile>
     <Compile Include="MedicalCentreMainMenuForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,6 +105,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MedicalCentreAllRecordsForm.resx">
       <DependentUpon>MedicalCentreAllRecordsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MedicalCentreBookAppointment.resx">
+      <DependentUpon>MedicalCentreBookAppointment.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MedicalCentrePatientOptionsMainForm.resx">
       <DependentUpon>MedicalCentrePatientOptionsMainForm.cs</DependentUpon>

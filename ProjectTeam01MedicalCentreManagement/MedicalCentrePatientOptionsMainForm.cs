@@ -22,8 +22,10 @@ namespace ProjectTeam01MedicalCentreManagement
             GetGreeting(patientID);
             InitializePatientsBookings(dataGridViewPatientBookings, patientID);
             MedicalCentreUpdatePatient medicalCentreUpdatePatient = new MedicalCentreUpdatePatient(patientID);
-            buttonUpdateInformation.Click += (s, e) => UpdateUserForm(medicalCentreUpdatePatient,  patientID);
+            buttonUpdateInformation.Click += (s, e) => ChildPatientActionsForm(medicalCentreUpdatePatient,  patientID);
 
+            MedicalCentreBookAppointment bookAppointment = new MedicalCentreBookAppointment(patientID);
+            buttonBookAppointment.Click += (s, e) => ChildPatientActionsForm(bookAppointment, patientID);
 
         }
 
@@ -74,7 +76,7 @@ namespace ProjectTeam01MedicalCentreManagement
         }
 
 
-        private void UpdateUserForm(Form form, int patientID)
+        private void ChildPatientActionsForm(Form form, int patientID)
         {
             // if okay was clicked on the child
             var result = form.ShowDialog();
