@@ -82,7 +82,7 @@ namespace MedicalCentreCodeFirstFromDB
                 new Practitioner {UserID =7, TypeID =2},
                 new Practitioner {UserID=10, TypeID =4},
                 new Practitioner {UserID =9, TypeID =3},
-                new Practitioner {UserID=8, TypeID = 5},
+                new Practitioner {UserID=8, TypeID = 1},
                 
             };
             context.Customers.AddRange(customers);
@@ -96,7 +96,7 @@ namespace MedicalCentreCodeFirstFromDB
                 new Booking {CustomerID =2, PractitionerID = 2, Time= "10:00", Date = "2020-12-01", BookingPrice=200,BookingStatus="Not Paid"},
                 new Booking {CustomerID =3, PractitionerID = 3, Time= "14:00", Date = "2020-11-01", BookingPrice=300,BookingStatus="Paid"},
                 new Booking {CustomerID =4, PractitionerID = 5, Time= "12:00", Date = "2020-12-01", BookingPrice=400,BookingStatus="Not Paid"},
-                new Booking {CustomerID =5, PractitionerID = 4, Time= "11:00", Date = "2020-12-15", BookingPrice=500,BookingStatus="Not Paid"},
+                new Booking {CustomerID =5, PractitionerID = 4, Time= "11:00", Date = "2020-12-15", BookingPrice=500,BookingStatus="Not Paid"}
             };
             context.Bookings.AddRange(bookings);
             context.SaveChanges();
