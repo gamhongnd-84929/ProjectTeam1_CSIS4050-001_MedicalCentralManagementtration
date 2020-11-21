@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{49CDD6D6-41AD-43BE-AE20-F94E546CED0D}</ProjectGuid>
+    <ProjectGuid>{2A28F888-AF69-4D1D-AC78-34781FEFC3E2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DataTableAccessLayer</RootNamespace>
-    <AssemblyName>DataTableAccessLayer</AssemblyName>
+    <RootNamespace>MedicalCentreDataAccessLayer</RootNamespace>
+    <AssemblyName>MedicalCentreDataAccessLayer</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -32,7 +32,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -42,8 +41,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SQLDataTableAccessLayer.cs" />
+    <Compile Include="MedicalCentreDataAccessLayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataTableAccessLayer\DataTableAccessLayer.csproj">
+      <Project>{49CDD6D6-41AD-43BE-AE20-F94E546CED0D}</Project>
+      <Name>DataTableAccessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MedicalCentreCodeFirstFromDB\MedicalCentreCodeFirstFromDB.csproj">
+      <Project>{E5429CCE-4AF7-4E54-9C4E-F490D086D883}</Project>
+      <Name>MedicalCentreCodeFirstFromDB</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
