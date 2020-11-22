@@ -39,6 +39,11 @@ namespace ProjectTeam01MedicalCentreManagement
             }
         }
 
+        /// <summary>
+        /// creates new user and practitioner
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddNewPractitioner(object sender, EventArgs e)
         {
             string firstName = textBoxFirstName.Text;
@@ -67,12 +72,21 @@ namespace ProjectTeam01MedicalCentreManagement
             {
                 User addedUser = context.Users.Add(newUser);
                 context.SaveChanges();
-
+                // get selected practitioner type
+                Practitioner_Types selectedPractitionalType = context.Practitioner_Types.SingleOrDefault(x=>x.Title == practitionalType);
                 Practitioner newPractitioner = new Practitioner
                 {
-                    //User = addedUser,
+                    User = addedUser,
+                    UserID = addedUser.UserID,
+                    PractitionerID = selectedPractitionalType.TypeID,
+                    Practitioner_Types = selectedPractitionalType
                 };
+                context.Practitioners.Add(newPractitioner);
+                context.SaveChanges();
             }
+
+            this.DialogResult = DialogResult.OK;
+            Close();
         }
 
         /// <summary>
