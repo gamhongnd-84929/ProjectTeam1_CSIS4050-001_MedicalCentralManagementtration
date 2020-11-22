@@ -126,6 +126,9 @@
     <EmbeddedResource Include="MedicalCentreAddPatient.resx">
       <DependentUpon>MedicalCentreAddPatient.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MedicalCentreAddPractitioner.resx">
+      <DependentUpon>MedicalCentreAddPractitioner.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MedicalCentreAdministration.resx">
       <DependentUpon>MedicalCentreAdministration.cs</DependentUpon>
     </EmbeddedResource>
