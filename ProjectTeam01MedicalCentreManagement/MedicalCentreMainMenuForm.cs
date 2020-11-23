@@ -1,4 +1,5 @@
-﻿using MedicalCentreMainMenuFormApp;
+﻿
+using MedicalCentreMainMenuFormApp;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +15,7 @@ namespace ProjectTeam01MedicalCentreManagement
 {
     public partial class MedicalCentreMainMenuForm : Form
     {
+        
         public MedicalCentreMainMenuForm()
         {
             this.Text = "Medical Centre Main Menu";
@@ -21,6 +23,19 @@ namespace ProjectTeam01MedicalCentreManagement
             MedicalCentreAllRecordsForm allRecordsForm = new MedicalCentreAllRecordsForm();
            
             buttonRecords.Click += (s, e) => AllRecordsForm(allRecordsForm);
+
+            // Administration 
+            MedicalCentreAdministrationForm medicalCentreAdministration = new MedicalCentreAdministrationForm();
+
+            buttonAdministration.Click += (s, e) => AdministrationForm(medicalCentreAdministration);
+        }
+
+        private void AdministrationForm(Form form)
+        {
+            // show child form
+            form.ShowDialog();
+            // hide child form
+            form.Hide();
         }
 
         private void AllRecordsForm(Form form) 

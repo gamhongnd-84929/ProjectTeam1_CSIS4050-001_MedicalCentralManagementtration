@@ -85,11 +85,11 @@
     <Compile Include="MedicalCentreAddPractitioner.Designer.cs">
       <DependentUpon>MedicalCentreAddPractitioner.cs</DependentUpon>
     </Compile>
-    <Compile Include="MedicalCentreAdministration.cs">
+    <Compile Include="MedicalCentreAdministrationForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MedicalCentreAdministration.Designer.cs">
-      <DependentUpon>MedicalCentreAdministration.cs</DependentUpon>
+    <Compile Include="MedicalCentreAdministrationForm.Designer.cs">
+      <DependentUpon>MedicalCentreAdministrationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MedicalCentreAllRecordsForm.cs">
       <SubType>Form</SubType>
@@ -126,8 +126,8 @@
     <EmbeddedResource Include="MedicalCentreAddPatient.resx">
       <DependentUpon>MedicalCentreAddPatient.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MedicalCentreAdministration.resx">
-      <DependentUpon>MedicalCentreAdministration.cs</DependentUpon>
+    <EmbeddedResource Include="MedicalCentreAdministrationForm.resx">
+      <DependentUpon>MedicalCentreAdministrationForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MedicalCentreAllRecordsForm.resx">
       <DependentUpon>MedicalCentreAllRecordsForm.cs</DependentUpon>
@@ -165,6 +165,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataTableAccessLayer\DataTableAccessLayer.csproj">
+      <Project>{49cdd6d6-41ad-43be-ae20-f94e546ced0d}</Project>
+      <Name>DataTableAccessLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EFControllerUtilities\EFControllerUtilities.csproj">
       <Project>{cb1e5f5d-a033-4b72-ac56-2959b64dd758}</Project>
       <Name>EFControllerUtilities</Name>

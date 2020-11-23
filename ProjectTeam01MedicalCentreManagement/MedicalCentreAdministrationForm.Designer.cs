@@ -1,6 +1,6 @@
 ﻿namespace ProjectTeam01MedicalCentreManagement
 {
-    partial class MedicalCentreAdministration
+    partial class MedicalCentreAdministrationForm
     {
         /// <summary>
         /// Required designer variable.
@@ -40,6 +40,7 @@
             this.buttonBackupDatabase.TabIndex = 0;
             this.buttonBackupDatabase.Text = "Backup Database";
             this.buttonBackupDatabase.UseVisualStyleBackColor = true;
+          
             // 
             // buttonRestoreDatabase
             // 

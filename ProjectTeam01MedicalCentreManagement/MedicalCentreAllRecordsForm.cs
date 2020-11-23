@@ -1,20 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using MedicalCentreCodeFirstFromDB;
-
+using DataTableAccessLayer;
 using ProjectTeam01MedicalCentreManagement;
 
 namespace MedicalCentreMainMenuFormApp
 {
     public partial class MedicalCentreAllRecordsForm : Form
     {
+        // field to keep the access layer field
+        
         public MedicalCentreAllRecordsForm()
         {
             this.Text = "Medical Centre All Records";
