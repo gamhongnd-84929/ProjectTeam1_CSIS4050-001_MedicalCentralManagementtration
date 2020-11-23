@@ -70,12 +70,11 @@
             // 
             // labelLastName
             // 
-            this.labelLastName.AutoSize = true;
             this.labelLastName.Location = new System.Drawing.Point(36, 96);
             this.labelLastName.Name = "labelLastName";
-            this.labelLastName.Size = new System.Drawing.Size(77, 13);
+            this.labelLastName.Size = new System.Drawing.Size(80, 18);
             this.labelLastName.TabIndex = 2;
-            this.labelLastName.Text = "labelLastName";
+            this.labelLastName.Text = "Last Name:";
             // 
             // labelBirthDate
             // 
@@ -250,7 +249,6 @@
 
         private System.Windows.Forms.Label labelUpdatePractitioner;
         private System.Windows.Forms.Label labelFirstName;
-        private System.Windows.Forms.Label labelLastName;
         private System.Windows.Forms.Label labelBirthDate;
         private System.Windows.Forms.Label labelAddress;
         private System.Windows.Forms.Label labelCity;
@@ -268,5 +266,6 @@
         private System.Windows.Forms.TextBox textBoxPhoneNumber;
         private System.Windows.Forms.TextBox textBoxEmail;
         private System.Windows.Forms.Button buttonUpdatePractitioner;
+        private System.Windows.Forms.Label labelLastName;
     }
 }

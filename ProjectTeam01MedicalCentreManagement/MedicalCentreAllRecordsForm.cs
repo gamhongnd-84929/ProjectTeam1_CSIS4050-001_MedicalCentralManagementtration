@@ -44,7 +44,9 @@ namespace MedicalCentreMainMenuFormApp
                 var result = practitionerOptionsMainForm.ShowDialog();
                 if(result == DialogResult.OK)
                 {
-
+                    // reload the datagridview
+                    InitializePractitionersRecordsView(dataGridViewPractitioners);
+                    dataGridViewPatients.Refresh();
                 }
                 // hide the child form
                 practitionerOptionsMainForm.Hide();
