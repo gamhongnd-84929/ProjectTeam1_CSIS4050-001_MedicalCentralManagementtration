@@ -23,6 +23,10 @@ namespace ProjectTeam01MedicalCentreManagement
             buttonBookTimeOff.Click += (s, e) => BookTimeOff(practitionerID);
         }
 
+        /// <summary>
+        /// Book time off using empty customer for practitioner's time off booking
+        /// </summary>
+        /// <param name="practitionerID"></param>
         private void BookTimeOff(int practitionerID)
         {
             Booking timeOffBooking = new Booking
@@ -38,7 +42,7 @@ namespace ProjectTeam01MedicalCentreManagement
 
             if (Controller<MedicalCentreManagementEntities, Booking>.AddEntity(timeOffBooking) == null)
             {
-                MessageBox.Show("Cannot add time off to database");
+                MessageBox.Show("Cannot add time off booking to database");
                 return;
             }
 
@@ -46,6 +50,10 @@ namespace ProjectTeam01MedicalCentreManagement
             Close();
         }
 
+        /// <summary>
+        /// Get current practitioner's availability and remove not available time from the time listbox
+        /// </summary>
+        /// <param name="practitionerID"></param>
         private void GetPractitionerAvailability(int practitionerID)
         {
             LoadAllPossibleTimes();
