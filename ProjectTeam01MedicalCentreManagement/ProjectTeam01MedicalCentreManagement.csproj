@@ -115,6 +115,12 @@
     <Compile Include="MedicalCentrePatientOptionsMainForm.Designer.cs">
       <DependentUpon>MedicalCentrePatientOptionsMainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="MedicalCentrePractitionerOptionsMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MedicalCentrePractitionerOptionsMainForm.Designer.cs">
+      <DependentUpon>MedicalCentrePractitionerOptionsMainForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MedicalCentreUpdatePatient.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -140,6 +146,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MedicalCentrePatientOptionsMainForm.resx">
       <DependentUpon>MedicalCentrePatientOptionsMainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MedicalCentrePractitionerOptionsMainForm.resx">
+      <DependentUpon>MedicalCentrePractitionerOptionsMainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MedicalCentreUpdatePatient.resx">
       <DependentUpon>MedicalCentreUpdatePatient.cs</DependentUpon>

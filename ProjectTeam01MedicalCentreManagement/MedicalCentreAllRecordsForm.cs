@@ -28,6 +28,27 @@ namespace MedicalCentreMainMenuFormApp
             buttonAddPatient.Click += (s, e) => AddNewUserForm<Customer>(dataGridViewPatients, addPatient);
             buttonAddPractitioner.Click += (s, e) => AddNewUserForm<Practitioner>(dataGridViewPractitioners, addPractitioner);
             buttonPatientOptions.Click += (s, e) => AddingPatientOptionsForm();
+            buttonPractitionerOptions.Click += (s, e) => AddingPractitionerOptionsForm();
+        }
+
+        private void AddingPractitionerOptionsForm()
+        {
+            if (dataGridViewPractitioners.SelectedRows.Count != 1)
+            {
+                MessageBox.Show("Please Select a Practitioner to View their Options");
+            }
+            else
+            {
+                int practitionerIdToView = Convert.ToInt32(dataGridViewPractitioners.SelectedRows[0].Cells[0].Value);
+                MedicalCentrePractitionerOptionsMainForm practitionerOptionsMainForm = new MedicalCentrePractitionerOptionsMainForm(practitionerIdToView);
+                var result = practitionerOptionsMainForm.ShowDialog();
+                if(result == DialogResult.OK)
+                {
+
+                }
+                // hide the child form
+                practitionerOptionsMainForm.Hide();
+            }
         }
 
         private void AddingPatientOptionsForm()
@@ -90,6 +111,10 @@ namespace MedicalCentreMainMenuFormApp
 
         }
 
+        /// <summary>
+        /// Set up the practitionersRecordsView columns and populate data into the view
+        /// </summary>
+        /// <param name="datagridview"></param>
         private void InitializePractitionersRecordsView(DataGridView datagridview)
         {
             datagridview.Rows.Clear();
