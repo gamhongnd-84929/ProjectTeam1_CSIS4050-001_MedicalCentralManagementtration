@@ -47,10 +47,9 @@ namespace ProjectTeam01MedicalCentreManagement
             using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
             {
                 Customer customer = context.Customers.Find(patientID);
-                // loop through all courses
+                // loop through all bookings
                 foreach (Booking booking in customer.Bookings)
                 {
-
                     // get the needed information
                     string[] rowAdd = { booking.PractitionerID.ToString(), context.Users.Find(booking.Practitioner.UserID).LastName, booking.Time, booking.Date, booking.PractitionerComment, booking.BookingPrice.ToString(), booking.BookingStatus };
                     // add to display
