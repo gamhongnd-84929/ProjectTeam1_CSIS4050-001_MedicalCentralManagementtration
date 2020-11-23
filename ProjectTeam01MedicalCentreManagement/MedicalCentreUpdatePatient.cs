@@ -72,7 +72,7 @@ namespace ProjectTeam01MedicalCentreManagement
 
             if (Controller<MedicalCentreManagementEntities, User>.UpdateEntity(userToUpdate) == false)
             {
-                MessageBox.Show("Cannot update USer to database");
+                MessageBox.Show("Cannot update User to database");
                 return;
             }
             if (Controller<MedicalCentreManagementEntities, Customer>.UpdateEntity(customerToUpdate) == false)

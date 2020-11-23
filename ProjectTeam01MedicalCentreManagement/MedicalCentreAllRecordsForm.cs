@@ -28,6 +28,29 @@ namespace MedicalCentreMainMenuFormApp
             buttonAddPatient.Click += (s, e) => AddNewUserForm<Customer>(dataGridViewPatients, addPatient);
             buttonAddPractitioner.Click += (s, e) => AddNewUserForm<Practitioner>(dataGridViewPractitioners, addPractitioner);
             buttonPatientOptions.Click += (s, e) => AddingPatientOptionsForm();
+            buttonPractitionerOptions.Click += (s, e) => AddingPractitionerOptionsForm();
+        }
+
+        private void AddingPractitionerOptionsForm()
+        {
+            if (dataGridViewPractitioners.SelectedRows.Count != 1)
+            {
+                MessageBox.Show("Please Select a Practitioner to View their Options");
+            }
+            else
+            {
+                int practitionerIdToView = Convert.ToInt32(dataGridViewPractitioners.SelectedRows[0].Cells[0].Value);
+                MedicalCentrePractitionerOptionsMainForm practitionerOptionsMainForm = new MedicalCentrePractitionerOptionsMainForm(practitionerIdToView);
+                var result = practitionerOptionsMainForm.ShowDialog();
+                if(result == DialogResult.OK)
+                {
+                    // reload the datagridview
+                    InitializePractitionersRecordsView(dataGridViewPractitioners);
+                    dataGridViewPatients.Refresh();
+                }
+                // hide the child form
+                practitionerOptionsMainForm.Hide();
+            }
         }
 
         private void AddingPatientOptionsForm()
@@ -60,9 +83,13 @@ namespace MedicalCentreMainMenuFormApp
             if (result == DialogResult.OK || result == DialogResult.Cancel)
             {
                 // reload the datagridview
-               if (typeof(T) == typeof( Customer))
+               if (typeof(T) == typeof(Customer))
                 {
                     InitializePatientsRecordsView(dataGridView);
+                }
+               if (typeof(T) == typeof(Practitioner))
+                {
+                    InitializePractitionersRecordsView(dataGridView);
                 }
                 dataGridView.Refresh();
 
@@ -82,7 +109,44 @@ namespace MedicalCentreMainMenuFormApp
 
             InitializePatientsRecordsView(dataGridViewPatients);
             //InitializeDataGridView<Customer>(dataGridViewPatients, "Bookings", "Payments", "User");
+            InitializePractitionersRecordsView(dataGridViewPractitioners);
 
+        }
+
+        /// <summary>
+        /// Set up the practitionersRecordsView columns and populate data into the view
+        /// </summary>
+        /// <param name="datagridview"></param>
+        private void InitializePractitionersRecordsView(DataGridView datagridview)
+        {
+            datagridview.Rows.Clear();
+            // set number of columns
+            datagridview.ColumnCount = 7;
+            // set the column header names
+            datagridview.Columns[0].Name = "Practitioner ID";
+            datagridview.Columns[1].Name = "Type";
+            datagridview.Columns[2].Name = "First Name";
+            datagridview.Columns[3].Name = "Last Name";
+            datagridview.Columns[4].Name = "City";
+            datagridview.Columns[5].Name = "Province";
+            datagridview.Columns[6].Name = "Email";
+            // using unit-of-work context
+            using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
+            {
+                // loop through all practitioners
+                foreach (Practitioner practitioner in context.Practitioners)
+                {
+                    // get the needed information
+                    string[] rowAdd = { practitioner.PractitionerID.ToString(), practitioner.Practitioner_Types.Title, practitioner.User.FirstName, practitioner.User.LastName, practitioner.User.City, practitioner.User.Province, practitioner.User.Email };
+                    // add to display
+                    datagridview.Rows.Add(rowAdd);
+                }
+                // set all properties
+                datagridview.AllowUserToAddRows = false;
+                datagridview.AllowUserToDeleteRows = false;
+                datagridview.ReadOnly = true;
+                datagridview.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            }
         }
 
         private static void InitializePatientsRecordsView(DataGridView datagridview)

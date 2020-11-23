@@ -103,6 +103,12 @@
     <Compile Include="MedicalCentreBookAppointment.Designer.cs">
       <DependentUpon>MedicalCentreBookAppointment.cs</DependentUpon>
     </Compile>
+    <Compile Include="MedicalCentreBookHoursOff.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MedicalCentreBookHoursOff.Designer.cs">
+      <DependentUpon>MedicalCentreBookHoursOff.cs</DependentUpon>
+    </Compile>
     <Compile Include="MedicalCentreMainMenuForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,16 +121,31 @@
     <Compile Include="MedicalCentrePatientOptionsMainForm.Designer.cs">
       <DependentUpon>MedicalCentrePatientOptionsMainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="MedicalCentrePractitionerOptionsMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MedicalCentrePractitionerOptionsMainForm.Designer.cs">
+      <DependentUpon>MedicalCentrePractitionerOptionsMainForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MedicalCentreUpdatePatient.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MedicalCentreUpdatePatient.Designer.cs">
       <DependentUpon>MedicalCentreUpdatePatient.cs</DependentUpon>
     </Compile>
+    <Compile Include="MedicalCentreUpdatePractitioner.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MedicalCentreUpdatePractitioner.Designer.cs">
+      <DependentUpon>MedicalCentreUpdatePractitioner.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MedicalCentreAddPatient.resx">
       <DependentUpon>MedicalCentreAddPatient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MedicalCentreAddPractitioner.resx">
+      <DependentUpon>MedicalCentreAddPractitioner.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MedicalCentreAdministration.resx">
       <DependentUpon>MedicalCentreAdministration.cs</DependentUpon>
@@ -135,11 +156,20 @@
     <EmbeddedResource Include="MedicalCentreBookAppointment.resx">
       <DependentUpon>MedicalCentreBookAppointment.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MedicalCentreBookHoursOff.resx">
+      <DependentUpon>MedicalCentreBookHoursOff.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MedicalCentrePatientOptionsMainForm.resx">
       <DependentUpon>MedicalCentrePatientOptionsMainForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MedicalCentrePractitionerOptionsMainForm.resx">
+      <DependentUpon>MedicalCentrePractitionerOptionsMainForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MedicalCentreUpdatePatient.resx">
       <DependentUpon>MedicalCentreUpdatePatient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MedicalCentreUpdatePractitioner.resx">
+      <DependentUpon>MedicalCentreUpdatePractitioner.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
