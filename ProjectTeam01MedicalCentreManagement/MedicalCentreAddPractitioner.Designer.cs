@@ -54,11 +54,11 @@
             // 
             this.labelAddPractitioner.AutoSize = true;
             this.labelAddPractitioner.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labelAddPractitioner.Location = new System.Drawing.Point(78, 24);
+            this.labelAddPractitioner.Location = new System.Drawing.Point(49, 23);
             this.labelAddPractitioner.Name = "labelAddPractitioner";
-            this.labelAddPractitioner.Size = new System.Drawing.Size(200, 15);
+            this.labelAddPractitioner.Size = new System.Drawing.Size(141, 15);
             this.labelAddPractitioner.TabIndex = 0;
-            this.labelAddPractitioner.Text = "Register a New Practitioner (Practitioner)";
+            this.labelAddPractitioner.Text = "Register a New Practitioner ";
             // 
             // labelFirstName
             // 

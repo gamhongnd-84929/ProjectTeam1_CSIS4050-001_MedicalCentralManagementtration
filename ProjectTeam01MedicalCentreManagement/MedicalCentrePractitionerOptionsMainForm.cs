@@ -20,6 +20,13 @@ namespace ProjectTeam01MedicalCentreManagement
 
             GetGreeting(practitionerID);
             InitializePractitionersBookings(dataGridViewPractitionerBookings, practitionerID);
+
+            MedicalCentreUpdatePractitioner medicalCentreUpdatePractitioner = new MedicalCentreUpdatePractitioner(practitionerID);
+            buttonUpdatePractitioner.Click += (s, e) => ChildPatientActionsForm(medicalCentreUpdatePractitioner, practitionerID);
+
+            MedicalCentreBookHoursOff medicalCentreBookHoursOff = new MedicalCentreBookHoursOff(practitionerID);
+            buttonBookHoursOff.Click += (s, e) => ChildPatientActionsForm(medicalCentreBookHoursOff, practitionerID);
+
         }
 
         /// <summary>
@@ -81,6 +88,25 @@ namespace ProjectTeam01MedicalCentreManagement
                 var user = context.Users.Find(practitioner.UserID);
                 labelPractitionerName.Text = $"Practitioner Name: {user.LastName}, {user.FirstName}";
             }
+        }
+
+        /// <summary>
+        /// Show, hide child from as well as update the practitioner bookings
+        /// </summary>
+        /// <param name="form"></param>
+        /// <param name="practitionerID"></param>
+        private void ChildPatientActionsForm(Form form, int practitionerID)
+        {
+            // if okay was clicked on the child
+            var result = form.ShowDialog();
+            if(result == DialogResult.OK)
+            {
+                InitializePractitionersBookings(dataGridViewPractitionerBookings, practitionerID);
+                GetGreeting(practitionerID);
+            }
+            // hide the child form
+            form.Hide();
+            this.DialogResult = DialogResult.OK;
         }
     }
 }

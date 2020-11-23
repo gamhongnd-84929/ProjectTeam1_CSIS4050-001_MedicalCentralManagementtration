@@ -103,6 +103,12 @@
     <Compile Include="MedicalCentreBookAppointment.Designer.cs">
       <DependentUpon>MedicalCentreBookAppointment.cs</DependentUpon>
     </Compile>
+    <Compile Include="MedicalCentreBookHoursOff.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MedicalCentreBookHoursOff.Designer.cs">
+      <DependentUpon>MedicalCentreBookHoursOff.cs</DependentUpon>
+    </Compile>
     <Compile Include="MedicalCentreMainMenuForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -126,6 +132,12 @@
     </Compile>
     <Compile Include="MedicalCentreUpdatePatient.Designer.cs">
       <DependentUpon>MedicalCentreUpdatePatient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MedicalCentreUpdatePractitioner.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MedicalCentreUpdatePractitioner.Designer.cs">
+      <DependentUpon>MedicalCentreUpdatePractitioner.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -152,6 +164,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MedicalCentreUpdatePatient.resx">
       <DependentUpon>MedicalCentreUpdatePatient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MedicalCentreUpdatePractitioner.resx">
+      <DependentUpon>MedicalCentreUpdatePractitioner.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
