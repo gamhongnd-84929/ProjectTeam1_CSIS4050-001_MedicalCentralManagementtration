@@ -156,6 +156,9 @@
     <EmbeddedResource Include="MedicalCentreBookAppointment.resx">
       <DependentUpon>MedicalCentreBookAppointment.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MedicalCentreBookHoursOff.resx">
+      <DependentUpon>MedicalCentreBookHoursOff.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MedicalCentrePatientOptionsMainForm.resx">
       <DependentUpon>MedicalCentrePatientOptionsMainForm.cs</DependentUpon>
     </EmbeddedResource>

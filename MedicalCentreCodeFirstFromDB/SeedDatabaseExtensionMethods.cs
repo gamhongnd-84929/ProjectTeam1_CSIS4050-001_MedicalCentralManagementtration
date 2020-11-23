@@ -61,6 +61,7 @@ namespace MedicalCentreCodeFirstFromDB
                 new User { FirstName= "Doctor3", LastName = "Fred", Birthdate="1964-12-05", Address = "800 8nd", City="Burnaby",Province="BC",PostalCode="V5M 8F1", Email = "doctor3@email.com", PhoneNumber = "250-678-4112"},
                 new User { FirstName= "Doctor4", LastName = "James", Birthdate="1977-08-21", Address = "900 9nd", City="Surey",Province="BC",PostalCode="V2Y 1L2", Email = "doctor4@email.com", PhoneNumber = "778-353-1100"},
                 new User { FirstName= "Doctor5", LastName = "Martin", Birthdate="1985-09-10", Address = "101 11st", City="Vancouver",Province="BC",PostalCode="V5K 9Y1", Email = "doctor5@email.com", PhoneNumber = "604-491-2255"},
+                new User { FirstName= "TimeOff", LastName = "TimeOff", Birthdate=null, Address = "", City="",Province="",PostalCode="", Email = "", PhoneNumber = ""},
             };
 
             context.Users.AddRange(users);
@@ -73,8 +74,8 @@ namespace MedicalCentreCodeFirstFromDB
                 new Customer { UserID =2, MSP = "9876222333"},
                 new Customer { UserID =3, MSP = "9876333444"},
                 new Customer { UserID =5, MSP = "9876444555"},
-                new Customer { UserID =4, MSP = "9876555666"}
-                
+                new Customer { UserID =4, MSP = "9876555666"},
+                new Customer { UserID =11, MSP = ""}
             };
             List<Practitioner> practitioners = new List<Practitioner>()
             {
@@ -92,7 +93,7 @@ namespace MedicalCentreCodeFirstFromDB
 
             List<Booking> bookings = new List<Booking>()
             {
-                new Booking {CustomerID =1, PractitionerID = 1, Time= "13:00", Date = "2020-11-30", BookingPrice=250,BookingStatus="Not Paid"},
+                new Booking {CustomerID =1, PractitionerID = 1, Time= "13:00", Date = "11/30/2020", BookingPrice=250,BookingStatus="Not Paid"},
                 new Booking {CustomerID =2, PractitionerID = 2, Time= "10:00", Date = "2020-12-01", BookingPrice=200,BookingStatus="Not Paid"},
                 new Booking {CustomerID =3, PractitionerID = 3, Time= "14:00", Date = "2020-11-01", BookingPrice=300,BookingStatus="Paid"},
                 new Booking {CustomerID =4, PractitionerID = 5, Time= "12:00", Date = "2020-12-01", BookingPrice=400,BookingStatus="Not Paid"},
