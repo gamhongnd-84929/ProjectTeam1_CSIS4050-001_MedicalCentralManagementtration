@@ -11,7 +11,7 @@ namespace MedicalCentreCodeFirstFromDB
 
 		public override string ToString()
 		{
-			return ServiceName + " (" + ServiceDescription+ ")";
+			return ServiceName;
 		}
 	}
 
@@ -21,6 +21,14 @@ namespace MedicalCentreCodeFirstFromDB
 		public override string ToString()
 		{
 			return User.LastName + ", " + User.FirstName;
+		}
+	}
+	partial class Practitioner_Types
+	{
+
+		public override string ToString()
+		{
+			return Title;
 		}
 	}
 }

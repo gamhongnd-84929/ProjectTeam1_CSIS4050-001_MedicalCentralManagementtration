@@ -43,7 +43,7 @@
             // labelPatientName
             // 
             this.labelPatientName.AutoSize = true;
-            this.labelPatientName.Location = new System.Drawing.Point(550, 9);
+            this.labelPatientName.Location = new System.Drawing.Point(788, 9);
             this.labelPatientName.Name = "labelPatientName";
             this.labelPatientName.Size = new System.Drawing.Size(101, 17);
             this.labelPatientName.TabIndex = 0;
@@ -56,7 +56,7 @@
             this.dataGridViewPatientBookings.Name = "dataGridViewPatientBookings";
             this.dataGridViewPatientBookings.RowHeadersWidth = 51;
             this.dataGridViewPatientBookings.RowTemplate.Height = 24;
-            this.dataGridViewPatientBookings.Size = new System.Drawing.Size(431, 181);
+            this.dataGridViewPatientBookings.Size = new System.Drawing.Size(654, 199);
             this.dataGridViewPatientBookings.TabIndex = 1;
             // 
             // dataGridViewPatientPayments
@@ -66,12 +66,12 @@
             this.dataGridViewPatientPayments.Name = "dataGridViewPatientPayments";
             this.dataGridViewPatientPayments.RowHeadersWidth = 51;
             this.dataGridViewPatientPayments.RowTemplate.Height = 24;
-            this.dataGridViewPatientPayments.Size = new System.Drawing.Size(431, 181);
+            this.dataGridViewPatientPayments.Size = new System.Drawing.Size(654, 196);
             this.dataGridViewPatientPayments.TabIndex = 2;
             // 
             // buttonUpdateInformation
             // 
-            this.buttonUpdateInformation.Location = new System.Drawing.Point(553, 74);
+            this.buttonUpdateInformation.Location = new System.Drawing.Point(823, 65);
             this.buttonUpdateInformation.Name = "buttonUpdateInformation";
             this.buttonUpdateInformation.Size = new System.Drawing.Size(142, 68);
             this.buttonUpdateInformation.TabIndex = 3;
@@ -98,7 +98,7 @@
             // 
             // buttonBookAppointment
             // 
-            this.buttonBookAppointment.Location = new System.Drawing.Point(553, 207);
+            this.buttonBookAppointment.Location = new System.Drawing.Point(823, 209);
             this.buttonBookAppointment.Name = "buttonBookAppointment";
             this.buttonBookAppointment.Size = new System.Drawing.Size(142, 68);
             this.buttonBookAppointment.TabIndex = 6;
@@ -107,7 +107,7 @@
             // 
             // buttonMakePayment
             // 
-            this.buttonMakePayment.Location = new System.Drawing.Point(553, 354);
+            this.buttonMakePayment.Location = new System.Drawing.Point(823, 353);
             this.buttonMakePayment.Name = "buttonMakePayment";
             this.buttonMakePayment.Size = new System.Drawing.Size(142, 68);
             this.buttonMakePayment.TabIndex = 7;
@@ -118,7 +118,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(767, 533);
+            this.ClientSize = new System.Drawing.Size(1029, 533);
             this.Controls.Add(this.buttonMakePayment);
             this.Controls.Add(this.buttonBookAppointment);
             this.Controls.Add(this.labelPatientPayments);

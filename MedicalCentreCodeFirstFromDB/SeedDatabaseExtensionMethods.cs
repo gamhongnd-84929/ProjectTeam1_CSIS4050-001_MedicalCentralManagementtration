@@ -30,8 +30,8 @@ namespace MedicalCentreCodeFirstFromDB
             List<Practitioner_Types> types = new List<Practitioner_Types>(){
                 new Practitioner_Types {Title = "Dermatologist"},
                 new Practitioner_Types{Title = "Neurologist"},
-                new Practitioner_Types{Title = "Cardiologists"},
-                new Practitioner_Types{Title = "Ophthalmologists"},
+                new Practitioner_Types{Title = "Cardiologist"},
+                new Practitioner_Types{Title = "Ophthalmologist"},
 
             };
             context.Practitioner_Types.AddRange(types);
@@ -93,7 +93,7 @@ namespace MedicalCentreCodeFirstFromDB
 
             List<Booking> bookings = new List<Booking>()
             {
-                new Booking {CustomerID =1, PractitionerID = 1, Time= "13:00", Date = "11/30/2020", BookingPrice=250,BookingStatus="Not Paid"},
+                new Booking {CustomerID =1, PractitionerID = 1, Time= "13:00", Date = "2020-11-30", BookingPrice=250,BookingStatus="Not Paid"},
                 new Booking {CustomerID =2, PractitionerID = 2, Time= "10:00", Date = "2020-12-01", BookingPrice=200,BookingStatus="Not Paid"},
                 new Booking {CustomerID =3, PractitionerID = 3, Time= "14:00", Date = "2020-11-01", BookingPrice=300,BookingStatus="Paid"},
                 new Booking {CustomerID =4, PractitionerID = 5, Time= "12:00", Date = "2020-12-01", BookingPrice=400,BookingStatus="Not Paid"},

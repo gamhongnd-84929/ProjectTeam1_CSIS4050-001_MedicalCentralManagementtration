@@ -31,7 +31,6 @@
             this.labelBookAppointment = new System.Windows.Forms.Label();
             this.listBoxServices = new System.Windows.Forms.ListBox();
             this.labelServices = new System.Windows.Forms.Label();
-            this.listBoxPractitioners = new System.Windows.Forms.ListBox();
             this.labelDoctors = new System.Windows.Forms.Label();
             this.monthCalendarBooking = new System.Windows.Forms.MonthCalendar();
             this.labelBookingDate = new System.Windows.Forms.Label();
@@ -41,6 +40,10 @@
             this.labelPriceAmount = new System.Windows.Forms.Label();
             this.buttonCreateBooking = new System.Windows.Forms.Button();
             this.labelBookingSummary = new System.Windows.Forms.Label();
+            this.labelSelectType = new System.Windows.Forms.Label();
+            this.comboBoxPractitionerTypes = new System.Windows.Forms.ComboBox();
+            this.dataGridViewPractitioners = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPractitioners)).BeginInit();
             this.SuspendLayout();
             // 
             // labelBookAppointment
@@ -57,7 +60,7 @@
             // 
             this.listBoxServices.FormattingEnabled = true;
             this.listBoxServices.ItemHeight = 16;
-            this.listBoxServices.Location = new System.Drawing.Point(41, 101);
+            this.listBoxServices.Location = new System.Drawing.Point(41, 169);
             this.listBoxServices.Name = "listBoxServices";
             this.listBoxServices.Size = new System.Drawing.Size(177, 212);
             this.listBoxServices.TabIndex = 1;
@@ -65,25 +68,16 @@
             // labelServices
             // 
             this.labelServices.AutoSize = true;
-            this.labelServices.Location = new System.Drawing.Point(38, 66);
+            this.labelServices.Location = new System.Drawing.Point(41, 128);
             this.labelServices.Name = "labelServices";
             this.labelServices.Size = new System.Drawing.Size(180, 17);
             this.labelServices.TabIndex = 2;
             this.labelServices.Text = "Please Select the Services:";
             // 
-            // listBoxPractitioners
-            // 
-            this.listBoxPractitioners.FormattingEnabled = true;
-            this.listBoxPractitioners.ItemHeight = 16;
-            this.listBoxPractitioners.Location = new System.Drawing.Point(312, 101);
-            this.listBoxPractitioners.Name = "listBoxPractitioners";
-            this.listBoxPractitioners.Size = new System.Drawing.Size(195, 212);
-            this.listBoxPractitioners.TabIndex = 3;
-            // 
             // labelDoctors
             // 
             this.labelDoctors.AutoSize = true;
-            this.labelDoctors.Location = new System.Drawing.Point(309, 66);
+            this.labelDoctors.Location = new System.Drawing.Point(285, 119);
             this.labelDoctors.Name = "labelDoctors";
             this.labelDoctors.Size = new System.Drawing.Size(198, 17);
             this.labelDoctors.TabIndex = 4;
@@ -91,14 +85,14 @@
             // 
             // monthCalendarBooking
             // 
-            this.monthCalendarBooking.Location = new System.Drawing.Point(573, 101);
+            this.monthCalendarBooking.Location = new System.Drawing.Point(41, 448);
             this.monthCalendarBooking.Name = "monthCalendarBooking";
             this.monthCalendarBooking.TabIndex = 5;
             // 
             // labelBookingDate
             // 
             this.labelBookingDate.AutoSize = true;
-            this.labelBookingDate.Location = new System.Drawing.Point(570, 66);
+            this.labelBookingDate.Location = new System.Drawing.Point(41, 406);
             this.labelBookingDate.Name = "labelBookingDate";
             this.labelBookingDate.Size = new System.Drawing.Size(211, 17);
             this.labelBookingDate.TabIndex = 6;
@@ -108,15 +102,15 @@
             // 
             this.listBoxTime.FormattingEnabled = true;
             this.listBoxTime.ItemHeight = 16;
-            this.listBoxTime.Location = new System.Drawing.Point(963, 101);
+            this.listBoxTime.Location = new System.Drawing.Point(497, 448);
             this.listBoxTime.Name = "listBoxTime";
-            this.listBoxTime.Size = new System.Drawing.Size(79, 212);
+            this.listBoxTime.Size = new System.Drawing.Size(118, 196);
             this.listBoxTime.TabIndex = 7;
             // 
             // labelBookingTime
             // 
             this.labelBookingTime.AutoSize = true;
-            this.labelBookingTime.Location = new System.Drawing.Point(900, 66);
+            this.labelBookingTime.Location = new System.Drawing.Point(494, 406);
             this.labelBookingTime.Name = "labelBookingTime";
             this.labelBookingTime.Size = new System.Drawing.Size(212, 17);
             this.labelBookingTime.TabIndex = 8;
@@ -125,7 +119,7 @@
             // labelTotalPriceText
             // 
             this.labelTotalPriceText.AutoSize = true;
-            this.labelTotalPriceText.Location = new System.Drawing.Point(41, 348);
+            this.labelTotalPriceText.Location = new System.Drawing.Point(38, 719);
             this.labelTotalPriceText.Name = "labelTotalPriceText";
             this.labelTotalPriceText.Size = new System.Drawing.Size(180, 17);
             this.labelTotalPriceText.TabIndex = 9;
@@ -134,32 +128,62 @@
             // labelPriceAmount
             // 
             this.labelPriceAmount.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labelPriceAmount.Location = new System.Drawing.Point(246, 347);
+            this.labelPriceAmount.Location = new System.Drawing.Point(242, 712);
             this.labelPriceAmount.Name = "labelPriceAmount";
             this.labelPriceAmount.Size = new System.Drawing.Size(95, 24);
             this.labelPriceAmount.TabIndex = 10;
             // 
             // buttonCreateBooking
             // 
-            this.buttonCreateBooking.Location = new System.Drawing.Point(759, 347);
+            this.buttonCreateBooking.Location = new System.Drawing.Point(675, 668);
             this.buttonCreateBooking.Name = "buttonCreateBooking";
-            this.buttonCreateBooking.Size = new System.Drawing.Size(309, 58);
+            this.buttonCreateBooking.Size = new System.Drawing.Size(247, 107);
             this.buttonCreateBooking.TabIndex = 11;
             this.buttonCreateBooking.Text = "Create the Booking";
             this.buttonCreateBooking.UseVisualStyleBackColor = true;
             // 
             // labelBookingSummary
             // 
-            this.labelBookingSummary.Location = new System.Drawing.Point(428, 330);
+            this.labelBookingSummary.Location = new System.Drawing.Point(358, 657);
             this.labelBookingSummary.Name = "labelBookingSummary";
-            this.labelBookingSummary.Size = new System.Drawing.Size(260, 149);
+            this.labelBookingSummary.Size = new System.Drawing.Size(291, 204);
             this.labelBookingSummary.TabIndex = 12;
+            // 
+            // labelSelectType
+            // 
+            this.labelSelectType.AutoSize = true;
+            this.labelSelectType.Location = new System.Drawing.Point(41, 69);
+            this.labelSelectType.Name = "labelSelectType";
+            this.labelSelectType.Size = new System.Drawing.Size(226, 17);
+            this.labelSelectType.TabIndex = 13;
+            this.labelSelectType.Text = "Please Select Type of Practitioner:";
+            // 
+            // comboBoxPractitionerTypes
+            // 
+            this.comboBoxPractitionerTypes.FormattingEnabled = true;
+            this.comboBoxPractitionerTypes.Location = new System.Drawing.Point(312, 66);
+            this.comboBoxPractitionerTypes.Name = "comboBoxPractitionerTypes";
+            this.comboBoxPractitionerTypes.Size = new System.Drawing.Size(291, 24);
+            this.comboBoxPractitionerTypes.TabIndex = 14;
+            // 
+            // dataGridViewPractitioners
+            // 
+            this.dataGridViewPractitioners.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewPractitioners.Location = new System.Drawing.Point(288, 169);
+            this.dataGridViewPractitioners.Name = "dataGridViewPractitioners";
+            this.dataGridViewPractitioners.RowHeadersWidth = 51;
+            this.dataGridViewPractitioners.RowTemplate.Height = 24;
+            this.dataGridViewPractitioners.Size = new System.Drawing.Size(634, 212);
+            this.dataGridViewPractitioners.TabIndex = 15;
             // 
             // MedicalCentreBookAppointment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1127, 500);
+            this.ClientSize = new System.Drawing.Size(949, 891);
+            this.Controls.Add(this.dataGridViewPractitioners);
+            this.Controls.Add(this.comboBoxPractitionerTypes);
+            this.Controls.Add(this.labelSelectType);
             this.Controls.Add(this.labelBookingSummary);
             this.Controls.Add(this.buttonCreateBooking);
             this.Controls.Add(this.labelPriceAmount);
@@ -169,12 +193,12 @@
             this.Controls.Add(this.labelBookingDate);
             this.Controls.Add(this.monthCalendarBooking);
             this.Controls.Add(this.labelDoctors);
-            this.Controls.Add(this.listBoxPractitioners);
             this.Controls.Add(this.labelServices);
             this.Controls.Add(this.listBoxServices);
             this.Controls.Add(this.labelBookAppointment);
             this.Name = "MedicalCentreBookAppointment";
             this.Text = "MedicalCentreBookAppointment";
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPractitioners)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -185,7 +209,6 @@
         private System.Windows.Forms.Label labelBookAppointment;
         private System.Windows.Forms.ListBox listBoxServices;
         private System.Windows.Forms.Label labelServices;
-        private System.Windows.Forms.ListBox listBoxPractitioners;
         private System.Windows.Forms.Label labelDoctors;
         private System.Windows.Forms.MonthCalendar monthCalendarBooking;
         private System.Windows.Forms.Label labelBookingDate;
@@ -195,5 +218,8 @@
         private System.Windows.Forms.Label labelPriceAmount;
         private System.Windows.Forms.Button buttonCreateBooking;
         private System.Windows.Forms.Label labelBookingSummary;
+        private System.Windows.Forms.Label labelSelectType;
+        private System.Windows.Forms.ComboBox comboBoxPractitionerTypes;
+        private System.Windows.Forms.DataGridView dataGridViewPractitioners;
     }
 }

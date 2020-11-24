@@ -166,7 +166,7 @@ namespace MedicalCentreMainMenuFormApp
             // using unit-of-work context
             using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
             {
-                // loop through all courses
+                // loop through all customers
                 foreach (Customer customer in context.Customers)
                 {
 
