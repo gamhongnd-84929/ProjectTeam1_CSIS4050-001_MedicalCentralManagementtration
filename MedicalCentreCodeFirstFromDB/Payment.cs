@@ -22,7 +22,7 @@ namespace MedicalCentreCodeFirstFromDB
 
         public int PaymentTypeID { get; set; }
 
-        public TimeSpan? Time { get; set; }
+        public string Time { get; set; }
 
         [StringLength(10)]
         public string Date { get; set; }

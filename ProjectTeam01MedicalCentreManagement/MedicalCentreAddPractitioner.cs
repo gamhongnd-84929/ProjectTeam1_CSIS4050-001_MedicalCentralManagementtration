@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MedicalCentreCodeFirstFromDB;
+using System.Data.Entity;
 
 namespace ProjectTeam01MedicalCentreManagement
 {
@@ -35,7 +36,7 @@ namespace ProjectTeam01MedicalCentreManagement
                 {
                     practitionerTitles.Add(practitionerType.Title);
                 }
-                comboBoxPractitionerType.Items.AddRange(practitionerTitles.ToArray());                
+                comboBoxPractitionerType.Items.AddRange(practitionerTitles.ToArray());
             }
         }
 

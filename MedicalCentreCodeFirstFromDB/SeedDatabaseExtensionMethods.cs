@@ -102,6 +102,23 @@ namespace MedicalCentreCodeFirstFromDB
             context.Bookings.AddRange(bookings);
             context.SaveChanges();
 
+            List<Payment_Types> paymentTypes = new List<Payment_Types>
+            {
+                new Payment_Types{ PaymentType = "Credit Card",PaymentTypeDetail="VISA"},
+                new Payment_Types{ PaymentType = "Credit Card",PaymentTypeDetail="Mastercard"},
+                new Payment_Types{ PaymentType = "Debit Card",PaymentTypeDetail="RBC"},
+                new Payment_Types{ PaymentType = "Debit Card",PaymentTypeDetail="TD"},
+                new Payment_Types{ PaymentType = "Debit Card",PaymentTypeDetail="ScotiaBank"}
+            };
+            context.Payment_Types.AddRange(paymentTypes);
+            context.SaveChanges();
+
+            List<Payment> payments = new List<Payment>
+            {
+                new Payment { BookingID=3, CustomerID=3,Date = "2020-11-20",Time = "11:35",TotalAmountPaid= 300, PaymentTypeID = 1, PaymentStatus="Approved"}
+            };
+            context.Payments.AddRange(payments);
+            context.SaveChanges();
         }
     }
 }

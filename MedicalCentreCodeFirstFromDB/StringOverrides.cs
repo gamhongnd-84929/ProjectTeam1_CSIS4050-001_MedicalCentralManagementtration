@@ -31,4 +31,13 @@ namespace MedicalCentreCodeFirstFromDB
 			return Title;
 		}
 	}
+
+	partial class Payment_Types
+	{
+
+		public override string ToString()
+		{
+			return PaymentType+ ": " + PaymentTypeDetail;
+		}
+	}
 }
