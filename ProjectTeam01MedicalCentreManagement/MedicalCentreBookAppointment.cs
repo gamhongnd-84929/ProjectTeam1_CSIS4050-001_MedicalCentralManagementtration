@@ -64,7 +64,7 @@ namespace ProjectTeam01MedicalCentreManagement
 
             using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
             {
-                labelBookingSummary.Text = $"Booking Information \n\nPractitioner: {context.Practitioners.Find(practitionerId)}\nBooking Date: {date}\nBooking Time: {time} \nServices:";
+                labelBookingSummary.Text = $"Booking Information \n\nPractitioner: {context.Practitioners.Find(practitionerId)}\nBooking Date: {date}\nBooking Time: {time} \n\nServices:";
                 var customer = context.Customers.Find(patientID);
                 decimal bookingPrice=0;
                 foreach (Service s in listBoxServices.SelectedItems)
@@ -138,6 +138,7 @@ namespace ProjectTeam01MedicalCentreManagement
 
             listBoxTime.Items.Clear();
             comboBoxPractitionerTypes.Items.Clear();
+            comboBoxPractitionerTypes.DropDownStyle = ComboBoxStyle.DropDownList;
 
             comboBoxPractitionerTypes.DataSource = Controller<MedicalCentreManagementEntities, Practitioner_Types>.GetEntities();
          

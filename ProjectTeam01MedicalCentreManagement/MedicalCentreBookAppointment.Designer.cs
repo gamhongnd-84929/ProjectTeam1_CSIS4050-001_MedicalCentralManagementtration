@@ -135,7 +135,7 @@
             // 
             // buttonCreateBooking
             // 
-            this.buttonCreateBooking.Location = new System.Drawing.Point(675, 668);
+            this.buttonCreateBooking.Location = new System.Drawing.Point(753, 668);
             this.buttonCreateBooking.Name = "buttonCreateBooking";
             this.buttonCreateBooking.Size = new System.Drawing.Size(247, 107);
             this.buttonCreateBooking.TabIndex = 11;
@@ -144,9 +144,9 @@
             // 
             // labelBookingSummary
             // 
-            this.labelBookingSummary.Location = new System.Drawing.Point(358, 657);
+            this.labelBookingSummary.Location = new System.Drawing.Point(380, 668);
             this.labelBookingSummary.Name = "labelBookingSummary";
-            this.labelBookingSummary.Size = new System.Drawing.Size(291, 204);
+            this.labelBookingSummary.Size = new System.Drawing.Size(348, 204);
             this.labelBookingSummary.TabIndex = 12;
             // 
             // labelSelectType
@@ -173,14 +173,14 @@
             this.dataGridViewPractitioners.Name = "dataGridViewPractitioners";
             this.dataGridViewPractitioners.RowHeadersWidth = 51;
             this.dataGridViewPractitioners.RowTemplate.Height = 24;
-            this.dataGridViewPractitioners.Size = new System.Drawing.Size(634, 212);
+            this.dataGridViewPractitioners.Size = new System.Drawing.Size(712, 212);
             this.dataGridViewPractitioners.TabIndex = 15;
             // 
             // MedicalCentreBookAppointment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(949, 891);
+            this.ClientSize = new System.Drawing.Size(1035, 891);
             this.Controls.Add(this.dataGridViewPractitioners);
             this.Controls.Add(this.comboBoxPractitionerTypes);
             this.Controls.Add(this.labelSelectType);
