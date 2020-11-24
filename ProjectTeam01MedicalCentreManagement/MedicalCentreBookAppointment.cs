@@ -19,13 +19,12 @@ namespace ProjectTeam01MedicalCentreManagement
         {
             this.Load += BookAppointmentForm_Load;
             InitializeComponent();
-            monthCalendarBooking.MaxSelectionCount = 1;
-            listBoxTime.Items.Clear();
-            listBoxServices.SelectedIndexChanged += (s, e) => GetListOfPractitioners();
-            listBoxPractitioners.SelectedIndexChanged += (s, e) => GetPractitionerAvailability();
-            monthCalendarBooking.DateChanged += (s, e) => { if (listBoxPractitioners.SelectedIndex != -1) GetPractitionerAvailability(); };
+            comboBoxPractitionerTypes.SelectedIndexChanged += (s, e) => GetListOfPractitionersAndServices();
+            
+            monthCalendarBooking.DateChanged += (s, e) =>  GetPractitionerAvailability(); 
             listBoxTime.SelectedIndexChanged += (s, e) => GetBookingInformation(patientID);
             buttonCreateBooking.Click += (s, e) => CreateBooking(patientID);
+            listBoxServices.SelectedIndexChanged += (s,e) => { if (dataGridViewPractitioners.SelectedRows.Count == 1 && listBoxTime.SelectedIndex != -1) GetBookingInformation(patientID); };
         }
 
         private void CreateBooking(int patientID)
@@ -33,15 +32,19 @@ namespace ProjectTeam01MedicalCentreManagement
             Booking newBooking = new Booking
             {
                 CustomerID = patientID,
-                PractitionerID = (listBoxPractitioners.SelectedItem as Practitioner).PractitionerID,
+                PractitionerID = Convert.ToInt32(dataGridViewPractitioners.SelectedRows[0].Cells[0].Value),
                 Date = monthCalendarBooking.SelectionRange.Start.ToShortDateString(),
                 Time = listBoxTime.SelectedItem.ToString(),
                 BookingPrice = decimal.Parse(Regex.Replace(labelPriceAmount.Text, @"[^\d.]", "")),
                 BookingStatus = "Not Paid",
-                PractitionerComment=""
+                PractitionerComment = ""
 
             };
-            newBooking.Services.Add(listBoxServices.SelectedItem as Service);
+            foreach (Service s in listBoxServices.SelectedItems)
+            {
+                newBooking.Services.Add(s);
+            }
+            
             if (Controller<MedicalCentreManagementEntities, Booking>.AddEntity(newBooking) == null)
             {
                 MessageBox.Show("Cannot add booking to database");
@@ -54,43 +57,49 @@ namespace ProjectTeam01MedicalCentreManagement
 
         private void GetBookingInformation(int patientID)
         {
-            Service service = listBoxServices.SelectedItem as Service;
-            Practitioner practitioner = listBoxPractitioners.SelectedItem as Practitioner;
+            int practitionerId = Convert.ToInt32(dataGridViewPractitioners.SelectedRows[0].Cells[0].Value);
             string date = monthCalendarBooking.SelectionRange.Start.ToShortDateString();
             string time = listBoxTime.SelectedItem.ToString();
-            labelBookingSummary.Text = $"Booking Information \n\nService: {service}\nPractitioner: {practitioner}\nBooking Date: {date}\nBooking Time: {time}\nMSP Coverage of Service:{(service.MSPCoverage * 100).ToString()}%";
+            
 
             using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
             {
+                labelBookingSummary.Text = $"Booking Information \n\nPractitioner: {context.Practitioners.Find(practitionerId)}\nBooking Date: {date}\nBooking Time: {time} \nServices:";
                 var customer = context.Customers.Find(patientID);
-                decimal bookingPrice;
-                if (customer.MSP != null)
+                decimal bookingPrice=0;
+                foreach (Service s in listBoxServices.SelectedItems)
                 {
-
-                    bookingPrice = (service.ServicePrice * (1 - service.MSPCoverage));
+                    if (customer.MSP != null)
+                        bookingPrice += (s.ServicePrice * (1 - s.MSPCoverage));
+                    else
+                        bookingPrice += s.ServicePrice;
+                    labelBookingSummary.Text += $"\n{s} MSP Coverage:{s.MSPCoverage * 100}% ";
                 }
-                else
-                {
-                    bookingPrice = service.ServicePrice;
-                }
+                
                 labelPriceAmount.Text = $"{bookingPrice:C2}";
             }
         }
 
-        private void GetPractitionerAvailability()
+    private void GetPractitionerAvailability()
         {
-            LoadAllPossibleTimes();
-            if (!(listBoxPractitioners.SelectedItem is Practitioner practitioner))
+            if (dataGridViewPractitioners.SelectedRows.Count != 1)
+            {
+                MessageBox.Show("Please select one Practitioner from the DataGridView before choosing a Date!");
                 return;
-            if (monthCalendarBooking.SelectionRange.Start < monthCalendarBooking.TodayDate)
+            }
+                if (monthCalendarBooking.SelectionRange.Start < monthCalendarBooking.TodayDate)
             {
                 MessageBox.Show("Cannot book appointments before today's date!");
                 return;
             }
+            ResetBookingInformation();
             string dateRequested = monthCalendarBooking.SelectionRange.Start.ToShortDateString();
+            LoadAllPossibleTimes();
+            int selectedPractitionerId = Convert.ToInt32(dataGridViewPractitioners.SelectedRows[0].Cells[0].Value);
             using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
             {
-                var bookingsOnThatDate = context.Bookings.Select(b => b).Where(b => b.PractitionerID == practitioner.PractitionerID && b.Date == dateRequested).ToList();
+
+                var bookingsOnThatDate = context.Bookings.Where(b => b.PractitionerID == selectedPractitionerId && b.Date == dateRequested).ToList();
 
                 foreach (Booking b in bookingsOnThatDate)
                 {
@@ -100,32 +109,77 @@ namespace ProjectTeam01MedicalCentreManagement
             }
         }
 
-        private void GetListOfPractitioners()
+        private void GetListOfPractitionersAndServices()
         {
+            int typeId = (comboBoxPractitionerTypes.SelectedItem as Practitioner_Types).TypeID;
+            listBoxServices.DataSource = Controller<MedicalCentreManagementEntities, Service>.GetEntities().Where(s => s.PractitionerTypeID == typeId).ToList();
+            LoadPractitionersIntoDataGridView(dataGridViewPractitioners, typeId);
 
-            if (!(listBoxServices.SelectedItem is Service service))
-                return;
 
-            using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
-            {
-                var listOfPractitioners = context.Practitioners.Select(p => p).Where(p => p.TypeID == service.PractitionerTypeID).ToList();
-                listBoxPractitioners.DataSource = listOfPractitioners;
 
-            }
         }
 
         private void BookAppointmentForm_Load(object sender, EventArgs e)
         {
-            var services = Controller<MedicalCentreManagementEntities, Service>.GetEntitiesWithIncluded("Practitioner_Types");
-            listBoxServices.DataSource = services;
-            LoadAllPossibleTimes();
+            // set number of columns
+            dataGridViewPractitioners.ColumnCount = 7;
+            // Set the column header names.
+            dataGridViewPractitioners.Columns[0].Name = "Practitioner ID";
+            dataGridViewPractitioners.Columns[1].Name = "First Name";
+            dataGridViewPractitioners.Columns[2].Name = "Last Name";
+            dataGridViewPractitioners.Columns[3].Name = "Address";
+            dataGridViewPractitioners.Columns[4].Name = "City";
+            dataGridViewPractitioners.Columns[5].Name = "Province";
+            dataGridViewPractitioners.Columns[6].Name = "Phone Number";
+
+            listBoxServices.SelectionMode = SelectionMode.MultiExtended;
+
+            monthCalendarBooking.MaxSelectionCount = 1;
+
+            listBoxTime.Items.Clear();
+            comboBoxPractitionerTypes.Items.Clear();
+
+            comboBoxPractitionerTypes.DataSource = Controller<MedicalCentreManagementEntities, Practitioner_Types>.GetEntities();
+         
+       
         }
         private void LoadAllPossibleTimes()
         {
             listBoxTime.Items.Clear();
             listBoxTime.Items.AddRange(new string[] { "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00" });
         }
+        private static void LoadPractitionersIntoDataGridView(DataGridView datagridview, int typeId)
+        {
+            datagridview.Rows.Clear();
+            // using unit-of-work context
+            using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
+            {
+                var practitioners = context.Practitioners.Where(pr => pr.PractitionerID == typeId);
+                // loop through all customers
+                foreach (Practitioner practitioner in practitioners)
+                {
 
+                    // get the needed information
+                    string[] rowAdd = { practitioner.PractitionerID.ToString(), practitioner.User.FirstName, practitioner.User.LastName, practitioner.User.Address, practitioner.User.City, practitioner.User.Province, practitioner.User.PhoneNumber };
+                    // add to display
+                    datagridview.Rows.Add(rowAdd);
+                }
+
+            }
+            // set all properties
+            datagridview.AllowUserToAddRows = false;
+            datagridview.AllowUserToDeleteRows = false;
+            datagridview.ReadOnly = true;
+            datagridview.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+        }
+
+        private void ResetBookingInformation()
+        {
+            labelBookingSummary.Text = "";
+            labelPriceAmount.Text = "";
+
+        }
 
     }
 }
