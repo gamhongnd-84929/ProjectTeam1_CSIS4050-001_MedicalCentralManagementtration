@@ -88,7 +88,7 @@ namespace MedicalCentreCodeFirstFromDB
 
             modelBuilder.Entity<Payment>()
                 .Property(e => e.TotalAmountPaid)
-                .HasPrecision(18, 0);
+                .HasPrecision(18, 2);
 
             modelBuilder.Entity<Payment>()
                 .Property(e => e.PaymentStatus)

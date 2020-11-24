@@ -56,7 +56,7 @@
             this.dataGridViewPatientBookings.Name = "dataGridViewPatientBookings";
             this.dataGridViewPatientBookings.RowHeadersWidth = 51;
             this.dataGridViewPatientBookings.RowTemplate.Height = 24;
-            this.dataGridViewPatientBookings.Size = new System.Drawing.Size(654, 199);
+            this.dataGridViewPatientBookings.Size = new System.Drawing.Size(716, 199);
             this.dataGridViewPatientBookings.TabIndex = 1;
             // 
             // dataGridViewPatientPayments
@@ -66,7 +66,7 @@
             this.dataGridViewPatientPayments.Name = "dataGridViewPatientPayments";
             this.dataGridViewPatientPayments.RowHeadersWidth = 51;
             this.dataGridViewPatientPayments.RowTemplate.Height = 24;
-            this.dataGridViewPatientPayments.Size = new System.Drawing.Size(654, 196);
+            this.dataGridViewPatientPayments.Size = new System.Drawing.Size(716, 196);
             this.dataGridViewPatientPayments.TabIndex = 2;
             // 
             // buttonUpdateInformation

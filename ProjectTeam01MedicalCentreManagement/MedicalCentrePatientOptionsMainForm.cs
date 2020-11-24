@@ -21,6 +21,7 @@ namespace ProjectTeam01MedicalCentreManagement
             
             GetGreeting(patientID);
             InitializePatientsBookings(dataGridViewPatientBookings, patientID);
+            InitializePatientsPayments(dataGridViewPatientPayments, patientID);
             MedicalCentreUpdatePatient medicalCentreUpdatePatient = new MedicalCentreUpdatePatient(patientID);
             buttonUpdateInformation.Click += (s, e) => ChildPatientActionsForm(medicalCentreUpdatePatient,  patientID);
 
@@ -51,7 +52,43 @@ namespace ProjectTeam01MedicalCentreManagement
                 foreach (Booking booking in customer.Bookings)
                 {
                     // get the needed information
-                    string[] rowAdd = { booking.PractitionerID.ToString(), context.Users.Find(booking.Practitioner.UserID).LastName, booking.Time, booking.Date, booking.PractitionerComment, booking.BookingPrice.ToString(), booking.BookingStatus };
+                    string[] rowAdd = { booking.PractitionerID.ToString(), context.Users.Find(booking.Practitioner.UserID).LastName, booking.Time, booking.Date, booking.PractitionerComment, booking.BookingPrice.ToString("C2"), booking.BookingStatus };
+                    // add to display
+                    datagridview.Rows.Add(rowAdd);
+                }
+
+            }
+            // set all properties
+            datagridview.AllowUserToAddRows = false;
+            datagridview.AllowUserToDeleteRows = false;
+            datagridview.ReadOnly = true;
+            datagridview.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+        }
+
+        private static void InitializePatientsPayments(DataGridView datagridview, int patientID)
+        {
+            datagridview.Rows.Clear();
+            // set number of columns
+            datagridview.ColumnCount = 5;
+            // Set the column header names.
+      
+            datagridview.Columns[0].Name = "Payment Date";
+            datagridview.Columns[1].Name = "Payment Time";
+            datagridview.Columns[2].Name = "Payment Amount";
+            datagridview.Columns[3].Name = "Payment Type";
+            datagridview.Columns[4].Name = "Payment Status";
+      
+
+            // using unit-of-work context
+            using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
+            {
+                Customer customer = context.Customers.Find(patientID);
+                // loop through all bookings
+                foreach (Payment payment in customer.Payments)
+                {
+                    // get the needed information
+                    string[] rowAdd = {  payment.Date, payment.Time, payment.TotalAmountPaid?.ToString("C2"), payment.Payment_Types.ToString(), payment.PaymentStatus };
                     // add to display
                     datagridview.Rows.Add(rowAdd);
                 }
