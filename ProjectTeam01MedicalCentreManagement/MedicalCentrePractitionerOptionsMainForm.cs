@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MedicalCentreCodeFirstFromDB;
+using EFControllerUtilities;
 
 namespace ProjectTeam01MedicalCentreManagement
 {
@@ -27,6 +28,66 @@ namespace ProjectTeam01MedicalCentreManagement
             MedicalCentreBookHoursOff medicalCentreBookHoursOff = new MedicalCentreBookHoursOff(practitionerID);
             buttonBookHoursOff.Click += (s, e) => ChildPatientActionsForm(medicalCentreBookHoursOff, practitionerID);
 
+            dataGridViewPractitionerBookings.SelectionChanged += PrePopulateComment;
+            buttonUpdateComment.Click += (s, e) => UpdateComment(practitionerID);
+        }
+
+        /// <summary>
+        /// Prepopulate comment section
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PrePopulateComment(object sender, EventArgs e)
+        {
+            if (dataGridViewPractitionerBookings.SelectedRows.Count <= 0) return;
+            int bookingID = Convert.ToInt32(dataGridViewPractitionerBookings.SelectedRows[0].Cells[0].Value);
+            var bookingToUpdate = Controller<MedicalCentreManagementEntities, Booking>.FindEntity(bookingID);
+
+            // prepopulate comment field
+            using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
+            {
+                textBoxComment.Text = bookingToUpdate.PractitionerComment;
+            }
+        }
+
+
+        /// <summary>
+        /// Get the current booking and update the practitioner's comment
+        /// </summary>
+        private void UpdateComment(int practitionerID)
+        {
+            if(dataGridViewPractitionerBookings.SelectedRows.Count != 1)
+            {
+                MessageBox.Show("Please Select a Booking to Update a Comment");
+            }
+            else
+            {
+                if(textBoxComment.TextLength == 0)
+                {
+                    MessageBox.Show("Please type some comment");
+                    return;
+                }
+
+                // get booing to be updated
+                int bookingID = Convert.ToInt32(dataGridViewPractitionerBookings.SelectedRows[0].Cells[0].Value);
+                var bookingToUpdate = Controller<MedicalCentreManagementEntities, Booking>.FindEntity(bookingID);
+
+                // Updated the comment
+                string newComment = textBoxComment.Text;
+                bookingToUpdate.PractitionerComment = newComment;
+                
+                if(Controller<MedicalCentreManagementEntities, Booking>.UpdateEntity(bookingToUpdate) == false)
+                {
+                    MessageBox.Show("Cannot update User to database");
+                    return;
+                }
+                else
+                {
+                    var bookingUpdated = Controller<MedicalCentreManagementEntities, Booking>.FindEntity(bookingID);
+                    // reload the datagridview
+                    InitializePractitionersBookings(dataGridViewPractitionerBookings, practitionerID);
+                }
+            }
         }
 
         /// <summary>

@@ -33,6 +33,9 @@
             this.labelPractitionerName = new System.Windows.Forms.Label();
             this.buttonUpdatePractitioner = new System.Windows.Forms.Button();
             this.buttonBookHoursOff = new System.Windows.Forms.Button();
+            this.textBoxComment = new System.Windows.Forms.TextBox();
+            this.labelComment = new System.Windows.Forms.Label();
+            this.buttonUpdateComment = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPractitionerBookings)).BeginInit();
             this.SuspendLayout();
             // 
@@ -79,11 +82,39 @@
             this.buttonBookHoursOff.Text = "Book Hours Off";
             this.buttonBookHoursOff.UseVisualStyleBackColor = true;
             // 
+            // textBoxComment
+            // 
+            this.textBoxComment.Location = new System.Drawing.Point(96, 323);
+            this.textBoxComment.Name = "textBoxComment";
+            this.textBoxComment.Size = new System.Drawing.Size(535, 20);
+            this.textBoxComment.TabIndex = 5;
+            // 
+            // labelComment
+            // 
+            this.labelComment.AutoSize = true;
+            this.labelComment.Location = new System.Drawing.Point(38, 326);
+            this.labelComment.Name = "labelComment";
+            this.labelComment.Size = new System.Drawing.Size(57, 13);
+            this.labelComment.TabIndex = 6;
+            this.labelComment.Text = "Comment: ";
+            // 
+            // buttonUpdateComment
+            // 
+            this.buttonUpdateComment.Location = new System.Drawing.Point(650, 315);
+            this.buttonUpdateComment.Name = "buttonUpdateComment";
+            this.buttonUpdateComment.Size = new System.Drawing.Size(110, 34);
+            this.buttonUpdateComment.TabIndex = 7;
+            this.buttonUpdateComment.Text = "Update Comment";
+            this.buttonUpdateComment.UseVisualStyleBackColor = true;
+            // 
             // MedicalCentrePractitionerOptionsMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(849, 348);
+            this.ClientSize = new System.Drawing.Size(849, 369);
+            this.Controls.Add(this.buttonUpdateComment);
+            this.Controls.Add(this.labelComment);
+            this.Controls.Add(this.textBoxComment);
             this.Controls.Add(this.buttonBookHoursOff);
             this.Controls.Add(this.buttonUpdatePractitioner);
             this.Controls.Add(this.labelPractitionerName);
@@ -104,5 +135,8 @@
         private System.Windows.Forms.Label labelPractitionerName;
         private System.Windows.Forms.Button buttonUpdatePractitioner;
         private System.Windows.Forms.Button buttonBookHoursOff;
+        private System.Windows.Forms.TextBox textBoxComment;
+        private System.Windows.Forms.Label labelComment;
+        private System.Windows.Forms.Button buttonUpdateComment;
     }
 }
