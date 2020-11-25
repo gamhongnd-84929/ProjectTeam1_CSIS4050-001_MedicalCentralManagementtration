@@ -167,7 +167,7 @@ namespace ProjectTeam01MedicalCentreManagement
             }
             // hide the child form
             form.Hide();
-            this.DialogResult = DialogResult.OK;
+            
         }
     }
 }

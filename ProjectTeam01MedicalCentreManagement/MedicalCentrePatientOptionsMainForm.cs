@@ -1,4 +1,5 @@
-﻿using MedicalCentreCodeFirstFromDB;
+﻿using EFControllerUtilities;
+using MedicalCentreCodeFirstFromDB;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,6 +28,30 @@ namespace ProjectTeam01MedicalCentreManagement
 
             MedicalCentreBookAppointment bookAppointment = new MedicalCentreBookAppointment(patientID);
             buttonBookAppointment.Click += (s, e) => ChildPatientActionsForm(bookAppointment, patientID);
+
+            buttonMakePayment.Click += (s, e) => IsNeededPayment(patientID);
+        }
+
+        private  void IsNeededPayment(int patientID)
+        {
+            // using unit-of-work context
+            using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
+            {
+               
+                Customer customer = context.Customers.Find(patientID);
+                // loop through all bookings
+                foreach (Booking booking in customer.Bookings)
+                {
+                    if (booking.BookingStatus == "Not Paid")
+                    {
+                        ChildPatientActionsForm(new MedicalCentreMakePaymentForm(patientID), patientID);
+                        return;
+                    }
+                }
+              
+                MessageBox.Show("This Customer has no Unpaid Bookings!");
+
+            }
 
         }
 
@@ -112,19 +137,20 @@ namespace ProjectTeam01MedicalCentreManagement
         }
 
 
-        private void ChildPatientActionsForm(Form form, int patientID)
+        private  void ChildPatientActionsForm(Form form, int patientID)
         {
             // if okay was clicked on the child
             var result = form.ShowDialog();
             if (result == DialogResult.OK)
             {
                 InitializePatientsBookings(dataGridViewPatientBookings, patientID);
+                InitializePatientsPayments(dataGridViewPatientPayments, patientID);
                 GetGreeting(patientID);
 
             }
             // hide the child form
             form.Hide();
-            this.DialogResult = DialogResult.OK;
+            
         }
     }
 }

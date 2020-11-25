@@ -115,6 +115,12 @@
     <Compile Include="MedicalCentreMainMenuForm.Designer.cs">
       <DependentUpon>MedicalCentreMainMenuForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="MedicalCentreMakePaymentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MedicalCentreMakePaymentForm.Designer.cs">
+      <DependentUpon>MedicalCentreMakePaymentForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MedicalCentrePatientOptionsMainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -158,6 +164,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MedicalCentreBookHoursOff.resx">
       <DependentUpon>MedicalCentreBookHoursOff.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MedicalCentreMakePaymentForm.resx">
+      <DependentUpon>MedicalCentreMakePaymentForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MedicalCentrePatientOptionsMainForm.resx">
       <DependentUpon>MedicalCentrePatientOptionsMainForm.cs</DependentUpon>
