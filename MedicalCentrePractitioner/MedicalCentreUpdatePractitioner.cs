@@ -11,6 +11,7 @@ using MedicalCentreCodeFirstFromDB;
 using EFControllerUtilities;
 using System.Collections;
 using System.Globalization;
+using MedicalCentreValidation;
 
 namespace ProjectTeam01MedicalCentreManagement
 {
@@ -40,6 +41,15 @@ namespace ProjectTeam01MedicalCentreManagement
             string email = textBoxEmail.Text;
             string practitionalType = comboBoxPractitionerType.GetItemText(comboBoxPractitionerType.SelectedItem);
 
+
+
+            // check practitionalType is selected
+            if (practitionalType == "")
+            {
+                MessageBox.Show("Please select a Pracitioner Type");
+                return;
+            }
+
             int practitionerTypeID;
             using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
             {
@@ -55,6 +65,13 @@ namespace ProjectTeam01MedicalCentreManagement
             userToUpdate.Province = province;
             userToUpdate.PhoneNumber = phoneNumber;
             userToUpdate.Email = email;
+
+            // validate user
+            if (userToUpdate.InfoIsInvalid())
+            {
+                MessageBox.Show("Please provide First Name and Last Name");
+                return;
+            }
 
             practitionerToUpdate.TypeID = practitionerTypeID;
 

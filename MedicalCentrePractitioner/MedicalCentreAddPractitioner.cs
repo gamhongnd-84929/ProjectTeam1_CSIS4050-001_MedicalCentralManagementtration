@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MedicalCentreCodeFirstFromDB;
 using System.Data.Entity;
+using MedicalCentreValidation;
 
 namespace ProjectTeam01MedicalCentreManagement
 {
@@ -69,6 +70,21 @@ namespace ProjectTeam01MedicalCentreManagement
                 Email = email
             };
 
+            // validate user
+            if (newUser.InfoIsInvalid())
+            {
+                MessageBox.Show("Please provide First Name and Last Name");
+                return;
+            }
+
+            // check practitionalType is selected
+            if (practitionalType == "")
+            {
+                MessageBox.Show("Please select a Pracitioner Type");
+                return;
+            }
+
+
             using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
             {
                 User addedUser = context.Users.Add(newUser);
@@ -82,6 +98,7 @@ namespace ProjectTeam01MedicalCentreManagement
                     PractitionerID = selectedPractitionalType.TypeID,
                     Practitioner_Types = selectedPractitionalType
                 };
+
                 context.Practitioners.Add(newPractitioner);
                 context.SaveChanges();
             }

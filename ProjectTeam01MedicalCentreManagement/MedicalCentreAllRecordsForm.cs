@@ -169,7 +169,7 @@ namespace MedicalCentreMainMenuFormApp
                 // loop through all customers
                 foreach (Customer customer in context.Customers)
                 {
-
+                    if (customer.CustomerID == 6) continue;
                     // get the needed information
                     string[] rowAdd = { customer.CustomerID.ToString(), customer.User.FirstName, customer.User.LastName, customer.User.Address, customer.User.City, customer.User.Province, customer.User.Email, customer.User.PhoneNumber };
                     // add to display

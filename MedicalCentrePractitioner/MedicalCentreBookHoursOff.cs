@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MedicalCentreCodeFirstFromDB;
 using EFControllerUtilities;
+using MedicalCentreValidation;
 
 namespace ProjectTeam01MedicalCentreManagement
 {
@@ -29,6 +30,12 @@ namespace ProjectTeam01MedicalCentreManagement
         /// <param name="practitionerID"></param>
         private void BookTimeOff(int practitionerID)
         {
+            if (listBoxTime.SelectedItem == null)
+            {
+                MessageBox.Show("Please select a time");
+                return;
+            }
+
             Booking timeOffBooking = new Booking
             {
                 CustomerID = 6,
@@ -39,6 +46,13 @@ namespace ProjectTeam01MedicalCentreManagement
                 BookingStatus = "Time Off",
                 PractitionerComment = ""
             };
+
+            // Booking validation
+            if (timeOffBooking.InfoIsInvalid())
+            {
+                MessageBox.Show("Booking information is invalid. Please check and try it again.");
+                return;
+            }
 
             if (Controller<MedicalCentreManagementEntities, Booking>.AddEntity(timeOffBooking) == null)
             {
