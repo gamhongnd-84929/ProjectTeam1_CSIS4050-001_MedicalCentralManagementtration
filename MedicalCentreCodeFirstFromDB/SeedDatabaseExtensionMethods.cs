@@ -15,8 +15,20 @@ namespace MedicalCentreCodeFirstFromDB
             // set up database log to write to output window in VS
             context.Database.Log = (s => Debug.Write(s));
 
-            context.Database.Delete();
-            context.Database.Create();
+            if (context.Database.Exists())
+            {
+                context.Database.ExecuteSqlCommand(TransactionalBehavior.DoNotEnsureTransaction,
+                    $"ALTER DATABASE [{context.Database.Connection.Database}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE");
+                context.Database.Delete();
+                context.Database.Create();
+            }
+            else
+            {
+                context.Database.Create();
+            }
+
+            //context.Database.Delete();
+            //context.Database.Create();
 
             context.SaveChanges();
 

@@ -11,7 +11,8 @@ namespace MedicalCentreValidation
     {
         public static bool InfoIsInvalid(this User user)
         {
-            return (user.FirstName == "" || user.LastName == "");
+            return (user.FirstName == null || user.FirstName.Trim().Length == 0 ||
+                    user.LastName == null || user.LastName.Trim().Length == 0 );
         }
     }
 }
