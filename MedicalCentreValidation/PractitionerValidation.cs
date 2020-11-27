@@ -8,20 +8,20 @@ using MedicalCentreCodeFirstFromDB;
 
 namespace MedicalCentreValidation
 {
-    public static class CustomerValidation
+    public static class PractitionerValidation
     {
-        public static bool IsValidUserId(this Customer customer)
+        public static bool IsValidUserID(this Practitioner pratitioner)
         {
             using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
             {
                 context.Database.Log = (s => Debug.Write(s));
-                return context.Users.Any(u => u.UserID == customer.UserID);
+                return context.Users.Any(u => u.UserID == pratitioner.UserID);
             };
         }
 
-        public static bool IsValidCustomer(this Customer customer)
+        public static bool IsValidPractitioner(this Practitioner pratitioner)
         {
-            return customer.IsValidUserId();
+            return pratitioner.IsValidUserID();
         }
     }
 }

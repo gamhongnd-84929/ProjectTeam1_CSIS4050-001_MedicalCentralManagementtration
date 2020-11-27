@@ -53,6 +53,8 @@
   <ItemGroup>
     <Compile Include="BookingValidation.cs" />
     <Compile Include="CustomerValidation.cs" />
+    <Compile Include="PaymentValidation.cs" />
+    <Compile Include="PractitionerValidation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserValidation.cs" />
   </ItemGroup>

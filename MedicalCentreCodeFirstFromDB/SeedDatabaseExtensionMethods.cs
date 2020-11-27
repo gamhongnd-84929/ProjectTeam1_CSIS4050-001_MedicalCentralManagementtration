@@ -55,7 +55,7 @@ namespace MedicalCentreCodeFirstFromDB
                 new Service{ ServiceName= "Neuro Exam", ServiceDescription="Performing Neuro Exam", PractitionerTypeID =2 ,ServicePrice=500, MSPCoverage =0.40m},
                 new Service{ ServiceName= "Skin Exam", ServiceDescription="Examining any Skin Conditions", PractitionerTypeID =1 ,ServicePrice=800,MSPCoverage = 0.6m},
                 new Service{ ServiceName= "Cholesterol Exam", ServiceDescription="Test cholesterol in blood", PractitionerTypeID =3, ServicePrice= 300, MSPCoverage=0.8m},
-                new Service{ ServiceName= "Eye Exam", ServiceDescription="Test eye vision", PractitionerTypeID = 1, ServicePrice = 200, MSPCoverage = 0.7m}
+                new Service{ ServiceName= "Eye Exam", ServiceDescription="Test eye vision", PractitionerTypeID = 4, ServicePrice = 200, MSPCoverage = 0.7m}
             };
             context.Services.AddRange(services);
             context.SaveChanges();
