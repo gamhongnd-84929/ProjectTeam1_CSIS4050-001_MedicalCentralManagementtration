@@ -123,9 +123,17 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataTableAccessLayer\DataTableAccessLayer.csproj">
+      <Project>{49CDD6D6-41AD-43BE-AE20-F94E546CED0D}</Project>
+      <Name>DataTableAccessLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EFControllerUtilities\EFControllerUtilities.csproj">
       <Project>{cb1e5f5d-a033-4b72-ac56-2959b64dd758}</Project>
       <Name>EFControllerUtilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MedicalCentralDataAccessLayer\MedicalCentralDataAccessLayer.csproj">
+      <Project>{1a761f60-de50-4a97-a793-a96aac84ba84}</Project>
+      <Name>MedicalCentralDataAccessLayer</Name>
     </ProjectReference>
     <ProjectReference Include="..\MedicalCentreCodeFirstFromDB\MedicalCentreCodeFirstFromDB.csproj">
       <Project>{e5429cce-4af7-4e54-9c4e-f490d086d883}</Project>

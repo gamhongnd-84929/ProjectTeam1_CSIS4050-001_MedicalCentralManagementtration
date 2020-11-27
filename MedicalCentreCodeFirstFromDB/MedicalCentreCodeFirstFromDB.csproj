@@ -72,6 +72,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataTableAccessLayer\DataTableAccessLayer.csproj">
+      <Project>{49cdd6d6-41ad-43be-ae20-f94e546ced0d}</Project>
+      <Name>DataTableAccessLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MedicalCentreDB\MedicalCentreDB.sqlproj">
       <Project>{0ebfcf1b-a483-430d-a107-907b4158cbc3}</Project>
       <Name>MedicalCentreDB</Name>
