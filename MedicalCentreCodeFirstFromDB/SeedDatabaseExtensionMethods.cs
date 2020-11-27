@@ -94,10 +94,17 @@ namespace MedicalCentreCodeFirstFromDB
             List<Booking> bookings = new List<Booking>()
             {
                 new Booking {CustomerID =1, PractitionerID = 1, Time= "13:00", Date = "2020-11-30", BookingPrice=250,BookingStatus="Not Paid"},
+                new Booking {CustomerID =1, PractitionerID = 2, Time= "13:00", Date = "2020-11-30", BookingPrice=250,BookingStatus="Not Paid"},
                 new Booking {CustomerID =2, PractitionerID = 2, Time= "10:00", Date = "2020-12-01", BookingPrice=200,BookingStatus="Not Paid"},
-                new Booking {CustomerID =3, PractitionerID = 3, Time= "14:00", Date = "2020-11-01", BookingPrice=300,BookingStatus="Paid"},
-                new Booking {CustomerID =4, PractitionerID = 5, Time= "12:00", Date = "2020-12-01", BookingPrice=400,BookingStatus="Not Paid"},
-                new Booking {CustomerID =5, PractitionerID = 4, Time= "11:00", Date = "2020-12-15", BookingPrice=500,BookingStatus="Not Paid"}
+                new Booking {CustomerID =2, PractitionerID = 3, Time= "13:00", Date = "2020-11-30", BookingPrice=250,BookingStatus="Not Paid"},
+                new Booking {CustomerID =3, PractitionerID = 3, Time= "10:00", Date = "2020-11-01", BookingPrice=300,BookingStatus="Paid"},
+                new Booking {CustomerID =3, PractitionerID = 4, Time= "14:00", Date = "2020-11-01", BookingPrice=300,BookingStatus="Paid"},
+                new Booking {CustomerID =4, PractitionerID = 4, Time= "10:00", Date = "2020-11-03", BookingPrice=200,BookingStatus="Paid"},
+                new Booking {CustomerID =4, PractitionerID = 5, Time= "14:00", Date = "2020-11-03", BookingPrice=200,BookingStatus="Paid"},
+                new Booking {CustomerID =5, PractitionerID = 5, Time= "12:00", Date = "2020-12-01", BookingPrice=400,BookingStatus="Not Paid"},
+                new Booking {CustomerID =5, PractitionerID = 4, Time= "14:00", Date = "2020-12-01", BookingPrice=400,BookingStatus="Not Paid"},
+                new Booking {CustomerID =6, PractitionerID = 5, Time= "11:00", Date = "2020-12-15", BookingPrice=500,BookingStatus="Not Paid"},
+                new Booking {CustomerID =6, PractitionerID = 1, Time= "13:00", Date = "2020-12-15", BookingPrice=500,BookingStatus="Not Paid"},
             };
             context.Bookings.AddRange(bookings);
             context.SaveChanges();
@@ -115,7 +122,12 @@ namespace MedicalCentreCodeFirstFromDB
 
             List<Payment> payments = new List<Payment>
             {
-                new Payment { BookingID=3, CustomerID=3,Date = "2020-11-20",Time = "11:35",TotalAmountPaid= 300, PaymentTypeID = 1, PaymentStatus="Approved"}
+
+                new Payment { BookingID=5, CustomerID=3,Date = "2020-11-20",Time = "11:35",TotalAmountPaid= 300, PaymentTypeID = 1, PaymentStatus="Approved"},
+                new Payment { BookingID=6, CustomerID=3,Date = "2020-11-20",Time = "11:35",TotalAmountPaid= 300, PaymentTypeID = 1, PaymentStatus="Approved"},
+                new Payment { BookingID=7, CustomerID=4,Date = "2020-11-25",Time = "11:00",TotalAmountPaid= 200, PaymentTypeID = 1, PaymentStatus="Approved"},
+                new Payment { BookingID=8, CustomerID=4,Date = "2020-11-25",Time = "11:00",TotalAmountPaid= 200, PaymentTypeID = 1, PaymentStatus="Approved"},
+
             };
             context.Payments.AddRange(payments);
             context.SaveChanges();

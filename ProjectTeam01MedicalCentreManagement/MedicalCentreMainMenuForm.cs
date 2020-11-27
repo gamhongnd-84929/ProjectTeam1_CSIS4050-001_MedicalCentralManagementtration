@@ -21,6 +21,11 @@ namespace ProjectTeam01MedicalCentreManagement
             MedicalCentreAllRecordsForm allRecordsForm = new MedicalCentreAllRecordsForm();
            
             buttonRecords.Click += (s, e) => AllRecordsForm(allRecordsForm);
+
+            // Administration 
+            MedicalCentreAdministrationForm medicalCentreAdministration = new MedicalCentreAdministrationForm();
+
+            buttonAdministration.Click += (s, e) => AdministrationForm(medicalCentreAdministration);
         }
 
         private void AllRecordsForm(Form form) 
@@ -28,6 +33,14 @@ namespace ProjectTeam01MedicalCentreManagement
             // if okay was clicked on the child
          form.ShowDialog();
             // hide the child form
+            form.Hide();
+        }
+
+        private void AdministrationForm(Form form)
+        {
+            // show child form
+            form.ShowDialog();
+            // hide child form
             form.Hide();
         }
     }

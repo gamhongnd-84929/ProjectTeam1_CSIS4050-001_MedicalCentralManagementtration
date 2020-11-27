@@ -43,11 +43,12 @@
             // dataGridViewPatients
             // 
             this.dataGridViewPatients.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewPatients.Location = new System.Drawing.Point(58, 60);
+            this.dataGridViewPatients.Location = new System.Drawing.Point(65, 75);
+            this.dataGridViewPatients.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dataGridViewPatients.Name = "dataGridViewPatients";
             this.dataGridViewPatients.RowHeadersWidth = 51;
             this.dataGridViewPatients.RowTemplate.Height = 24;
-            this.dataGridViewPatients.Size = new System.Drawing.Size(765, 202);
+            this.dataGridViewPatients.Size = new System.Drawing.Size(861, 252);
             this.dataGridViewPatients.TabIndex = 0;
             // 
             // labelPatients
@@ -55,20 +56,21 @@
             this.labelPatients.AutoSize = true;
             this.labelPatients.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.labelPatients.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPatients.Location = new System.Drawing.Point(58, 25);
+            this.labelPatients.Location = new System.Drawing.Point(65, 31);
             this.labelPatients.Name = "labelPatients";
-            this.labelPatients.Size = new System.Drawing.Size(63, 20);
+            this.labelPatients.Size = new System.Drawing.Size(77, 24);
             this.labelPatients.TabIndex = 1;
             this.labelPatients.Text = "Patients";
             // 
             // dataGridViewPractitioners
             // 
             this.dataGridViewPractitioners.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewPractitioners.Location = new System.Drawing.Point(58, 345);
+            this.dataGridViewPractitioners.Location = new System.Drawing.Point(65, 431);
+            this.dataGridViewPractitioners.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dataGridViewPractitioners.Name = "dataGridViewPractitioners";
             this.dataGridViewPractitioners.RowHeadersWidth = 51;
             this.dataGridViewPractitioners.RowTemplate.Height = 24;
-            this.dataGridViewPractitioners.Size = new System.Drawing.Size(765, 201);
+            this.dataGridViewPractitioners.Size = new System.Drawing.Size(861, 251);
             this.dataGridViewPractitioners.TabIndex = 2;
             // 
             // labelPractitioners
@@ -76,17 +78,18 @@
             this.labelPractitioners.AutoSize = true;
             this.labelPractitioners.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.labelPractitioners.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPractitioners.Location = new System.Drawing.Point(58, 310);
+            this.labelPractitioners.Location = new System.Drawing.Point(65, 388);
             this.labelPractitioners.Name = "labelPractitioners";
-            this.labelPractitioners.Size = new System.Drawing.Size(93, 20);
+            this.labelPractitioners.Size = new System.Drawing.Size(112, 24);
             this.labelPractitioners.TabIndex = 3;
             this.labelPractitioners.Text = "Practitioners";
             // 
             // buttonAddPatient
             // 
-            this.buttonAddPatient.Location = new System.Drawing.Point(900, 60);
+            this.buttonAddPatient.Location = new System.Drawing.Point(1012, 75);
+            this.buttonAddPatient.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonAddPatient.Name = "buttonAddPatient";
-            this.buttonAddPatient.Size = new System.Drawing.Size(147, 68);
+            this.buttonAddPatient.Size = new System.Drawing.Size(165, 85);
             this.buttonAddPatient.TabIndex = 4;
             this.buttonAddPatient.Text = "Register a New Patient";
             this.buttonAddPatient.UseVisualStyleBackColor = true;
@@ -94,18 +97,20 @@
             // buttonPatientOptions
             // 
             this.buttonPatientOptions.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.buttonPatientOptions.Location = new System.Drawing.Point(900, 194);
+            this.buttonPatientOptions.Location = new System.Drawing.Point(1012, 242);
+            this.buttonPatientOptions.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonPatientOptions.Name = "buttonPatientOptions";
-            this.buttonPatientOptions.Size = new System.Drawing.Size(147, 68);
+            this.buttonPatientOptions.Size = new System.Drawing.Size(165, 85);
             this.buttonPatientOptions.TabIndex = 5;
             this.buttonPatientOptions.Text = "View Patient\'s Options";
             this.buttonPatientOptions.UseVisualStyleBackColor = true;
             // 
             // buttonAddPractitioner
             // 
-            this.buttonAddPractitioner.Location = new System.Drawing.Point(900, 345);
+            this.buttonAddPractitioner.Location = new System.Drawing.Point(1012, 431);
+            this.buttonAddPractitioner.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonAddPractitioner.Name = "buttonAddPractitioner";
-            this.buttonAddPractitioner.Size = new System.Drawing.Size(147, 68);
+            this.buttonAddPractitioner.Size = new System.Drawing.Size(165, 85);
             this.buttonAddPractitioner.TabIndex = 6;
             this.buttonAddPractitioner.Text = "Register a New Practitioner";
             this.buttonAddPractitioner.UseVisualStyleBackColor = true;
@@ -113,18 +118,19 @@
             // buttonPractitionerOptions
             // 
             this.buttonPractitionerOptions.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.buttonPractitionerOptions.Location = new System.Drawing.Point(900, 466);
+            this.buttonPractitionerOptions.Location = new System.Drawing.Point(1012, 582);
+            this.buttonPractitionerOptions.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonPractitionerOptions.Name = "buttonPractitionerOptions";
-            this.buttonPractitionerOptions.Size = new System.Drawing.Size(147, 68);
+            this.buttonPractitionerOptions.Size = new System.Drawing.Size(165, 85);
             this.buttonPractitionerOptions.TabIndex = 7;
             this.buttonPractitionerOptions.Text = "View Practitioner\'s Options";
             this.buttonPractitionerOptions.UseVisualStyleBackColor = true;
             // 
             // MedicalCentreAllRecordsForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1098, 590);
+            this.ClientSize = new System.Drawing.Size(1235, 738);
             this.Controls.Add(this.buttonPractitionerOptions);
             this.Controls.Add(this.buttonAddPractitioner);
             this.Controls.Add(this.buttonPatientOptions);
@@ -133,8 +139,10 @@
             this.Controls.Add(this.dataGridViewPractitioners);
             this.Controls.Add(this.labelPatients);
             this.Controls.Add(this.dataGridViewPatients);
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "MedicalCentreAllRecordsForm";
             this.Text = "MedicalCentreRecordsForm";
+            
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPatients)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPractitioners)).EndInit();
             this.ResumeLayout(false);

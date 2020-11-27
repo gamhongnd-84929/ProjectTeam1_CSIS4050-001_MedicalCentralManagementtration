@@ -73,11 +73,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MedicalCentreAdministration.cs">
+    <Compile Include="MedicalCentreAdministrationForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MedicalCentreAdministration.Designer.cs">
-      <DependentUpon>MedicalCentreAdministration.cs</DependentUpon>
+    <Compile Include="MedicalCentreAdministrationForm.Designer.cs">
+      <DependentUpon>MedicalCentreAdministrationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MedicalCentreAllRecordsForm.cs">
       <SubType>Form</SubType>
@@ -93,8 +93,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="MedicalCentreAdministration.resx">
-      <DependentUpon>MedicalCentreAdministration.cs</DependentUpon>
+    <EmbeddedResource Include="MedicalCentreAdministrationForm.resx">
+      <DependentUpon>MedicalCentreAdministrationForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MedicalCentreAllRecordsForm.resx">
       <DependentUpon>MedicalCentreAllRecordsForm.cs</DependentUpon>
