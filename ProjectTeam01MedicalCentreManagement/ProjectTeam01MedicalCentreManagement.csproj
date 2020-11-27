@@ -177,6 +177,10 @@
       <Project>{e5429cce-4af7-4e54-9c4e-f490d086d883}</Project>
       <Name>MedicalCentreCodeFirstFromDB</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MedicalCentreDataAccessLayer\MedicalCentreDataAccessLayer.csproj">
+      <Project>{2A28F888-AF69-4D1D-AC78-34781FEFC3E2}</Project>
+      <Name>MedicalCentreDataAccessLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MedicalCentreDB\MedicalCentreDB.sqlproj">
       <Project>{0ebfcf1b-a483-430d-a107-907b4158cbc3}</Project>
       <Name>MedicalCentreDB</Name>

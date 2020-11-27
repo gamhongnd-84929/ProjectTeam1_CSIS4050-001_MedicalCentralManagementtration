@@ -8,18 +8,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DataTableAccessLayer;
+using MedicalCentreDataAccessLayer;
 
 namespace ProjectTeam01MedicalCentreManagement
 {
     public partial class MedicalCentreAdministrationForm : Form
     {
         // field to keep the access layer field
-        private SQLDataTableAccessLayer medicalCentreDB;
+        private MedicalCentreDAL medicalCentreDB;
         public MedicalCentreAdministrationForm()
         {
             InitializeComponent();
 
-            medicalCentreDB = new SQLDataTableAccessLayer();
+            medicalCentreDB = new MedicalCentreDAL();
             DataSet medicalCenterDataSet = new DataSet() 
             { 
                 // must be name for backup purpose
