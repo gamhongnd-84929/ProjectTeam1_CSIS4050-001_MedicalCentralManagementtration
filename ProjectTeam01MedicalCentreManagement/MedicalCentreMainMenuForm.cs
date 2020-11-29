@@ -17,7 +17,7 @@ namespace ProjectTeam01MedicalCentreManagement
     {
         public MedicalCentreMainMenuForm()
         {
-            Text = "Medical Centre Main Menu";
+            Text = "Medical Centre: Main Menu";
             InitializeComponent();
             Load += (s, e) => MedicalCentreMainForm_Load();
 
@@ -36,7 +36,7 @@ namespace ProjectTeam01MedicalCentreManagement
             }
 
         }
-        private void AllRecordsForm(Form form) 
+        private void AllRecordsForm(Form form)
         {
             // if okay was clicked on the child
             form.ShowDialog();

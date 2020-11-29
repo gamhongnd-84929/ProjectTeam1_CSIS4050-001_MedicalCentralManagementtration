@@ -1,4 +1,5 @@
 ﻿using MedicalCentreCodeFirstFromDB;
+using MedicalCentreValidation;
 using System;
 using System.Windows.Forms;
 
@@ -11,12 +12,35 @@ namespace ProjectTeam01MedicalCentreManagement
             this.Text = "Medical Centre:Register New Patient";
             InitializeComponent();
             PopulateProvinceComboBox();
+
             buttonAddNewPatient.Click +=AddNewPatient;
         }
 
+ 
+        private static void ClearControls(Form form)
+        {
+            foreach (Control control in form.Controls)
+            {
+                if (control is TextBox txtbox)
+                {
+                    txtbox.Text = string.Empty;
+                }
+
+                else if (control is DateTimePicker dtp)
+                {
+                    dtp.Value = DateTime.Now;
+                }
+                else if (control is ComboBox combobox)
+                {
+                    combobox.SelectedIndex = -1;
+                }
+            }
+        }
         private void PopulateProvinceComboBox()
         {
+            
             comboBoxProvince.Items.AddRange( new string[] { "AB", "BC", "SK","MB", "NL", "PE", "NS", "NB","QB","ON" });
+            comboBoxProvince.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
         private void AddNewPatient(object sender, EventArgs e)
@@ -43,22 +67,41 @@ namespace ProjectTeam01MedicalCentreManagement
                 Email = email,
             };
 
-            using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
+            if (!newUser.InfoIsInvalid())
             {
-                User addedUser = context.Users.Add(newUser);
-                context.SaveChanges();
-
-                Customer newCustomer = new Customer
+                using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
                 {
-                    User = addedUser,
-                    UserID = addedUser.UserID,
-                };
-                context.Customers.Add(newCustomer);
-                context.SaveChanges();
+                    User addedUser = context.Users.Add(newUser);
+                    context.SaveChanges();
+
+                    Customer newCustomer = new Customer
+                    {
+                        User = addedUser,
+                        UserID = addedUser.UserID,
+                        MSP = msp
+                    };
+                    if (newCustomer.IsValidCustomer())
+                    {
+
+                        context.Customers.Add(newCustomer);
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        MessageBox.Show("MSP must be Unique or blank!");
+                        return;
+                    }
+                }
+                ClearControls(this);
+                DialogResult = DialogResult.OK;
+                Close();
+            }
+            else
+            {
+                MessageBox.Show("Fields are not Filled! Make sure First Name, Last Name, Phone Number and Email are inputted!");
             }
  
-            this.DialogResult = DialogResult.OK;
-            Close();
+         
 
         }
     }

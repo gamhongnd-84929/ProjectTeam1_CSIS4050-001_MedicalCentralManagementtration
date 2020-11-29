@@ -30,6 +30,59 @@ namespace ProjectTeam01MedicalCentreManagement
             buttonBookAppointment.Click += (s, e) => ChildPatientActionsForm(bookAppointment, patientID);
 
             buttonMakePayment.Click += (s, e) => IsNeededPayment(patientID);
+
+            buttonCancelBooking.Click += (s, e) => CancelBooking(patientID);
+        }
+
+        private void CancelBooking(int patientID)
+        {
+            if (dataGridViewPatientBookings.SelectedRows.Count != 1)
+            {
+                MessageBox.Show("One Booking needs to be selected to perform cancellation");
+                return;
+            }
+
+            string date = (string)dataGridViewPatientBookings.SelectedRows[0].Cells[3].Value;
+            string time = (string)dataGridViewPatientBookings.SelectedRows[0].Cells[2].Value;
+           
+            DateTime bookingDate = DateTime.ParseExact(date + " " + time, "yyyy-MM-dd HH:mm",
+                                             null);
+
+            if (DateTime.Now > bookingDate)
+            {
+                MessageBox.Show("Cannot Cancel past bookings!");
+                return;
+            }
+
+            if ((string)dataGridViewPatientBookings.SelectedRows[0].Cells[6].Value == "Paid")
+            {
+               
+
+                using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
+                {
+                    var paymentToRefund = context.Payments.Where(p => p.BookingID == Convert.ToInt32(dataGridViewPatientBookings.SelectedRows[0].Cells[0].Value)).ToList();
+
+                    foreach(Payment payment  in paymentToRefund)
+                    payment.PaymentStatus = "Refunded";
+
+                    context.SaveChanges();
+                }
+                InitializePatientsPayments(dataGridViewPatientPayments, patientID);
+            }
+            using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
+            {
+                var bookingToChange = context.Bookings.Find(Convert.ToInt32(dataGridViewPatientBookings.SelectedRows[0].Cells[0].Value));
+
+                bookingToChange.BookingStatus = "Cancelled";
+                bookingToChange.BookingPrice = 0.0m;
+                bookingToChange.Date = "N/A";
+                bookingToChange.Time = "N/A";
+
+                context.SaveChanges();
+            }
+            InitializePatientsBookings(dataGridViewPatientBookings, patientID);
+
+
         }
 
         private  void IsNeededPayment(int patientID)
@@ -61,7 +114,7 @@ namespace ProjectTeam01MedicalCentreManagement
             // set number of columns
             datagridview.ColumnCount = 7;
             // Set the column header names.
-            datagridview.Columns[0].Name = "Practitioner ID";
+            datagridview.Columns[0].Name = "Booking ID";
             datagridview.Columns[1].Name = "Practitioner Last Name";
             datagridview.Columns[2].Name = "Booking Time";
             datagridview.Columns[3].Name = "Booking Date";
@@ -77,7 +130,7 @@ namespace ProjectTeam01MedicalCentreManagement
                 foreach (Booking booking in customer.Bookings)
                 {
                     // get the needed information
-                    string[] rowAdd = { booking.PractitionerID.ToString(), context.Users.Find(booking.Practitioner.UserID).LastName, booking.Time, booking.Date, booking.PractitionerComment, booking.BookingPrice.ToString("C2"), booking.BookingStatus };
+                    string[] rowAdd = { booking.BookingID.ToString(), context.Users.Find(booking.Practitioner.UserID).LastName, booking.Time, booking.Date, booking.PractitionerComment, booking.BookingPrice.ToString("C2"), booking.BookingStatus };
                     // add to display
                     datagridview.Rows.Add(rowAdd);
                 }
@@ -135,7 +188,6 @@ namespace ProjectTeam01MedicalCentreManagement
                 labelPatientName.Text = $"Patient Name: {user.LastName}, {user.FirstName}";
             }
         }
-
 
         private  void ChildPatientActionsForm(Form form, int patientID)
         {
