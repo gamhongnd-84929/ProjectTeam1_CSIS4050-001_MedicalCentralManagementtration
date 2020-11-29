@@ -20,7 +20,6 @@ namespace ProjectTeam01MedicalCentreManagement
             this.Load += BookAppointmentForm_Load;
             InitializeComponent();
             comboBoxPractitionerTypes.SelectedIndexChanged += (s, e) => GetListOfPractitionersAndServices();
-            
             monthCalendarBooking.DateChanged += (s, e) =>  GetPractitionerAvailability(); 
             listBoxTime.SelectedIndexChanged += (s, e) => GetBookingInformation(patientID);
             buttonCreateBooking.Click += (s, e) => CreateBooking(patientID);
@@ -29,6 +28,11 @@ namespace ProjectTeam01MedicalCentreManagement
 
         private void CreateBooking(int patientID)
         {
+            if (dataGridViewPractitioners.SelectedRows.Count != 1 || listBoxServices.SelectedIndex == -1 || listBoxTime.SelectedIndex == -1)
+            {
+                MessageBox.Show("Booking information is missing or is invalid!");
+                return;
+            }
             Booking newBooking = new Booking
             {
                 CustomerID = patientID,
@@ -111,6 +115,8 @@ namespace ProjectTeam01MedicalCentreManagement
 
         private void GetListOfPractitionersAndServices()
         {
+            ResetBookingInformation();
+            listBoxTime.Items.Clear();
             int typeId = (comboBoxPractitionerTypes.SelectedItem as Practitioner_Types).TypeID;
             listBoxServices.DataSource = Controller<MedicalCentreManagementEntities, Service>.GetEntities().Where(s => s.PractitionerTypeID == typeId).ToList();
             LoadPractitionersIntoDataGridView(dataGridViewPractitioners, typeId);
@@ -137,11 +143,12 @@ namespace ProjectTeam01MedicalCentreManagement
             monthCalendarBooking.MaxSelectionCount = 1;
 
             listBoxTime.Items.Clear();
-            comboBoxPractitionerTypes.Items.Clear();
+           
             comboBoxPractitionerTypes.DropDownStyle = ComboBoxStyle.DropDownList;
 
             comboBoxPractitionerTypes.DataSource = Controller<MedicalCentreManagementEntities, Practitioner_Types>.GetEntities();
-         
+
+            
        
         }
         private void LoadAllPossibleTimes()
@@ -155,7 +162,7 @@ namespace ProjectTeam01MedicalCentreManagement
             // using unit-of-work context
             using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
             {
-                var practitioners = context.Practitioners.Where(pr => pr.PractitionerID == typeId);
+                var practitioners = context.Practitioners.Where(pr => pr.TypeID == typeId);
                 // loop through all customers
                 foreach (Practitioner practitioner in practitioners)
                 {

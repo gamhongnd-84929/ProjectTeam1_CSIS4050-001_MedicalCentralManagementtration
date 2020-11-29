@@ -17,9 +17,8 @@ namespace ProjectTeam01MedicalCentreManagement
         public MedicalCentrePatientOptionsMainForm(int patientID)
         {
 
-            this.Text = "Medical Centre: Patient's Options";
+           
             InitializeComponent();
-            
             GetGreeting(patientID);
             InitializePatientsBookings(dataGridViewPatientBookings, patientID);
             InitializePatientsPayments(dataGridViewPatientPayments, patientID);

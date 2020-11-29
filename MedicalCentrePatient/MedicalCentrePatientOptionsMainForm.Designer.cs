@@ -139,7 +139,7 @@
             this.Controls.Add(this.dataGridViewPatientBookings);
             this.Controls.Add(this.labelPatientName);
             this.Name = "MedicalCentrePatientOptionsMainForm";
-            this.Text = "PatientOptionsMainForm";
+            this.Text = "Medical Centre: Patient\'s Options";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPatientBookings)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPatientPayments)).EndInit();
             this.ResumeLayout(false);

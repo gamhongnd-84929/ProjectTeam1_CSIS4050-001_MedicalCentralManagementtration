@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using MedicalCentreCodeFirstFromDB;
 using System.Data.Entity;
 using MedicalCentreValidation;
+using EFControllerUtilities;
 
 namespace ProjectTeam01MedicalCentreManagement
 {
@@ -30,15 +31,10 @@ namespace ProjectTeam01MedicalCentreManagement
         /// </summary>
         private void PopulatePractitionerTypeComboBox()
         {
-            using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
-            {
-                ArrayList practitionerTitles = new ArrayList();
-                foreach (Practitioner_Types practitionerType in context.Practitioner_Types)
-                {
-                    practitionerTitles.Add(practitionerType.Title);
-                }
-                comboBoxPractitionerType.Items.AddRange(practitionerTitles.ToArray());
-            }
+            comboBoxPractitionerType.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            comboBoxPractitionerType.DataSource = Controller<MedicalCentreManagementEntities, Practitioner_Types>.GetEntities();
+
         }
 
         /// <summary>
@@ -57,7 +53,7 @@ namespace ProjectTeam01MedicalCentreManagement
             string phoneNumber = textBoxPhoneNumber.Text;
             string email = textBoxEmail.Text;
             string practitionalType = comboBoxPractitionerType.GetItemText(comboBoxPractitionerType.SelectedItem);
-
+            int typeId = (comboBoxPractitionerType.SelectedItem as Practitioner_Types).TypeID;
             User newUser = new User
             {
                 FirstName = firstName,
@@ -90,13 +86,13 @@ namespace ProjectTeam01MedicalCentreManagement
                 User addedUser = context.Users.Add(newUser);
                 context.SaveChanges();
                 // get selected practitioner type
-                Practitioner_Types selectedPractitionalType = context.Practitioner_Types.SingleOrDefault(x=>x.Title == practitionalType);
+
                 Practitioner newPractitioner = new Practitioner
                 {
-                    User = addedUser,
+
                     UserID = addedUser.UserID,
-                    PractitionerID = selectedPractitionalType.TypeID,
-                    Practitioner_Types = selectedPractitionalType
+                    TypeID = typeId,
+                
                 };
 
                 context.Practitioners.Add(newPractitioner);
