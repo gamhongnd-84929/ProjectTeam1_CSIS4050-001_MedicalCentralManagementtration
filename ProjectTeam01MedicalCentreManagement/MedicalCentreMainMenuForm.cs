@@ -1,4 +1,5 @@
-﻿using MedicalCentreMainMenuFormApp;
+﻿using MedicalCentreCodeFirstFromDB;
+using MedicalCentreMainMenuFormApp;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,22 +17,29 @@ namespace ProjectTeam01MedicalCentreManagement
     {
         public MedicalCentreMainMenuForm()
         {
-            this.Text = "Medical Centre Main Menu";
+            Text = "Medical Centre Main Menu";
             InitializeComponent();
+            Load += (s, e) => MedicalCentreMainForm_Load();
+
             MedicalCentreAllRecordsForm allRecordsForm = new MedicalCentreAllRecordsForm();
-           
             buttonRecords.Click += (s, e) => AllRecordsForm(allRecordsForm);
 
             // Administration 
             MedicalCentreAdministrationForm medicalCentreAdministration = new MedicalCentreAdministrationForm();
-
             buttonAdministration.Click += (s, e) => AdministrationForm(medicalCentreAdministration);
         }
+        private void MedicalCentreMainForm_Load()
+        {
+            using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
+            {
+                context.SeedDatabase();
+            }
 
+        }
         private void AllRecordsForm(Form form) 
         {
             // if okay was clicked on the child
-         form.ShowDialog();
+            form.ShowDialog();
             // hide the child form
             form.Hide();
         }

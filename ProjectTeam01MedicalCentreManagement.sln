@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFControllerUtilities", "EF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataTableAccessLayer", "DataTableAccessLayer\DataTableAccessLayer.csproj", "{49CDD6D6-41AD-43BE-AE20-F94E546CED0D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedicalCentralDataAccessLayer", "MedicalCentralDataAccessLayer\MedicalCentralDataAccessLayer.csproj", "{1A761F60-DE50-4A97-A793-A96AAC84BA84}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedicalCentreValidation", "MedicalCentreValidation\MedicalCentreValidation.csproj", "{56A8233C-7D44-4695-8609-4969777B8D08}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedicalCentrePractitioner", "MedicalCentrePractitioner\MedicalCentrePractitioner.csproj", "{365644A5-023A-4113-B8FA-51351F8A8AB6}"
@@ -49,10 +47,6 @@ Global
 		{49CDD6D6-41AD-43BE-AE20-F94E546CED0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49CDD6D6-41AD-43BE-AE20-F94E546CED0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49CDD6D6-41AD-43BE-AE20-F94E546CED0D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1A761F60-DE50-4A97-A793-A96AAC84BA84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1A761F60-DE50-4A97-A793-A96AAC84BA84}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1A761F60-DE50-4A97-A793-A96AAC84BA84}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1A761F60-DE50-4A97-A793-A96AAC84BA84}.Release|Any CPU.Build.0 = Release|Any CPU
 		{56A8233C-7D44-4695-8609-4969777B8D08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{56A8233C-7D44-4695-8609-4969777B8D08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56A8233C-7D44-4695-8609-4969777B8D08}.Release|Any CPU.ActiveCfg = Release|Any CPU

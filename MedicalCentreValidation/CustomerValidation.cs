@@ -10,18 +10,15 @@ namespace MedicalCentreValidation
 {
     public static class CustomerValidation
     {
-        public static bool IsValidUserId(this Customer customer)
-        {
-            using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
-            {
-                context.Database.Log = (s => Debug.Write(s));
-                return context.Users.Any(u => u.UserID == customer.UserID);
-            };
-        }
+    
 
         public static bool IsValidCustomer(this Customer customer)
         {
-            return customer.IsValidUserId();
+            using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
+            {
+                
+                return context.Users.Any(u => u.UserID == customer.UserID);
+            };
         }
     }
 }

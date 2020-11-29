@@ -34,31 +34,33 @@
             // 
             // buttonBackupDatabase
             // 
-            this.buttonBackupDatabase.Location = new System.Drawing.Point(377, 143);
+            this.buttonBackupDatabase.Location = new System.Drawing.Point(186, 111);
+            this.buttonBackupDatabase.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonBackupDatabase.Name = "buttonBackupDatabase";
-            this.buttonBackupDatabase.Size = new System.Drawing.Size(201, 119);
+            this.buttonBackupDatabase.Size = new System.Drawing.Size(179, 95);
             this.buttonBackupDatabase.TabIndex = 0;
             this.buttonBackupDatabase.Text = "Backup Database";
             this.buttonBackupDatabase.UseVisualStyleBackColor = true;
-
             // 
             // buttonRestoreDatabase
             // 
-            this.buttonRestoreDatabase.Location = new System.Drawing.Point(377, 354);
+            this.buttonRestoreDatabase.Location = new System.Drawing.Point(186, 287);
+            this.buttonRestoreDatabase.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonRestoreDatabase.Name = "buttonRestoreDatabase";
-            this.buttonRestoreDatabase.Size = new System.Drawing.Size(201, 119);
+            this.buttonRestoreDatabase.Size = new System.Drawing.Size(179, 95);
             this.buttonRestoreDatabase.TabIndex = 1;
             this.buttonRestoreDatabase.Text = "Restore Database";
             this.buttonRestoreDatabase.UseVisualStyleBackColor = true;
             // 
-            // MedicalCentreAdministration
+            // MedicalCentreAdministrationForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1054, 690);
+            this.ClientSize = new System.Drawing.Size(538, 552);
             this.Controls.Add(this.buttonRestoreDatabase);
             this.Controls.Add(this.buttonBackupDatabase);
-            this.Name = "MedicalCentreAdministration";
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Name = "MedicalCentreAdministrationForm";
             this.Text = "MedicalCentreAdministration";
             this.ResumeLayout(false);
 

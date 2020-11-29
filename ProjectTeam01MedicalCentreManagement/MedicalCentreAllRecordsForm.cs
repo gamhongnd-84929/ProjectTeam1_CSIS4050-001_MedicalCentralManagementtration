@@ -101,11 +101,7 @@ namespace MedicalCentreMainMenuFormApp
 
         private void MedicalCentreAllRecordsForm_Load()
         {
-            using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
-            {
-                context.SeedDatabase();
-            }
-            // common setup for datagridview controls
+            
 
             InitializePatientsRecordsView(dataGridViewPatients);
             //InitializeDataGridView<Customer>(dataGridViewPatients, "Bookings", "Payments", "User");

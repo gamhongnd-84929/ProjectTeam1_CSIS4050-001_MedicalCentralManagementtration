@@ -7,25 +7,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MedicalCentralDataAccessLayer;
+using DataTableAccessLayer;
+
 
 
 namespace ProjectTeam01MedicalCentreManagement
 {
     public partial class MedicalCentreAdministrationForm : Form
     {// field to keep the access layer field
-        private MedicalCentreDAL medicalCentreDB;
+        private SqlDataTableAccessLayer medicalCentreDB;
         public MedicalCentreAdministrationForm()
         {
             InitializeComponent();
 
-            medicalCentreDB = new MedicalCentreDAL();
+            medicalCentreDB = new SqlDataTableAccessLayer();
             DataSet medicalCenterDataSet = new DataSet()
             {
                 // must be name for backup purpose
                 DataSetName = "MedicalCentreDataSet"
             };
 
+            Text = "Medical Centre: Administration Options";
             // set the connectionString from App.config
             string connectingString = medicalCentreDB.GetConnectionString("MedicalCentreManagementConnection");
             medicalCentreDB.OpenConnection(connectingString);
@@ -38,5 +40,7 @@ namespace ProjectTeam01MedicalCentreManagement
 
 
         }
+
+
     }
 }
