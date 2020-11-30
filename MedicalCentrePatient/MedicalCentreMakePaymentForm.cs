@@ -1,5 +1,6 @@
 ﻿using EFControllerUtilities;
 using MedicalCentreCodeFirstFromDB;
+using MedicalCentreValidation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -45,6 +46,22 @@ namespace ProjectTeam01MedicalCentreManagement
                 Time = DateTime.Now.ToString("HH:mm"),
 
             };
+
+            // validate payment 
+            if (newPayment.IsValidPayment())
+            {
+                MessageBox.Show("Please fill payment information");
+                return;
+            }
+
+            // validate payment type
+            if(comboBoxPaymentType.SelectedIndex == -1)
+            {
+                MessageBox.Show("You must select payment type");
+            }
+
+            
+
             if (Controller<MedicalCentreManagementEntities, Payment>.AddEntity(newPayment) == null) {
                 MessageBox.Show("Payment was not added to the database!");
                 return;

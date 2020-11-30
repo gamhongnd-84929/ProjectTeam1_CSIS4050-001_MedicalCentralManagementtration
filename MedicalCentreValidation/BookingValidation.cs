@@ -10,7 +10,7 @@ namespace MedicalCentreValidation
 {
     public static class BookingValidation
     {
-        public static bool InfoIsInvalid (this Booking booking)
+        public static bool IsValidBooking (this Booking booking)
         {
             return (booking.IsValidCustomerId() || booking.PractitionerID == 0 || booking.Time == ""
                 || booking.Date == "" || booking.BookingPrice < 0 || booking.BookingStatus == "");

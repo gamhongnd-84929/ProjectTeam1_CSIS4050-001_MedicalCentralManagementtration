@@ -1,4 +1,5 @@
 ﻿using MedicalCentreCodeFirstFromDB;
+using MedicalCentreValidation;
 using System;
 using System.Windows.Forms;
 
@@ -42,6 +43,15 @@ namespace ProjectTeam01MedicalCentreManagement
                 PhoneNumber = phoneNumber,
                 Email = email,
             };
+            
+            // validate user
+            if (newUser.InfoIsInvalid())
+            {
+                MessageBox.Show("Patient information need to filled!");
+                return;
+            }
+
+            
 
             using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
             {
@@ -54,10 +64,26 @@ namespace ProjectTeam01MedicalCentreManagement
                     UserID = addedUser.UserID,
                     MSP = msp
                 };
+
+                // validate MSP 
+                if (newCustomer.IsValidMSP()){
+                    MessageBox.Show("MSP need to filled!");
+                    return;
+                }
+
+                // validate Customer
+                if (newCustomer.IsValidCustomer())
+                {
+                    MessageBox.Show("Customer must be picked from user");
+                    return;
+                }
+
                 context.Customers.Add(newCustomer);
                 context.SaveChanges();
             }
- 
+
+            
+
             this.DialogResult = DialogResult.OK;
             Close();
 

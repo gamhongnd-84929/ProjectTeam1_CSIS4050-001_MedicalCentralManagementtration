@@ -1,5 +1,6 @@
 ﻿using EFControllerUtilities;
 using MedicalCentreCodeFirstFromDB;
+using MedicalCentreValidation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -44,10 +45,26 @@ namespace ProjectTeam01MedicalCentreManagement
                 PractitionerComment = ""
 
             };
+
+            // validate booking
+            if (newBooking.IsValidBooking())
+            {
+                MessageBox.Show("Fill all booking information");
+            }
+
             foreach (Service s in listBoxServices.SelectedItems)
             {
                 newBooking.Services.Add(s);
             }
+
+            // validate service picking
+            if(listBoxServices.SelectedIndex < 0)
+            {
+                MessageBox.Show("Service need to be selected");
+                return;
+            }
+
+            
             
             if (Controller<MedicalCentreManagementEntities, Booking>.AddEntity(newBooking) == null)
             {

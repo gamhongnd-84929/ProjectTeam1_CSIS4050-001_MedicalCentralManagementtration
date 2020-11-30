@@ -66,7 +66,14 @@ namespace ProjectTeam01MedicalCentreManagement
             // validate user
             if (userToUpdate.InfoIsInvalid())
             {
-                MessageBox.Show("Please provide First Name and Last Name");
+                MessageBox.Show("Please provide practitioner's information");
+                return;
+            }
+
+            // validate practitoner
+            if (practitionerToUpdate.IsValidPractitioner())
+            {
+                MessageBox.Show("Practitioner must be picked from user");
                 return;
             }
 

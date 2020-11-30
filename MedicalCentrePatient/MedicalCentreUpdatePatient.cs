@@ -1,5 +1,6 @@
 ﻿using EFControllerUtilities;
 using MedicalCentreCodeFirstFromDB;
+using MedicalCentreValidation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -69,6 +70,27 @@ namespace ProjectTeam01MedicalCentreManagement
             userToUpdate.Email = email;
 
             customerToUpdate.MSP = msp;
+
+            // validate user
+            if (userToUpdate.InfoIsInvalid())
+            {
+                MessageBox.Show("Patient information need to filled!");
+                return;
+            }
+
+            // validate MSP 
+            if (customerToUpdate.IsValidMSP())
+            {
+                MessageBox.Show("MSP need to filled!");
+                return;
+            }
+
+            // validate Customer
+            if (customerToUpdate.IsValidCustomer())
+            {
+                MessageBox.Show("Customer must be picked from user");
+                return;
+            }
 
             if (Controller<MedicalCentreManagementEntities, User>.UpdateEntity(userToUpdate) == false)
             {
