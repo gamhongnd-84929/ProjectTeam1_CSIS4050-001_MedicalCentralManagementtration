@@ -50,11 +50,8 @@ namespace ProjectTeam01MedicalCentreManagement
                 return;
             }
 
-            int practitionerTypeID;
-            using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
-            {
-                practitionerTypeID = context.Practitioner_Types.SingleOrDefault(x => x.Title == practitionalType).TypeID;
-            }
+            int typeId = (comboBoxPractitionerType.SelectedItem as Practitioner_Types).TypeID;
+
             var practitionerToUpdate = Controller<MedicalCentreManagementEntities, Practitioner>.FindEntity(practitionerID);
             var userToUpdate = Controller<MedicalCentreManagementEntities, User>.FindEntity(practitionerToUpdate.UserID);
             userToUpdate.FirstName = firstName;
@@ -73,7 +70,7 @@ namespace ProjectTeam01MedicalCentreManagement
                 return;
             }
 
-            practitionerToUpdate.TypeID = practitionerTypeID;
+            practitionerToUpdate.TypeID = typeId;
 
             if(Controller<MedicalCentreManagementEntities, User>.UpdateEntity(userToUpdate) == false)
             {
@@ -120,15 +117,10 @@ namespace ProjectTeam01MedicalCentreManagement
         /// </summary>
         private void PopulatePractitionerTypeComboBox()
         {
-            using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
-            {
-                ArrayList practitionerTitles = new ArrayList();
-                foreach (Practitioner_Types practitionerType in context.Practitioner_Types)
-                {
-                    practitionerTitles.Add(practitionerType.Title);
-                }
-                comboBoxPractitionerType.Items.AddRange(practitionerTitles.ToArray());
-            }
+            comboBoxPractitionerType.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            comboBoxPractitionerType.DataSource = Controller<MedicalCentreManagementEntities, Practitioner_Types>.GetEntities();
+
         }
 
         /// <summary>

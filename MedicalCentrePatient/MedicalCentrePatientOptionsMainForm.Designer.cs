@@ -36,6 +36,7 @@
             this.labelPatientPayments = new System.Windows.Forms.Label();
             this.buttonBookAppointment = new System.Windows.Forms.Button();
             this.buttonMakePayment = new System.Windows.Forms.Button();
+            this.buttonCancelBooking = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPatientBookings)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPatientPayments)).BeginInit();
             this.SuspendLayout();
@@ -98,7 +99,7 @@
             // 
             // buttonBookAppointment
             // 
-            this.buttonBookAppointment.Location = new System.Drawing.Point(823, 209);
+            this.buttonBookAppointment.Location = new System.Drawing.Point(823, 316);
             this.buttonBookAppointment.Name = "buttonBookAppointment";
             this.buttonBookAppointment.Size = new System.Drawing.Size(142, 68);
             this.buttonBookAppointment.TabIndex = 6;
@@ -107,18 +108,28 @@
             // 
             // buttonMakePayment
             // 
-            this.buttonMakePayment.Location = new System.Drawing.Point(823, 353);
+            this.buttonMakePayment.Location = new System.Drawing.Point(823, 444);
             this.buttonMakePayment.Name = "buttonMakePayment";
             this.buttonMakePayment.Size = new System.Drawing.Size(142, 68);
             this.buttonMakePayment.TabIndex = 7;
             this.buttonMakePayment.Text = "Make Payment for Appointment";
             this.buttonMakePayment.UseVisualStyleBackColor = true;
             // 
+            // buttonCancelBooking
+            // 
+            this.buttonCancelBooking.Location = new System.Drawing.Point(823, 196);
+            this.buttonCancelBooking.Name = "buttonCancelBooking";
+            this.buttonCancelBooking.Size = new System.Drawing.Size(142, 68);
+            this.buttonCancelBooking.TabIndex = 8;
+            this.buttonCancelBooking.Text = "Cancel Patient\'s Booking";
+            this.buttonCancelBooking.UseVisualStyleBackColor = true;
+            // 
             // MedicalCentrePatientOptionsMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1029, 533);
+            this.Controls.Add(this.buttonCancelBooking);
             this.Controls.Add(this.buttonMakePayment);
             this.Controls.Add(this.buttonBookAppointment);
             this.Controls.Add(this.labelPatientPayments);
@@ -128,7 +139,7 @@
             this.Controls.Add(this.dataGridViewPatientBookings);
             this.Controls.Add(this.labelPatientName);
             this.Name = "MedicalCentrePatientOptionsMainForm";
-            this.Text = "PatientOptionsMainForm";
+            this.Text = "Medical Centre: Patient\'s Options";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPatientBookings)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPatientPayments)).EndInit();
             this.ResumeLayout(false);
@@ -146,5 +157,6 @@
         private System.Windows.Forms.Label labelPatientPayments;
         private System.Windows.Forms.Button buttonBookAppointment;
         private System.Windows.Forms.Button buttonMakePayment;
+        private System.Windows.Forms.Button buttonCancelBooking;
     }
 }

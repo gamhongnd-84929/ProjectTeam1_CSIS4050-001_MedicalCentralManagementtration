@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DataTableAccessLayer
 {
-    public class SQLDataTableAccessLayer
+    public class SqlDataTableAccessLayer
     {
 		// This field will be used by all methods, holds the open connection
 		protected SqlConnection sqlConnection = null;

@@ -197,7 +197,7 @@
             this.Controls.Add(this.listBoxServices);
             this.Controls.Add(this.labelBookAppointment);
             this.Name = "MedicalCentreBookAppointment";
-            this.Text = "MedicalCentreBookAppointment";
+            this.Text = "MedicalCentre: Book Appointment";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPractitioners)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

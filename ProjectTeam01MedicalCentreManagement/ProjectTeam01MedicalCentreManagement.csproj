@@ -131,10 +131,6 @@
       <Project>{cb1e5f5d-a033-4b72-ac56-2959b64dd758}</Project>
       <Name>EFControllerUtilities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MedicalCentralDataAccessLayer\MedicalCentralDataAccessLayer.csproj">
-      <Project>{1a761f60-de50-4a97-a793-a96aac84ba84}</Project>
-      <Name>MedicalCentralDataAccessLayer</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MedicalCentreCodeFirstFromDB\MedicalCentreCodeFirstFromDB.csproj">
       <Project>{e5429cce-4af7-4e54-9c4e-f490d086d883}</Project>
       <Name>MedicalCentreCodeFirstFromDB</Name>
@@ -150,6 +146,10 @@
     <ProjectReference Include="..\MedicalCentrePractitioner\MedicalCentrePractitioner.csproj">
       <Project>{365644a5-023a-4113-b8fa-51351f8a8ab6}</Project>
       <Name>MedicalCentrePractitioner</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MedicalCentreValidation\MedicalCentreValidation.csproj">
+      <Project>{56a8233c-7d44-4695-8609-4969777b8d08}</Project>
+      <Name>MedicalCentreValidation</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

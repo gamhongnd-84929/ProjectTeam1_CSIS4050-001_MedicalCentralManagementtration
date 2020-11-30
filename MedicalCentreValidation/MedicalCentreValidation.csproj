@@ -63,6 +63,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\EFControllerUtilities\EFControllerUtilities.csproj">
+      <Project>{CB1E5F5D-A033-4B72-AC56-2959B64DD758}</Project>
+      <Name>EFControllerUtilities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MedicalCentreCodeFirstFromDB\MedicalCentreCodeFirstFromDB.csproj">
       <Project>{e5429cce-4af7-4e54-9c4e-f490d086d883}</Project>
       <Name>MedicalCentreCodeFirstFromDB</Name>

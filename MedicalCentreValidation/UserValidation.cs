@@ -12,7 +12,9 @@ namespace MedicalCentreValidation
         public static bool InfoIsInvalid(this User user)
         {
             return (user.FirstName == null || user.FirstName.Trim().Length == 0 ||
-                    user.LastName == null || user.LastName.Trim().Length == 0 );
+                    user.LastName == null || user.LastName.Trim().Length == 0 ||
+                    user.PhoneNumber == null || user.PhoneNumber.Trim().Length == 0 ||
+                    user.Email == null || user.Email.Trim().Length == 0);
         }
     }
 }

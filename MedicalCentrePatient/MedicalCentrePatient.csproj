@@ -135,6 +135,10 @@
       <Project>{e5429cce-4af7-4e54-9c4e-f490d086d883}</Project>
       <Name>MedicalCentreCodeFirstFromDB</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MedicalCentreValidation\MedicalCentreValidation.csproj">
+      <Project>{56A8233C-7D44-4695-8609-4969777B8D08}</Project>
+      <Name>MedicalCentreValidation</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

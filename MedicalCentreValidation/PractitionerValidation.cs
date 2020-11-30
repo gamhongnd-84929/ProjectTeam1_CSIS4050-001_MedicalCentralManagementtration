@@ -10,18 +10,15 @@ namespace MedicalCentreValidation
 {
     public static class PractitionerValidation
     {
-        public static bool IsValidUserID(this Practitioner pratitioner)
+   
+        public static bool IsValidPractitioner(this Practitioner practitioner)
         {
+            
             using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
             {
-                context.Database.Log = (s => Debug.Write(s));
-                return context.Users.Any(u => u.UserID == pratitioner.UserID);
+                
+                return (context.Users.Any(u => u.UserID == practitioner.UserID) && context.Practitioner_Types.Any(u => u.TypeID == practitioner.TypeID));
             };
-        }
-
-        public static bool IsValidPractitioner(this Practitioner pratitioner)
-        {
-            return pratitioner.IsValidUserID();
         }
     }
 }
