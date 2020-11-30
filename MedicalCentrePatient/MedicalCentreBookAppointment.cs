@@ -155,7 +155,7 @@ namespace ProjectTeam01MedicalCentreManagement
             // using unit-of-work context
             using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
             {
-                var practitioners = context.Practitioners.Where(pr => pr.PractitionerID == typeId);
+                var practitioners = context.Practitioners.Where(pr => pr.TypeID == typeId);
                 // loop through all customers
                 foreach (Practitioner practitioner in practitioners)
                 {

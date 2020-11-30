@@ -52,6 +52,7 @@ namespace ProjectTeam01MedicalCentreManagement
                 {
                     User = addedUser,
                     UserID = addedUser.UserID,
+                    MSP = msp
                 };
                 context.Customers.Add(newCustomer);
                 context.SaveChanges();
