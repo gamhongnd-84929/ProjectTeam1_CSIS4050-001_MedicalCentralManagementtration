@@ -24,7 +24,7 @@ namespace ProjectTeam01MedicalCentreManagement
             // get customer's unpaid bookings
             GetUnpaidBookings(patientID);
             // calculate payment total based on the booking selected
-            dataGridViewBookings.SelectionChanged += CalculatePaymentTotal;
+            dataGridViewBookings.SelectionChanged += DisplayPaymentTotal;
             // complete payment on button click
             buttonMakePayment.Click += (s, e) => CompletePayment(patientID);
         }
@@ -87,7 +87,7 @@ namespace ProjectTeam01MedicalCentreManagement
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void CalculatePaymentTotal(object sender, EventArgs e)
+        private void DisplayPaymentTotal(object sender, EventArgs e)
         {
             // get how many rows are selected
             var rowsCount = dataGridViewBookings.SelectedRows.Count;
@@ -96,21 +96,29 @@ namespace ProjectTeam01MedicalCentreManagement
             if (rowsCount > 1 || rowsCount == 0)
             {
                 labelTotalAmountNumber.Text = "";
-                MessageBox.Show("");
+                MessageBox.Show("Please make sure that you select 1 Booking to pay for!");
                 return;
             }
-
+            // get the totalAmount
             decimal totalAmount = decimal.Parse(Regex.Replace((string)dataGridViewBookings.SelectedRows[0].Cells[4].Value, @"[^\d.]", ""));
-
+            // display as currency
             labelTotalAmountNumber.Text = totalAmount.ToString("C2");
         }
+
+        /// <summary>
+        /// Method to complete payment for a particular patient on a selected booking
+        /// </summary>
+        /// <param name="patientID"> id of a customer that is paying</param>
         private void CompletePayment(int patientID)
         {
+            // make sure 1 booking is selected
             if (dataGridViewBookings.SelectedRows.Count != 1)
             {
                 MessageBox.Show("One Booking needs to be selected to complete payment");
                 return;
             }
+
+            // create new payment object
             Payment newPayment = new Payment
             {
                 CustomerID = patientID,
@@ -126,29 +134,29 @@ namespace ProjectTeam01MedicalCentreManagement
             // validate payment 
             if (newPayment.InfoIsInvalid())
             {
-                MessageBox.Show("Please fill payment information");
+                MessageBox.Show("Payment information is not valid!");
                 return;
             }
 
-
-
-
+            // try to add payment to db
             if (Controller<MedicalCentreManagementEntities, Payment>.AddEntity(newPayment) == null)
             {
                 MessageBox.Show("Payment was not added to the database!");
                 return;
             }
+            // update that booking's status to Paid
             using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
             {
                 context.Bookings.Find(newPayment.BookingID).BookingStatus = "Paid";
                 context.SaveChanges();
             }
-            this.DialogResult = DialogResult.OK;
+            // if successful- set result to OK and close form
+            DialogResult = DialogResult.OK;
             Close();
 
         }
 
-     
+
 
 
 

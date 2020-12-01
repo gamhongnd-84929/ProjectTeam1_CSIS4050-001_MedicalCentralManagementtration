@@ -14,101 +14,59 @@ namespace ProjectTeam01MedicalCentreManagement
 {
     public partial class MedicalCentrePatientOptionsMainForm : Form
     {
-        public MedicalCentrePatientOptionsMainForm(int patientID)
+        public MedicalCentrePatientOptionsMainForm(int customerID)
         {
 
-           
             InitializeComponent();
-            GetGreeting(patientID);
-            InitializePatientsBookings(dataGridViewPatientBookings, patientID);
-            InitializePatientsPayments(dataGridViewPatientPayments, patientID);
-            MedicalCentreUpdatePatient medicalCentreUpdatePatient = new MedicalCentreUpdatePatient(patientID);
-            buttonUpdateInformation.Click += (s, e) => ChildPatientActionsForm(medicalCentreUpdatePatient,  patientID);
-
-            MedicalCentreBookAppointment bookAppointment = new MedicalCentreBookAppointment(patientID);
-            buttonBookAppointment.Click += (s, e) => ChildPatientActionsForm(bookAppointment, patientID);
-
-            buttonMakePayment.Click += (s, e) => IsNeededPayment(patientID);
-
-            buttonCancelBooking.Click += (s, e) => CancelBooking(patientID);
-        }
-
-        private void CancelBooking(int patientID)
-        {
-            if (dataGridViewPatientBookings.SelectedRows.Count != 1)
-            {
-                MessageBox.Show("One Booking needs to be selected to perform cancellation");
-                return;
-            }
-
-            string date = (string)dataGridViewPatientBookings.SelectedRows[0].Cells[3].Value;
-            string time = (string)dataGridViewPatientBookings.SelectedRows[0].Cells[2].Value;
+            // set up form controls
+            InitializeFormInformation(customerID);
            
-            DateTime bookingDate = DateTime.ParseExact(date + " " + time, "yyyy-MM-dd HH:mm",
-                                             null);
+            // create and add to button click Child forms
+            MedicalCentreUpdatePatient medicalCentreUpdatePatient = new MedicalCentreUpdatePatient(customerID);
+            buttonUpdateInformation.Click += (s, e) => ChildPatientActionsForm(medicalCentreUpdatePatient, customerID);
+            MedicalCentreBookAppointment bookAppointment = new MedicalCentreBookAppointment(customerID);
+            buttonBookAppointment.Click += (s, e) => ChildPatientActionsForm(bookAppointment, customerID);
 
-            if (DateTime.Now > bookingDate)
-            {
-                MessageBox.Show("Cannot Cancel past bookings!");
-                return;
-            }
-
-            if ((string)dataGridViewPatientBookings.SelectedRows[0].Cells[6].Value == "Paid")
-            {
-               
-
-                using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
-                {
-                    int bookingID = Convert.ToInt32(dataGridViewPatientBookings.SelectedRows[0].Cells[0].Value);
-                    var paymentToRefund = context.Payments.Where(p => p.BookingID == bookingID).ToList();
-
-                    foreach(Payment payment  in paymentToRefund)
-                    payment.PaymentStatus = "Refunded";
-
-                    context.SaveChanges();
-                }
-                InitializePatientsPayments(dataGridViewPatientPayments, patientID);
-            }
-            using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
-            {
-                var bookingToChange = context.Bookings.Find(Convert.ToInt32(dataGridViewPatientBookings.SelectedRows[0].Cells[0].Value));
-
-                bookingToChange.BookingStatus = "Cancelled";
-                bookingToChange.BookingPrice = 0.0m;
-                bookingToChange.Date = "N/A";
-                bookingToChange.Time = "N/A";
-
-                context.SaveChanges();
-            }
-            InitializePatientsBookings(dataGridViewPatientBookings, patientID);
-
-
+            // add event methods to other buttons
+            buttonMakePayment.Click += (s, e) => IsNeededPayment(customerID);
+            buttonCancelBooking.Click += (s, e) => CancelBooking(customerID);
         }
 
-        private  void IsNeededPayment(int patientID)
+        /// <summary>
+        /// Method to set up controls in a form
+        /// </summary>
+        /// <param name="customerID"> id of the customer to be used for setup</param>
+        private void InitializeFormInformation(int customerID)
         {
-            // using unit-of-work context
-            using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
-            {
-               
-                Customer customer = context.Customers.Find(patientID);
-                // loop through all bookings
-                foreach (Booking booking in customer.Bookings)
-                {
-                    if (booking.BookingStatus == "Not Paid")
-                    {
-                        ChildPatientActionsForm(new MedicalCentreMakePaymentForm(patientID), patientID);
-                        return;
-                    }
-                }
-              
-                MessageBox.Show("This Customer has no Unpaid Bookings!");
-
-            }
-
+            // call individual methods 
+            GetGreeting(customerID);
+            InitializePatientsBookings(dataGridViewPatientBookings, customerID);
+            InitializePatientsPayments(dataGridViewPatientPayments, customerID);
         }
 
-        private static void InitializePatientsBookings(DataGridView datagridview, int patientID)
+        /// <summary>
+        /// Method to get personalized greeting for the customer
+        /// </summary>
+        /// <param name="customerID"> id of the customer</param>
+        private void GetGreeting(int customerID)
+        {
+            using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
+            {
+                // find customer in db
+                var customer = context.Customers.Find(customerID);
+                //find user in db
+                var user = context.Users.Find(customer.UserID);
+                // set label
+                labelPatientName.Text = $"Patient Name: {user.LastName}, {user.FirstName}";
+            }
+        }
+
+        /// <summary>
+        /// Method to set up the Patients booking display
+        /// </summary>
+        /// <param name="datagridview"> datagridview to be populated </param>
+        /// <param name="customerID"> id of the customer</param>
+        private static void InitializePatientsBookings(DataGridView datagridview, int customerID)
         {
             datagridview.Rows.Clear();
             // set number of columns
@@ -125,7 +83,7 @@ namespace ProjectTeam01MedicalCentreManagement
             // using unit-of-work context
             using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
             {
-                Customer customer = context.Customers.Find(patientID);
+                Customer customer = context.Customers.Find(customerID);
                 // loop through all bookings
                 foreach (Booking booking in customer.Bookings)
                 {
@@ -134,75 +92,166 @@ namespace ProjectTeam01MedicalCentreManagement
                     // add to display
                     datagridview.Rows.Add(rowAdd);
                 }
-
             }
             // set all properties
             datagridview.AllowUserToAddRows = false;
             datagridview.AllowUserToDeleteRows = false;
             datagridview.ReadOnly = true;
             datagridview.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
         }
 
-        private static void InitializePatientsPayments(DataGridView datagridview, int patientID)
+        /// <summary>
+        /// Method to initialize and populate all of customer's payments
+        /// </summary>
+        /// <param name="datagridview"> datagridview to be populated </param>
+        /// <param name="customerID"> id of the customer</param>
+        private static void InitializePatientsPayments(DataGridView datagridview, int customerID)
         {
             datagridview.Rows.Clear();
             // set number of columns
             datagridview.ColumnCount = 5;
             // Set the column header names.
-      
+
             datagridview.Columns[0].Name = "Payment Date";
             datagridview.Columns[1].Name = "Payment Time";
             datagridview.Columns[2].Name = "Payment Amount";
             datagridview.Columns[3].Name = "Payment Type";
             datagridview.Columns[4].Name = "Payment Status";
-      
 
             // using unit-of-work context
             using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
             {
-                Customer customer = context.Customers.Find(patientID);
+                Customer customer = context.Customers.Find(customerID);
                 // loop through all bookings
                 foreach (Payment payment in customer.Payments)
                 {
                     // get the needed information
-                    string[] rowAdd = {  payment.Date, payment.Time, payment.TotalAmountPaid?.ToString("C2"), payment.Payment_Types.ToString(), payment.PaymentStatus };
+                    string[] rowAdd = { payment.Date, payment.Time, payment.TotalAmountPaid?.ToString("C2"), payment.Payment_Types.ToString(), payment.PaymentStatus };
                     // add to display
                     datagridview.Rows.Add(rowAdd);
                 }
-
             }
             // set all properties
             datagridview.AllowUserToAddRows = false;
             datagridview.AllowUserToDeleteRows = false;
             datagridview.ReadOnly = true;
             datagridview.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
-        }
-        private void GetGreeting(int patientID)
-        {
-            using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
-            {
-                var customer = context.Customers.Find(patientID);
-                var user = context.Users.Find(customer.UserID);
-                labelPatientName.Text = $"Patient Name: {user.LastName}, {user.FirstName}";
-            }
         }
 
-        private  void ChildPatientActionsForm(Form form, int patientID)
+
+        /// <summary>
+        /// Method to display a child form
+        /// </summary>
+        /// <param name="form"> form to be loaded</param>
+        /// <param name="customerID"> customer id </param>
+        private void ChildPatientActionsForm(Form form, int customerID)
         {
-            // if okay was clicked on the child
+            // show child form
             var result = form.ShowDialog();
+            // if okay was clicked on the child
             if (result == DialogResult.OK)
             {
-                InitializePatientsBookings(dataGridViewPatientBookings, patientID);
-                InitializePatientsPayments(dataGridViewPatientPayments, patientID);
-                GetGreeting(patientID);
+                // reload controls
+                InitializePatientsBookings(dataGridViewPatientBookings, customerID);
+                InitializePatientsPayments(dataGridViewPatientPayments, customerID);
+                GetGreeting(customerID);
 
             }
             // hide the child form
             form.Hide();
-            
+
+        }
+
+        /// <summary>
+        /// Method to figure out if customer has any outstanding payments and display form if needed
+        /// </summary>
+        /// <param name="customerID"></param>
+        private void IsNeededPayment(int customerID)
+        {
+            // using unit-of-work context
+            using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
+            {
+                // find customer
+                Customer customer = context.Customers.Find(customerID);
+                // loop through all bookings
+                foreach (Booking booking in customer.Bookings)
+                {
+                    // if not paid- load form
+                    if (booking.BookingStatus == "Not Paid")
+                    {
+                        ChildPatientActionsForm(new MedicalCentreMakePaymentForm(customerID), customerID);
+                        return;
+                    }
+                }
+                // if no not paid bookings- message
+                MessageBox.Show("This Customer has no Unpaid Bookings!");
+
+            }
+
+        }
+
+        /// <summary>
+        /// Method to cancel customer's booking
+        /// </summary>
+        /// <param name="customerID"></param>
+        private void CancelBooking(int customerID)
+        {
+            // make sure a booking is selected
+            if (dataGridViewPatientBookings.SelectedRows.Count != 1)
+            {
+                MessageBox.Show("One Booking needs to be selected to perform cancellation");
+                return;
+            }
+            // get bookings date and time
+            string date = (string)dataGridViewPatientBookings.SelectedRows[0].Cells[3].Value;
+            string time = (string)dataGridViewPatientBookings.SelectedRows[0].Cells[2].Value;
+            // create date object
+            DateTime bookingDate = DateTime.ParseExact(date + " " + time, "yyyy-MM-dd HH:mm",
+                                             null);
+            // if in the past (less than today)
+            if (DateTime.Now > bookingDate)
+            {
+                // display error + return
+                MessageBox.Show("Cannot Cancel past bookings!");
+                return;
+            }
+
+            // if a booking is paid
+            if ((string)dataGridViewPatientBookings.SelectedRows[0].Cells[6].Value == "Paid")
+            {
+                // using unit-of-work
+                using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
+                {
+                    // get bookingId
+                    int bookingID = Convert.ToInt32(dataGridViewPatientBookings.SelectedRows[0].Cells[0].Value);
+                    // find the payment for this booking
+                    var paymentToRefund = context.Payments.Where(p => p.BookingID == bookingID).ToList();
+                    // set payment's status to Refunded
+                    foreach (Payment payment in paymentToRefund)
+                        payment.PaymentStatus = "Refunded";
+                    // save changes
+                    context.SaveChanges();
+                }
+                // reload Payments view to show update
+                InitializePatientsPayments(dataGridViewPatientPayments, customerID);
+            }
+
+            // whether or not booking is paid- change it to Cancelled
+            using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
+            {
+                // find booking by PK
+                var bookingToChange = context.Bookings.Find(Convert.ToInt32(dataGridViewPatientBookings.SelectedRows[0].Cells[0].Value));
+                // set new values
+                bookingToChange.BookingStatus = "Cancelled";
+                bookingToChange.BookingPrice = 0.0m;
+                bookingToChange.Date = "N/A";
+                bookingToChange.Time = "N/A";
+                //save changes
+                context.SaveChanges();
+            }
+            //update booking view
+            InitializePatientsBookings(dataGridViewPatientBookings, customerID);
+
         }
     }
 }
