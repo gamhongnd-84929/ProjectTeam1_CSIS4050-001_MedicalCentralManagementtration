@@ -16,34 +16,25 @@ namespace ProjectTeam01MedicalCentreManagement
 {
     public partial class MedicalCentreUpdatePatient : Form
     {
-        public MedicalCentreUpdatePatient(int customerID)
+        public MedicalCentreUpdatePatient(int patientID)
         {
-            // title
-            Text = "Medical Centre: Update Patient";
+            this.Text = "Medical Centre: Update Patient";
             InitializeComponent();
-            // prepopulate data into controls
-            PrePopulateFields(customerID);
-            // on button click update patient
-            buttonUpdatePatient.Click += (s, e) => UpdatePatient(customerID);
+            PrePopulateFields(patientID);
+            buttonUpdatePatient.Click += (s, e) => UpdatePatient(patientID);
         }
-
-        /// <summary>
-        /// Method to prepopulate controls based on customer id
-        /// </summary>
-        /// <param name="customerID"> customer id </param>
-        private void PrePopulateFields(int customerID)
+        private void PopulateProvinceComboBox()
         {
-            // set up province combobox
+            comboBoxProvince.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxProvince.Items.AddRange(new string[] { "AB", "BC", "SK", "MB", "NL", "PE", "NS", "NB", "QB", "ON" });
+        }
+        private void PrePopulateFields(int patientID)
+        {
             PopulateProvinceComboBox();
-            // using unit-of-work context
             using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
             {
-                // find customer in db
-                var customer = context.Customers.Find(customerID);
-                // find user in db
+                var customer = context.Customers.Find(patientID);
                 var user = context.Users.Find(customer.UserID);
-
-                // populate controls
                 textBoxFirstName.Text = user.FirstName;
                 textBoxLastName.Text = user.LastName;
                 dateTimePickerBirthDate.Value = DateTime.ParseExact(user.Birthdate, "yyyy-mm-dd", CultureInfo.InvariantCulture);
@@ -56,24 +47,8 @@ namespace ProjectTeam01MedicalCentreManagement
             }
         }
 
-        /// <summary>
-        /// Helper method to prepopulate all provinces to the combobox
-        /// </summary>
-        private void PopulateProvinceComboBox()
+        private void UpdatePatient(int patientID)
         {
-            // make sure user cannot edit provinces
-            comboBoxProvince.DropDownStyle = ComboBoxStyle.DropDownList;
-            // add acceptable range of values
-            comboBoxProvince.Items.AddRange(new string[] { "AB", "BC", "SK", "MB", "NL", "PE", "NS", "NB", "QB", "ON" });
-        }
-
-        /// <summary>
-        /// Method to update customer's information
-        /// </summary>
-        /// <param name="customerID"> id of the customer to update</param>
-        private void UpdatePatient(int customerID)
-        {
-            // get all fields from controls
             string firstName = textBoxFirstName.Text;
             string lastName = textBoxLastName.Text;
             string birthdate = dateTimePickerBirthDate.Value.ToShortDateString();
@@ -84,14 +59,9 @@ namespace ProjectTeam01MedicalCentreManagement
             string email = textBoxEmail.Text;
             string msp = textBoxMSP.Text;
 
-            // find customer
-            var customerToUpdate = Controller<MedicalCentreManagementEntities, Customer>.FindEntity(customerID);
-            string oldMSP = customerToUpdate.MSP; // save MSP from DB
-
-            // find user
+            var customerToUpdate = Controller<MedicalCentreManagementEntities, Customer>.FindEntity(patientID);
+            string oldMSP = customerToUpdate.MSP;
             var userToUpdate = Controller<MedicalCentreManagementEntities, User>.FindEntity(customerToUpdate.UserID);
-
-            // update user's fields
             userToUpdate.FirstName = firstName;
             userToUpdate.LastName = lastName;
             userToUpdate.Birthdate = birthdate;
@@ -101,23 +71,14 @@ namespace ProjectTeam01MedicalCentreManagement
             userToUpdate.PhoneNumber = phoneNumber;
             userToUpdate.Email = email;
 
-            // validate newly created user
-            if (userToUpdate.InfoIsInvalid())
+           if (userToUpdate.InfoIsInvalid())
             {
                 MessageBox.Show("Newly Inputted information is not valid!");
                 return;
             }
 
-            // try updating user to DB
-            if (Controller<MedicalCentreManagementEntities, User>.UpdateEntity(userToUpdate) == false)
-            {
-                MessageBox.Show("Cannot update Customer to database");
-                return;
-            }
-            //set customer's MSP
-            customerToUpdate.MSP = msp;
 
-            // if MSP was changed- run check!
+            customerToUpdate.MSP = msp;
             if (oldMSP != msp)
             {
                 if (!customerToUpdate.IsValidCustomer())
@@ -126,14 +87,14 @@ namespace ProjectTeam01MedicalCentreManagement
                     return;
                 }
             }
-            // try to update the customer
+
             if (Controller<MedicalCentreManagementEntities, Customer>.UpdateEntity(customerToUpdate) == false)
             {
                 MessageBox.Show("Cannot update Customer to database");
                 return;
             }
-            // if everything is successful- set result to OK and close form
-            DialogResult = DialogResult.OK;
+
+            this.DialogResult = DialogResult.OK;
             Close();
         }
     }
