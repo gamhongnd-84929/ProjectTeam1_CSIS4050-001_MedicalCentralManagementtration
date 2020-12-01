@@ -16,7 +16,7 @@ namespace ProjectTeam01MedicalCentreManagement
 {
     public partial class MedicalCentreBookAppointment : Form
     {
-        public MedicalCentreBookAppointment(int patientID)
+        public MedicalCentreBookAppointment(int customerID)
         {
             // onload-initial congifuration
             Load += BookAppointmentForm_Load;
@@ -24,10 +24,10 @@ namespace ProjectTeam01MedicalCentreManagement
             // add all events to controls
             comboBoxPractitionerTypes.SelectedIndexChanged += (s, e) => GetListOfPractitionersAndServices();
             monthCalendarBooking.DateChanged += (s, e) => GetPractitionerAvailability();
-            listBoxTime.SelectedIndexChanged += (s, e) => GetBookingInformation(patientID);
-            buttonCreateBooking.Click += (s, e) => CreateBooking(patientID);
+            listBoxTime.SelectedIndexChanged += (s, e) => GetBookingInformation(customerID);
+            buttonCreateBooking.Click += (s, e) => CreateBooking(customerID);
             // for services if selection changes and time + practitioner are selected- update totals
-            listBoxServices.SelectedIndexChanged += (s, e) => { if (dataGridViewPractitioners.SelectedRows.Count == 1 && listBoxTime.SelectedIndex != -1) GetBookingInformation(patientID); };
+            listBoxServices.SelectedIndexChanged += (s, e) => { if (dataGridViewPractitioners.SelectedRows.Count == 1 && listBoxTime.SelectedIndex != -1) GetBookingInformation(customerID); };
         }
 
         /// <summary>
@@ -163,8 +163,8 @@ namespace ProjectTeam01MedicalCentreManagement
         /// <summary>
         /// Method to display all requested booking information
         /// </summary>
-        /// <param name="patientID"> id of the patient requesting a booking</param>
-        private void GetBookingInformation(int patientID)
+        /// <param name="customerID"> id of the patient requesting a booking</param>
+        private void GetBookingInformation(int customerID)
         {
             // get the practitioner/date and time from controls
             int practitionerId = Convert.ToInt32(dataGridViewPractitioners.SelectedRows[0].Cells[0].Value);
@@ -177,7 +177,7 @@ namespace ProjectTeam01MedicalCentreManagement
                 // display booking info in form
                 labelBookingSummary.Text = $"Booking Information \n\nPractitioner: {context.Practitioners.Find(practitionerId)}\nBooking Date: {date}\nBooking Time: {time} \n\nServices:";
                 // find customer
-                var customer = context.Customers.Find(patientID);
+                var customer = context.Customers.Find(customerID);
                 decimal bookingPrice = 0; // initialize booking price
                 // go through all services selected
                 foreach (Service s in listBoxServices.SelectedItems)
@@ -205,8 +205,8 @@ namespace ProjectTeam01MedicalCentreManagement
         /// <summary>
         /// Method to create a booking for the customer
         /// </summary>
-        /// <param name="patientID"> id of the customer creating a booking</param>
-        private void CreateBooking(int patientID)
+        /// <param name="customerID"> id of the customer creating a booking</param>
+        private void CreateBooking(int customerID)
         {
             // if some controls were not selected- error
             if (dataGridViewPractitioners.SelectedRows.Count != 1 || listBoxServices.SelectedIndex == -1 || listBoxTime.SelectedIndex == -1)
@@ -217,7 +217,7 @@ namespace ProjectTeam01MedicalCentreManagement
             // create new Booking object
             Booking newBooking = new Booking
             {
-                CustomerID = patientID,
+                CustomerID = customerID,
                 PractitionerID = Convert.ToInt32(dataGridViewPractitioners.SelectedRows[0].Cells[0].Value),
                 Date = monthCalendarBooking.SelectionRange.Start.ToShortDateString(),
                 Time = listBoxTime.SelectedItem.ToString(),
