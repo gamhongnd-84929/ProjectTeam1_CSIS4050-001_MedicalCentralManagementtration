@@ -17,17 +17,22 @@ namespace ProjectTeam01MedicalCentreManagement
     {
         public MedicalCentreMainMenuForm()
         {
+            // title
             Text = "Medical Centre: Main Menu";
             InitializeComponent();
+            // onload event
             Load += (s, e) => MedicalCentreMainForm_Load();
-
+            // create client management form and add to button click
             MedicalCentreAllRecordsForm allRecordsForm = new MedicalCentreAllRecordsForm();
-            buttonRecords.Click += (s, e) => AllRecordsForm(allRecordsForm);
+            buttonRecords.Click += (s, e) => LoadChildForm(allRecordsForm);
 
-            // Administration 
+            // Administration form and add to button click
             MedicalCentreAdministrationForm medicalCentreAdministration = new MedicalCentreAdministrationForm();
-            buttonAdministration.Click += (s, e) => AdministrationForm(medicalCentreAdministration);
+            buttonAdministration.Click += (s, e) => LoadChildForm(medicalCentreAdministration);
         }
+        /// <summary>
+        /// On load event of seeding the database
+        /// </summary>
         private void MedicalCentreMainForm_Load()
         {
             using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
@@ -36,7 +41,11 @@ namespace ProjectTeam01MedicalCentreManagement
             }
 
         }
-        private void AllRecordsForm(Form form)
+        /// <summary>
+        /// Method to load any child form 
+        /// </summary>
+        /// <param name="form"> form to be loaded </param>
+        private void LoadChildForm(Form form)
         {
             // if okay was clicked on the child
             form.ShowDialog();
@@ -44,12 +53,5 @@ namespace ProjectTeam01MedicalCentreManagement
             form.Hide();
         }
 
-        private void AdministrationForm(Form form)
-        {
-            // show child form
-            form.ShowDialog();
-            // hide child form
-            form.Hide();
-        }
     }
 }

@@ -12,19 +12,28 @@ namespace MedicalCentreValidation
     public static class CustomerValidation
     {
     
-
+        /// <summary>
+        /// Method to ensure customer is valid
+        /// </summary>
+        /// <param name="customer"></param>
+        /// <returns></returns>
         public static bool IsValidCustomer(this Customer customer)
         {
+            // Make sure such User exists and MSP is valid
             using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
             {
-                
                 return (context.Users.Any(u => u.UserID == customer.UserID) && IsValidMSP(customer));
             };
         }
 
-        public static bool IsValidMSP(this Customer customer)
+        /// <summary>
+        /// Private helper method to make sure MSP is valid
+        /// Can be either blank or has to be unique
+        /// </summary>
+        /// <param name="customer"> customer object to be validated </param>
+        /// <returns></returns>
+        private static bool IsValidMSP(this Customer customer)
         {
-            // if controller can find any entity with same number and department
             if (Controller<MedicalCentreManagementEntities, Customer>.AnyExists(c => (c.MSP == customer.MSP) && (c.MSP != "")))
             {
                 return false;

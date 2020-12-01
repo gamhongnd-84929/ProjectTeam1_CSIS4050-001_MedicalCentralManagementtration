@@ -11,27 +11,57 @@ namespace MedicalCentreValidation
 {
     public static class PaymentValidation
     {
-        public static bool IsValidCustomerId(this Payment payment)
+        /// <summary>
+        /// Private helper method to make sure that such customer exists in db
+        /// </summary>
+        /// <param name="payment"> payment object to be validated</param>
+        /// <returns></returns>
+        private static bool IsValidCustomerId(this Payment payment)
         {
             if (Controller<MedicalCentreManagementEntities, Customer>.AnyExists(c => c.CustomerID == payment.CustomerID))
             {
-                return false;
+                return true;
             }
-            return true;
+            return false;
         }
 
-        public static bool IsValidBookingId(this Payment payment)
+        /// <summary>
+        /// Private helper method to make sure that such booking exists in db
+        /// </summary>
+        /// <param name="payment">payment object to be validated</param>
+        /// <returns></returns>
+        private static bool IsValidBookingId(this Payment payment)
         {
             if (Controller<MedicalCentreManagementEntities, Booking>.AnyExists(b => b.BookingID == payment.BookingID))
             {
-                return false;
+                return true;
             }
-            return true;
+            return false;
         }
 
+        /// <summary>
+        /// Private helper method to make sure that such payment type exists in db
+        /// </summary>
+        /// <param name="payment">payment object to be validated</param>
+        /// <returns></returns>
+        private static bool IsValidPaymentTypeId(this Payment payment)
+        {
+            if (Controller<MedicalCentreManagementEntities, Payment_Types>.AnyExists(b => b.PaymentTypeID == payment.PaymentTypeID))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Method to validate a payment object
+        /// </summary>
+        /// <param name="payment">payment object to be validated</param>
+        /// <returns> True if INVALID </returns>
         public static bool InfoIsInvalid(this Payment payment)
         {
-            return (payment.IsValidCustomerId() || payment.IsValidBookingId() || payment.PaymentTypeID <= 0 ||
+            // make sure that all fields are filled and CustomerID,BookingID and PaymentTypeID exist!
+            return (!payment.IsValidCustomerId() || !payment.IsValidBookingId() || !payment.IsValidPaymentTypeId()||
                     payment.Time == "" || payment.Date == "" || payment.TotalAmountPaid == 0 || payment.PaymentStatus == "");
         }
 

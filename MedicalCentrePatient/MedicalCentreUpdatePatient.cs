@@ -25,6 +25,7 @@ namespace ProjectTeam01MedicalCentreManagement
         }
         private void PopulateProvinceComboBox()
         {
+            comboBoxProvince.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxProvince.Items.AddRange(new string[] { "AB", "BC", "SK", "MB", "NL", "PE", "NS", "NB", "QB", "ON" });
         }
         private void PrePopulateFields(int patientID)

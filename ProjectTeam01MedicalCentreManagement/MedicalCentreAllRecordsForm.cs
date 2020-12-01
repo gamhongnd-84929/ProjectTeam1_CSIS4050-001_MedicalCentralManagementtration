@@ -19,11 +19,12 @@ namespace MedicalCentreMainMenuFormApp
         {
 
             InitializeComponent();
+            // title
             Text = "Medical Centre: All Records";
+            // initial configuration onload
             Load += (s, e) => MedicalCentreAllRecordsForm_Load();
             // create child forms
             MedicalCentreAddPatient addPatient = new MedicalCentreAddPatient();
-
             MedicalCentreAddPractitioner addPractitioner = new MedicalCentreAddPractitioner();
 
             // add events to buttons
@@ -33,56 +34,72 @@ namespace MedicalCentreMainMenuFormApp
             buttonPractitionerOptions.Click += (s, e) => AddingPractitionerOptionsForm();
         }
 
+        /// <summary>
+        /// Method to load practitioner options into a child form
+        /// </summary>
         private void AddingPractitionerOptionsForm()
         {
+            // check that one practitioner is checked- if not error message
             if (dataGridViewPractitioners.SelectedRows.Count != 1)
             {
                 MessageBox.Show("Please Select a Practitioner to View their Options");
+                return;
             }
-            else
-            {
-                int practitionerIdToView = Convert.ToInt32(dataGridViewPractitioners.SelectedRows[0].Cells[0].Value);
-                MedicalCentrePractitionerOptionsMainForm practitionerOptionsMainForm = new MedicalCentrePractitionerOptionsMainForm(practitionerIdToView);
-                practitionerOptionsMainForm.ShowDialog();
+            // get the practitioner id 
+            int practitionerIdToView = Convert.ToInt32(dataGridViewPractitioners.SelectedRows[0].Cells[0].Value);
+            // load and show practitioners options form passing the id
+            MedicalCentrePractitionerOptionsMainForm practitionerOptionsMainForm = new MedicalCentrePractitionerOptionsMainForm(practitionerIdToView);
+            practitionerOptionsMainForm.ShowDialog();
 
-                // reload the datagridview
-                ReloadPractitionersRecordsView(dataGridViewPractitioners);
-                dataGridViewPractitioners.Refresh();
+            // reload the datagridview- once child is closed
+            ReloadPractitionersRecordsView(dataGridViewPractitioners);
+            dataGridViewPractitioners.Refresh();
+            // hide the child form
+            practitionerOptionsMainForm.Hide();
 
-                // hide the child form
-                practitionerOptionsMainForm.Hide();
-            }
         }
 
+        /// <summary>
+        /// Method to load patient options into a child form
+        /// </summary>
         private void AddingPatientOptionsForm()
         {
+            // check that one patient is selected- error if not
             if (dataGridViewPatients.SelectedRows.Count != 1)
             {
                 MessageBox.Show("Please Select a Patient to View their Options");
+                return;
             }
-            else
-            {
-                int patientIdToView = Convert.ToInt32(dataGridViewPatients.SelectedRows[0].Cells[0].Value);
-                MedicalCentrePatientOptionsMainForm patientOptionsMainForm = new MedicalCentrePatientOptionsMainForm(patientIdToView);
-                patientOptionsMainForm.ShowDialog();
+            // get the id of the patient selected
+            int patientIdToView = Convert.ToInt32(dataGridViewPatients.SelectedRows[0].Cells[0].Value);
+            // create a patient options child form and display    
+            MedicalCentrePatientOptionsMainForm patientOptionsMainForm = new MedicalCentrePatientOptionsMainForm(patientIdToView);
+            patientOptionsMainForm.ShowDialog();
 
-                // reload the datagridview
-                ReloadPatientsRecordsView(dataGridViewPatients);
-                dataGridViewPatients.Refresh();
+            // reload the datagridview upon closing the child form
+            ReloadPatientsRecordsView(dataGridViewPatients);
+            dataGridViewPatients.Refresh();
 
+            // hide the child form
+            patientOptionsMainForm.Hide();
 
-                // hide the child form
-                patientOptionsMainForm.Hide();
-            }
         }
-
+        /// <summary>
+        /// Method to display AddNewUser form
+        /// Generic to be able to add many types of users
+        /// </summary>
+        /// <typeparam name="T"> generic </typeparam>
+        /// <param name="dataGridView"> datagrid to reload upon closing child form</param>
+        /// <param name="form"> form to load</param>
         private void AddNewUserForm<T>(DataGridView dataGridView, Form form) where T : class
         {
-            // if okay was clicked on the child
+            // show the form 
             var result = form.ShowDialog();
+
+            // if okay or cancel was clicked on the child
             if (result == DialogResult.OK || result == DialogResult.Cancel)
             {
-                // reload the datagridview
+                // reload the datagridview depending on the type of the generic
                 if (typeof(T) == typeof(Customer))
                 {
                     ReloadPatientsRecordsView(dataGridView);
@@ -91,28 +108,26 @@ namespace MedicalCentreMainMenuFormApp
                 {
                     ReloadPractitionersRecordsView(dataGridView);
                 }
-                dataGridView.Refresh();
-
+                dataGridView.Refresh(); // refresh the datagridview
             }
-
             // hide the child form
             form.Hide();
         }
 
+        /// <summary>
+        /// Method to set up initial configuration of the form
+        /// </summary>
         private void MedicalCentreAllRecordsForm_Load()
         {
-
-
+            // initialize both datagridviews
             InitializePatientsRecordsView(dataGridViewPatients);
-            //InitializeDataGridView<Customer>(dataGridViewPatients, "Bookings", "Payments", "User");
             InitializePractitionersRecordsView(dataGridViewPractitioners);
-
         }
 
         /// <summary>
         /// Set up the practitionersRecordsView columns and populate data into the view
         /// </summary>
-        /// <param name="datagridview"></param>
+        /// <param name="datagridview"> datagridview to be populated</param>
         private void InitializePractitionersRecordsView(DataGridView datagridview)
         {
             datagridview.Rows.Clear();
@@ -146,8 +161,13 @@ namespace MedicalCentreMainMenuFormApp
             datagridview.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
+        /// <summary>
+        /// Method to reload the data of the practitioners
+        /// </summary>
+        /// <param name="datagridview"> datagridview to be reloaded</param>
         private void ReloadPractitionersRecordsView(DataGridView datagridview)
         {
+            // clear current data
             datagridview.Rows.Clear();
             using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
             {
@@ -159,10 +179,13 @@ namespace MedicalCentreMainMenuFormApp
                     // add to display
                     datagridview.Rows.Add(rowAdd);
                 }
-
             }
         }
 
+        /// <summary>
+        /// Set up patients records display
+        /// </summary>
+        /// <param name="datagridview">datagridview to be populated with patient records</param>
         private static void InitializePatientsRecordsView(DataGridView datagridview)
         {
             datagridview.Rows.Clear();
@@ -183,30 +206,34 @@ namespace MedicalCentreMainMenuFormApp
                 // loop through all customers
                 foreach (Customer customer in context.Customers)
                 {
+                    // do not add customer with id=6 (reserved for timeoff feature)
                     if (customer.CustomerID == 6) continue;
                     // get the needed information
                     string[] rowAdd = { customer.CustomerID.ToString(), customer.User.FirstName, customer.User.LastName, customer.User.Address, customer.User.City, customer.User.Province, customer.User.Email, customer.User.PhoneNumber };
                     // add to display
                     datagridview.Rows.Add(rowAdd);
                 }
-
             }
             // set all properties
             datagridview.AllowUserToAddRows = false;
             datagridview.AllowUserToDeleteRows = false;
             datagridview.ReadOnly = true;
             datagridview.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
         }
 
+        /// <summary>
+        /// Method to reload customers data 
+        /// </summary>
+        /// <param name="datagridview"> datagridview to be reloaded </param>
         private void ReloadPatientsRecordsView(DataGridView datagridview)
         {
-            datagridview.Rows.Clear();
+            datagridview.Rows.Clear(); // clear current rows
             using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
             {
                 // loop through all customers
                 foreach (Customer customer in context.Customers)
                 {
+                    // do not add customer with id=6 (reserved for timeoff feature)
                     if (customer.CustomerID == 6) continue;
                     // get the needed information
                     string[] rowAdd = { customer.CustomerID.ToString(), customer.User.FirstName, customer.User.LastName, customer.User.Address, customer.User.City, customer.User.Province, customer.User.Email, customer.User.PhoneNumber };
