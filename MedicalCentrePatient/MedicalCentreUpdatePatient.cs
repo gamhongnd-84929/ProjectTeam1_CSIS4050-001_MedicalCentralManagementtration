@@ -87,32 +87,6 @@ namespace ProjectTeam01MedicalCentreManagement
                 }
             }
 
-            // validate user
-            if (userToUpdate.InfoIsInvalid())
-            {
-                MessageBox.Show("Patient information need to filled!");
-                return;
-            }
-
-            // validate MSP 
-            if (customerToUpdate.IsValidMSP())
-            {
-                MessageBox.Show("MSP need to filled!");
-                return;
-            }
-
-            // validate Customer
-            if (customerToUpdate.IsValidCustomer())
-            {
-                MessageBox.Show("Customer must be picked from user");
-                return;
-            }
-
-            if (Controller<MedicalCentreManagementEntities, User>.UpdateEntity(userToUpdate) == false)
-            {
-                MessageBox.Show("Cannot update User to database");
-                return;
-            }
             if (Controller<MedicalCentreManagementEntities, Customer>.UpdateEntity(customerToUpdate) == false)
             {
                 MessageBox.Show("Cannot update Customer to database");

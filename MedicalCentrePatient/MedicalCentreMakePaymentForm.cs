@@ -48,17 +48,12 @@ namespace ProjectTeam01MedicalCentreManagement
             };
 
             // validate payment 
-            if (newPayment.IsValidPayment())
+            if (newPayment.InfoIsInvalid())
             {
                 MessageBox.Show("Please fill payment information");
                 return;
             }
 
-            // validate payment type
-            if(comboBoxPaymentType.SelectedIndex == -1)
-            {
-                MessageBox.Show("You must select payment type");
-            }
 
             
 

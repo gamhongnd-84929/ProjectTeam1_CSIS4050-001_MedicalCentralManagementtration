@@ -65,18 +65,13 @@ namespace ProjectTeam01MedicalCentreManagement
                     MSP = msp
                 };
 
-                // validate MSP 
-                if (newCustomer.IsValidMSP()){
-                    MessageBox.Show("MSP need to filled!");
+                // validate Customer
+                if (newCustomer.IsValidCustomer()){
+                    MessageBox.Show("MSP must be unique or blank!");
                     return;
                 }
 
-                // validate Customer
-                if (newCustomer.IsValidCustomer())
-                {
-                    MessageBox.Show("Customer must be picked from user");
-                    return;
-                }
+        
 
                 context.Customers.Add(newCustomer);
                 context.SaveChanges();

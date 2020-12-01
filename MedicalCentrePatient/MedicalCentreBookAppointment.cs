@@ -97,7 +97,7 @@ namespace ProjectTeam01MedicalCentreManagement
             }
         }
 
-    private void GetPractitionerAvailability()
+        private void GetPractitionerAvailability()
         {
             if (dataGridViewPractitioners.SelectedRows.Count != 1)
             {
