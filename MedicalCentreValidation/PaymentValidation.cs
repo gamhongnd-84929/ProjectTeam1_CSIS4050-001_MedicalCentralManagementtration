@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EFControllerUtilities;
 using MedicalCentreCodeFirstFromDB;
 
 namespace MedicalCentreValidation
@@ -12,20 +13,20 @@ namespace MedicalCentreValidation
     {
         public static bool IsValidCustomerId(this Payment payment)
         {
-            using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
+            if (Controller<MedicalCentreManagementEntities, Customer>.AnyExists(c => c.CustomerID == payment.CustomerID))
             {
-                context.Database.Log = (s => Debug.Write(s));
-                return context.Customers.Any(c => c.CustomerID == payment.CustomerID);
+                return false;
             }
+            return true;
         }
 
         public static bool IsValidBookingId(this Payment payment)
         {
-            using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
+            if (Controller<MedicalCentreManagementEntities, Booking>.AnyExists(b => b.BookingID == payment.BookingID))
             {
-                context.Database.Log = (s => Debug.Write(s));
-                return context.Bookings.Any(b => b.BookingID == payment.BookingID);
+                return false;
             }
+            return true;
         }
 
         public static bool InfoIsInvalid(this Payment payment)

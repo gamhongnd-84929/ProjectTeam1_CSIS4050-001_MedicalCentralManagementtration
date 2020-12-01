@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EFControllerUtilities;
 using MedicalCentreCodeFirstFromDB;
 
 namespace MedicalCentreValidation
@@ -18,11 +19,11 @@ namespace MedicalCentreValidation
 
         public static bool IsValidCustomerId(this Booking booking)
         {
-            using(MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
+            if (Controller<MedicalCentreManagementEntities, Customer>.AnyExists(c => c.CustomerID == booking.CustomerID))
             {
-                context.Database.Log = (s => Debug.Write(s));
-                return context.Customers.Any(c => c.CustomerID == booking.CustomerID);
+                return false;
             }
+            return true;
         }
 
        

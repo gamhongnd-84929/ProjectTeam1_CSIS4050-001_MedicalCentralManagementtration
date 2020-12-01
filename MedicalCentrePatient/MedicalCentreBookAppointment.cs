@@ -131,10 +131,13 @@ namespace ProjectTeam01MedicalCentreManagement
             ResetBookingInformation();
             listBoxTime.Items.Clear();
             int typeId = (comboBoxPractitionerTypes.SelectedItem as Practitioner_Types).TypeID;
-
-
-            listBoxServices.DataSource = Controller<MedicalCentreManagementEntities, Service>.GetEntities().Where(s => s.PractitionerTypeID == typeId).Distinct().ToList();
-            LoadPractitionersIntoDataGridView(dataGridViewPractitioners, typeId);
+            
+            using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
+            {
+                listBoxServices.Items.AddRange(context.Services.Where(s=>s.PractitionerTypeID == typeId).ToArray());
+            }
+                //listBoxServices.DataSource = Controller<MedicalCentreManagementEntities, Service>.GetEntities().Where(s => s.PractitionerTypeID == typeId).Distinct().ToList();
+                LoadPractitionersIntoDataGridView(dataGridViewPractitioners, typeId);
 
 
 
