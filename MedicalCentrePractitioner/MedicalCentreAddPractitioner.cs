@@ -69,12 +69,15 @@ namespace ProjectTeam01MedicalCentreManagement
             // validate user
             if (newUser.InfoIsInvalid())
             {
-                MessageBox.Show("Please provide First Name and Last Name");
+                MessageBox.Show("Please fill practitioner's information");
                 return;
             }
 
+            
+            
+
             // check practitionalType is selected
-            if (practitionalType == "")
+            if (comboBoxPractitionerType.SelectedIndex == -1)
             {
                 MessageBox.Show("Please select a Pracitioner Type");
                 return;
@@ -94,6 +97,13 @@ namespace ProjectTeam01MedicalCentreManagement
                     TypeID = typeId,
                 
                 };
+
+                // validate practitioner
+                if (newPractitioner.IsValidPractitioner())
+                {
+                    MessageBox.Show("Practitioner must picked from User");
+                    return;
+                }
 
                 context.Practitioners.Add(newPractitioner);
                 context.SaveChanges();

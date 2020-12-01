@@ -25,7 +25,7 @@ namespace ProjectTeam01MedicalCentreManagement
             GetUnpaidBookings(patientID);
             dataGridViewBookings.SelectionChanged += CalculatePaymentTotal;
 
-            buttonMakePayment.Click += (s, e) => CompletePayment(patientID);
+            buttonMakePayment.Click += (s, e) =>  CompletePayment(patientID); 
         }
 
         private void CompletePayment(int patientID)
@@ -46,13 +46,23 @@ namespace ProjectTeam01MedicalCentreManagement
                 Time = DateTime.Now.ToString("HH:mm"),
 
             };
-            if (newPayment.InfoIsInvalid())
+
+            // validate payment 
+            if (newPayment.IsValidPayment())
             {
-                MessageBox.Show("Payment Information is Invalid!");
+                MessageBox.Show("Please fill payment information");
                 return;
             }
-            if (Controller<MedicalCentreManagementEntities, Payment>.AddEntity(newPayment) == null)
+
+            // validate payment type
+            if(comboBoxPaymentType.SelectedIndex == -1)
             {
+                MessageBox.Show("You must select payment type");
+            }
+
+            
+
+            if (Controller<MedicalCentreManagementEntities, Payment>.AddEntity(newPayment) == null) {
                 MessageBox.Show("Payment was not added to the database!");
                 return;
             }
@@ -80,10 +90,10 @@ namespace ProjectTeam01MedicalCentreManagement
         private void CalculatePaymentTotal(object sender, EventArgs e)
         {
             var rowsCount = dataGridViewBookings.SelectedRows.Count;
-            if (rowsCount > 1 || rowsCount == 0)
+            if (rowsCount > 1 || rowsCount ==0)
             {
                 labelTotalAmountNumber.Text = "";
-
+        
                 return;
             }
 

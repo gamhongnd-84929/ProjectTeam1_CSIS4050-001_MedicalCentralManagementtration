@@ -12,35 +12,12 @@ namespace ProjectTeam01MedicalCentreManagement
             this.Text = "Medical Centre:Register New Patient";
             InitializeComponent();
             PopulateProvinceComboBox();
-
             buttonAddNewPatient.Click +=AddNewPatient;
         }
 
- 
-        private static void ClearControls(Form form)
-        {
-            foreach (Control control in form.Controls)
-            {
-                if (control is TextBox txtbox)
-                {
-                    txtbox.Text = string.Empty;
-                }
-
-                else if (control is DateTimePicker dtp)
-                {
-                    dtp.Value = DateTime.Now;
-                }
-                else if (control is ComboBox combobox)
-                {
-                    combobox.SelectedIndex = -1;
-                }
-            }
-        }
         private void PopulateProvinceComboBox()
         {
-            
             comboBoxProvince.Items.AddRange( new string[] { "AB", "BC", "SK","MB", "NL", "PE", "NS", "NB","QB","ON" });
-            comboBoxProvince.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
         private void AddNewPatient(object sender, EventArgs e)
@@ -66,42 +43,49 @@ namespace ProjectTeam01MedicalCentreManagement
                 PhoneNumber = phoneNumber,
                 Email = email,
             };
-
-            if (!newUser.InfoIsInvalid())
+            
+            // validate user
+            if (newUser.InfoIsInvalid())
             {
-                using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
+                MessageBox.Show("Patient information need to filled!");
+                return;
+            }
+
+            
+
+            using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
+            {
+                User addedUser = context.Users.Add(newUser);
+                context.SaveChanges();
+
+                Customer newCustomer = new Customer
                 {
-                    User addedUser = context.Users.Add(newUser);
-                    context.SaveChanges();
+                    User = addedUser,
+                    UserID = addedUser.UserID,
+                    MSP = msp
+                };
 
-                    Customer newCustomer = new Customer
-                    {
-                        User = addedUser,
-                        UserID = addedUser.UserID,
-                        MSP = msp
-                    };
-                    if (newCustomer.IsValidCustomer())
-                    {
-
-                        context.Customers.Add(newCustomer);
-                        context.SaveChanges();
-                    }
-                    else
-                    {
-                        MessageBox.Show("MSP must be Unique or blank!");
-                        return;
-                    }
+                // validate MSP 
+                if (newCustomer.IsValidMSP()){
+                    MessageBox.Show("MSP need to filled!");
+                    return;
                 }
-                ClearControls(this);
-                DialogResult = DialogResult.OK;
-                Close();
+
+                // validate Customer
+                if (newCustomer.IsValidCustomer())
+                {
+                    MessageBox.Show("Customer must be picked from user");
+                    return;
+                }
+
+                context.Customers.Add(newCustomer);
+                context.SaveChanges();
             }
-            else
-            {
-                MessageBox.Show("Fields are not Filled! Make sure First Name, Last Name, Phone Number and Email are inputted!");
-            }
- 
-         
+
+            
+
+            this.DialogResult = DialogResult.OK;
+            Close();
 
         }
     }
