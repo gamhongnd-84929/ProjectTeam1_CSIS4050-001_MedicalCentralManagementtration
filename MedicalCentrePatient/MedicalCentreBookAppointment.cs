@@ -1,5 +1,6 @@
 ﻿using EFControllerUtilities;
 using MedicalCentreCodeFirstFromDB;
+using MedicalCentreValidation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -44,6 +45,11 @@ namespace ProjectTeam01MedicalCentreManagement
                 PractitionerComment = ""
 
             };
+            if (newBooking.InfoIsInvalid())
+            {
+                MessageBox.Show("Booking information is invalid!");
+                return;
+            }
             foreach (Service s in listBoxServices.SelectedItems)
             {
                 newBooking.Services.Add(s);
@@ -56,6 +62,7 @@ namespace ProjectTeam01MedicalCentreManagement
             }
 
             this.DialogResult = DialogResult.OK;
+
             Close();
         }
 
@@ -73,11 +80,17 @@ namespace ProjectTeam01MedicalCentreManagement
                 decimal bookingPrice=0;
                 foreach (Service s in listBoxServices.SelectedItems)
                 {
-                    if (customer.MSP != null)
+                    if (customer.MSP != "")
+                    {
+                        labelBookingSummary.Text += $"\n{s} MSP Coverage: {s.MSPCoverage * 100}% ";
                         bookingPrice += (s.ServicePrice * (1 - s.MSPCoverage));
+                    }
                     else
+                    {
                         bookingPrice += s.ServicePrice;
-                    labelBookingSummary.Text += $"\n{s} MSP Coverage:{s.MSPCoverage * 100}% ";
+                        labelBookingSummary.Text += $"\n{s} Price w/o MSP: {s.ServicePrice:C2} ";
+                       
+                    }
                 }
                 
                 labelPriceAmount.Text = $"{bookingPrice:C2}";
@@ -118,7 +131,9 @@ namespace ProjectTeam01MedicalCentreManagement
             ResetBookingInformation();
             listBoxTime.Items.Clear();
             int typeId = (comboBoxPractitionerTypes.SelectedItem as Practitioner_Types).TypeID;
-            listBoxServices.DataSource = Controller<MedicalCentreManagementEntities, Service>.GetEntities().Where(s => s.PractitionerTypeID == typeId).ToList();
+
+
+            listBoxServices.DataSource = Controller<MedicalCentreManagementEntities, Service>.GetEntities().Where(s => s.PractitionerTypeID == typeId).Distinct().ToList();
             LoadPractitionersIntoDataGridView(dataGridViewPractitioners, typeId);
 
 
@@ -146,7 +161,7 @@ namespace ProjectTeam01MedicalCentreManagement
            
             comboBoxPractitionerTypes.DropDownStyle = ComboBoxStyle.DropDownList;
 
-            comboBoxPractitionerTypes.DataSource = Controller<MedicalCentreManagementEntities, Practitioner_Types>.GetEntities();
+          comboBoxPractitionerTypes.DataSource = Controller<MedicalCentreManagementEntities, Practitioner_Types>.GetEntities();
 
             
        

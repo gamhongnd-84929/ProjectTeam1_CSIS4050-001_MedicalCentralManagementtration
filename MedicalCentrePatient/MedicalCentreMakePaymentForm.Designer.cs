@@ -117,7 +117,7 @@
             this.Controls.Add(this.dataGridViewBookings);
             this.Controls.Add(this.labelMakePayment);
             this.Name = "MedicalCentreMakePaymentForm";
-            this.Text = "MedicalCentreMakePaymentForm";
+            this.Text = "MedicalCentre: Make Payment";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewBookings)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

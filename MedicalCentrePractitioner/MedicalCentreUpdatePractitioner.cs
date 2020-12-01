@@ -52,7 +52,7 @@ namespace ProjectTeam01MedicalCentreManagement
 
             int typeId = (comboBoxPractitionerType.SelectedItem as Practitioner_Types).TypeID;
 
-            var practitionerToUpdate = Controller<MedicalCentreManagementEntities, Practitioner>.FindEntity(practitionerID);
+           var practitionerToUpdate = Controller<MedicalCentreManagementEntities, Practitioner>.FindEntity(practitionerID);
             var userToUpdate = Controller<MedicalCentreManagementEntities, User>.FindEntity(practitionerToUpdate.UserID);
             userToUpdate.FirstName = firstName;
             userToUpdate.LastName = lastName;
@@ -119,7 +119,7 @@ namespace ProjectTeam01MedicalCentreManagement
         {
             comboBoxPractitionerType.DropDownStyle = ComboBoxStyle.DropDownList;
 
-            comboBoxPractitionerType.DataSource = Controller<MedicalCentreManagementEntities, Practitioner_Types>.GetEntities();
+          comboBoxPractitionerType.DataSource = Controller<MedicalCentreManagementEntities, Practitioner_Types>.GetEntities();
 
         }
 

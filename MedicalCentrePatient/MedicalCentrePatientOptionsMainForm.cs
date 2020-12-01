@@ -59,7 +59,8 @@ namespace ProjectTeam01MedicalCentreManagement
 
                 using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
                 {
-                    var paymentToRefund = context.Payments.Where(p => p.BookingID == Convert.ToInt32(dataGridViewPatientBookings.SelectedRows[0].Cells[0].Value)).ToList();
+                    int bookingID = Convert.ToInt32(dataGridViewPatientBookings.SelectedRows[0].Cells[0].Value);
+                    var paymentToRefund = context.Payments.Where(p => p.BookingID == bookingID).ToList();
 
                     foreach(Payment payment  in paymentToRefund)
                     payment.PaymentStatus = "Refunded";

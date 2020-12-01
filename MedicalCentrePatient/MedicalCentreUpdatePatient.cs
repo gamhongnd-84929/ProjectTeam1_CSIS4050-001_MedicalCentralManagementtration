@@ -1,5 +1,6 @@
 ﻿using EFControllerUtilities;
 using MedicalCentreCodeFirstFromDB;
+using MedicalCentreValidation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -58,6 +59,7 @@ namespace ProjectTeam01MedicalCentreManagement
             string msp = textBoxMSP.Text;
 
             var customerToUpdate = Controller<MedicalCentreManagementEntities, Customer>.FindEntity(patientID);
+            string oldMSP = customerToUpdate.MSP;
             var userToUpdate = Controller<MedicalCentreManagementEntities, User>.FindEntity(customerToUpdate.UserID);
             userToUpdate.FirstName = firstName;
             userToUpdate.LastName = lastName;
@@ -68,7 +70,22 @@ namespace ProjectTeam01MedicalCentreManagement
             userToUpdate.PhoneNumber = phoneNumber;
             userToUpdate.Email = email;
 
+           if (userToUpdate.InfoIsInvalid())
+            {
+                MessageBox.Show("Newly Inputted information is not valid!");
+                return;
+            }
+
+
             customerToUpdate.MSP = msp;
+            if (oldMSP != msp)
+            {
+                if (!customerToUpdate.IsValidCustomer())
+                {
+                    MessageBox.Show("MSP must be unique or blank!");
+                    return;
+                }
+            }
 
             if (Controller<MedicalCentreManagementEntities, User>.UpdateEntity(userToUpdate) == false)
             {

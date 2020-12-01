@@ -144,6 +144,7 @@
             // 
             // labelBookingSummary
             // 
+            this.labelBookingSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelBookingSummary.Location = new System.Drawing.Point(380, 668);
             this.labelBookingSummary.Name = "labelBookingSummary";
             this.labelBookingSummary.Size = new System.Drawing.Size(348, 204);

@@ -1,5 +1,6 @@
 ﻿using EFControllerUtilities;
 using MedicalCentreCodeFirstFromDB;
+using MedicalCentreValidation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,7 +25,7 @@ namespace ProjectTeam01MedicalCentreManagement
             GetUnpaidBookings(patientID);
             dataGridViewBookings.SelectionChanged += CalculatePaymentTotal;
 
-            buttonMakePayment.Click += (s, e) =>  CompletePayment(patientID); 
+            buttonMakePayment.Click += (s, e) => CompletePayment(patientID);
         }
 
         private void CompletePayment(int patientID)
@@ -45,7 +46,13 @@ namespace ProjectTeam01MedicalCentreManagement
                 Time = DateTime.Now.ToString("HH:mm"),
 
             };
-            if (Controller<MedicalCentreManagementEntities, Payment>.AddEntity(newPayment) == null) {
+            if (newPayment.InfoIsInvalid())
+            {
+                MessageBox.Show("Payment Information is Invalid!");
+                return;
+            }
+            if (Controller<MedicalCentreManagementEntities, Payment>.AddEntity(newPayment) == null)
+            {
                 MessageBox.Show("Payment was not added to the database!");
                 return;
             }
@@ -73,10 +80,10 @@ namespace ProjectTeam01MedicalCentreManagement
         private void CalculatePaymentTotal(object sender, EventArgs e)
         {
             var rowsCount = dataGridViewBookings.SelectedRows.Count;
-            if (rowsCount > 1 || rowsCount ==0)
+            if (rowsCount > 1 || rowsCount == 0)
             {
                 labelTotalAmountNumber.Text = "";
-        
+
                 return;
             }
 

@@ -33,7 +33,7 @@ namespace ProjectTeam01MedicalCentreManagement
         {
             comboBoxPractitionerType.DropDownStyle = ComboBoxStyle.DropDownList;
 
-            comboBoxPractitionerType.DataSource = Controller<MedicalCentreManagementEntities, Practitioner_Types>.GetEntities();
+        comboBoxPractitionerType.DataSource = Controller<MedicalCentreManagementEntities, Practitioner_Types>.GetEntities();
 
         }
 

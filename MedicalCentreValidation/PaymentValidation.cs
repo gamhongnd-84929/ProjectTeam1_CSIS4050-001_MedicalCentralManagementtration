@@ -28,9 +28,9 @@ namespace MedicalCentreValidation
             }
         }
 
-        public static bool IsValidPayment(this Payment payment)
+        public static bool InfoIsInvalid(this Payment payment)
         {
-            return (payment.IsValidCustomerId() || payment.IsValidBookingId() || payment.PaymentTypeID == 0 ||
+            return (payment.IsValidCustomerId() || payment.IsValidBookingId() || payment.PaymentTypeID <= 0 ||
                     payment.Time == "" || payment.Date == "" || payment.TotalAmountPaid == 0 || payment.PaymentStatus == "");
         }
 

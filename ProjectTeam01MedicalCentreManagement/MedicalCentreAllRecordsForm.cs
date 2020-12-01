@@ -115,7 +115,7 @@ namespace MedicalCentreMainMenuFormApp
         /// <param name="datagridview"></param>
         private void InitializePractitionersRecordsView(DataGridView datagridview)
         {
-
+            datagridview.Rows.Clear();
             // set number of columns
             datagridview.ColumnCount = 7;
             // set the column header names
@@ -165,7 +165,7 @@ namespace MedicalCentreMainMenuFormApp
 
         private static void InitializePatientsRecordsView(DataGridView datagridview)
         {
-
+            datagridview.Rows.Clear();
             // set number of columns
             datagridview.ColumnCount = 8;
             // Set the column header names.

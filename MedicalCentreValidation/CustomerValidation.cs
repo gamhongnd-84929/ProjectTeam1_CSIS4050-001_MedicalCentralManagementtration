@@ -27,7 +27,6 @@ namespace MedicalCentreValidation
             // if controller can find any entity with same number and department
             if (Controller<MedicalCentreManagementEntities, Customer>.AnyExists(c => (c.MSP == customer.MSP) && (c.MSP != "")))
             {
-                
                 return false;
             }
             return true;
