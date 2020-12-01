@@ -101,7 +101,7 @@ namespace ProjectTeam01MedicalCentreManagement
             // set number of columns
             dataGridView.ColumnCount = 7;
             // set the column header names
-            dataGridView.Columns[0].Name = "Customner ID";
+            dataGridView.Columns[0].Name = "Booking ID";
             dataGridView.Columns[1].Name = "Customer First Name";
             dataGridView.Columns[2].Name = "Customer Last Name";
             dataGridView.Columns[3].Name = "Booking Time";
@@ -118,7 +118,7 @@ namespace ProjectTeam01MedicalCentreManagement
                 {
                     // get the needed information
                     string[] rowAdd = {
-                        booking.CustomerID.ToString(),
+                        booking.BookingID.ToString(),
                         context.Users.Find(booking.Customer.UserID).FirstName,
                         context.Users.Find(booking.Customer.UserID).LastName,
                         booking.Time,
