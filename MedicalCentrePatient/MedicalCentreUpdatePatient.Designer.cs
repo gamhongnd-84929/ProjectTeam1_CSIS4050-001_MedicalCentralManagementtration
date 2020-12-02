@@ -241,7 +241,7 @@
             this.Controls.Add(this.textBoxFirstName);
             this.Controls.Add(this.labelAddPatient);
             this.Name = "MedicalCentreUpdatePatient";
-            this.Text = "MedicalCentreAddPatient";
+            this.Text = "\"Medical Centre: Update Patient\"";
             this.ResumeLayout(false);
             this.PerformLayout();
 

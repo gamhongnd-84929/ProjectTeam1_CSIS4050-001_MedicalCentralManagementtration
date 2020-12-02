@@ -37,45 +37,40 @@
             // 
             this.labelWelcome.AutoSize = true;
             this.labelWelcome.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelWelcome.Location = new System.Drawing.Point(126, 78);
+            this.labelWelcome.Location = new System.Drawing.Point(112, 62);
             this.labelWelcome.Name = "labelWelcome";
-            this.labelWelcome.Size = new System.Drawing.Size(417, 52);
+            this.labelWelcome.Size = new System.Drawing.Size(360, 48);
             this.labelWelcome.TabIndex = 0;
             this.labelWelcome.Text = "Welcome to the Medical Centre!\r\nPlease select one of the following options:";
             // 
             // buttonRecords
             // 
-            this.buttonRecords.Location = new System.Drawing.Point(235, 190);
-            this.buttonRecords.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.buttonRecords.Location = new System.Drawing.Point(209, 152);
             this.buttonRecords.Name = "buttonRecords";
-            this.buttonRecords.Size = new System.Drawing.Size(144, 82);
+            this.buttonRecords.Size = new System.Drawing.Size(128, 66);
             this.buttonRecords.TabIndex = 1;
             this.buttonRecords.Text = "Client Management";
             this.buttonRecords.UseVisualStyleBackColor = true;
             // 
             // buttonAdministration
             // 
-            this.buttonAdministration.Location = new System.Drawing.Point(235, 340);
-            this.buttonAdministration.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.buttonAdministration.Location = new System.Drawing.Point(209, 272);
             this.buttonAdministration.Name = "buttonAdministration";
-            this.buttonAdministration.Size = new System.Drawing.Size(144, 88);
+            this.buttonAdministration.Size = new System.Drawing.Size(128, 70);
             this.buttonAdministration.TabIndex = 2;
             this.buttonAdministration.Text = "Administration";
             this.buttonAdministration.UseVisualStyleBackColor = true;
-
             // 
             // MedicalCentreMainMenuForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(626, 592);
+            this.ClientSize = new System.Drawing.Size(556, 474);
             this.Controls.Add(this.buttonAdministration);
             this.Controls.Add(this.buttonRecords);
             this.Controls.Add(this.labelWelcome);
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "MedicalCentreMainMenuForm";
-            this.Text = "MedicalCentreMainMenuForm";
-            
+            this.Text = "Medical Centre: Main Menu";
             this.ResumeLayout(false);
             this.PerformLayout();
 

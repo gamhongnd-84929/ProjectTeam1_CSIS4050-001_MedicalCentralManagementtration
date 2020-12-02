@@ -215,7 +215,7 @@
             this.buttonAddNewPatient.Text = "Register New Customer ";
             this.buttonAddNewPatient.UseVisualStyleBackColor = true;
             // 
-            // MedicalCentreAddorUpdatePatient
+            // MedicalCentreAddPatient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -240,8 +240,8 @@
             this.Controls.Add(this.labelFirstName);
             this.Controls.Add(this.textBoxFirstName);
             this.Controls.Add(this.labelAddPatient);
-            this.Name = "MedicalCentreAddorUpdatePatient";
-            this.Text = "MedicalCentreAddPatient";
+            this.Name = "MedicalCentreAddPatient";
+            this.Text = "\"Medical Centre:Register New Patient\"";
             this.ResumeLayout(false);
             this.PerformLayout();
 

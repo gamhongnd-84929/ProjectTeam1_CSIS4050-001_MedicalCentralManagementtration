@@ -96,7 +96,6 @@ namespace ProjectTeam01MedicalCentreManagement
             if (rowsCount > 1 || rowsCount == 0)
             {
                 labelTotalAmountNumber.Text = "";
-                MessageBox.Show("Please make sure that you select 1 Booking to pay for!");
                 return;
             }
             // get the totalAmount

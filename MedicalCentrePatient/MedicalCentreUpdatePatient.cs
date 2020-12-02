@@ -126,11 +126,44 @@ namespace ProjectTeam01MedicalCentreManagement
                     return;
                 }
             }
+
             // try to update the customer
             if (Controller<MedicalCentreManagementEntities, Customer>.UpdateEntity(customerToUpdate) == false)
             {
                 MessageBox.Show("Cannot update Customer to database");
                 return;
+            }
+
+            // after successful update:
+            // if Customer lost their MSP - adjust price for unpaid booking in the future!
+            if (msp != oldMSP && msp == "")
+            {
+                using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
+                {
+                    // get list of unpaid bookings for the customer
+                    var listOfUnpaidBookings = context.Bookings.Where(b => (b.CustomerID == customerID && b.BookingStatus == "Not Paid")).ToList();
+
+                    // for each check if past or present
+                    foreach (Booking booking in listOfUnpaidBookings)
+                    {
+                        DateTime bookingDate = DateTime.ParseExact(booking.Date + " " + booking.Time, "yyyy-MM-dd HH:mm",
+                                         null);
+                        // if in the future (greater than today)
+                        if (DateTime.Now < bookingDate)
+                        {
+                            // recalculate new price
+                            // by adding service prices
+                            decimal newPrice = 0.0m;
+                            foreach (Service s in booking.Services)
+                            {
+                                newPrice += s.ServicePrice;
+                            }
+                            booking.BookingPrice = newPrice;// set new price
+                        }
+                    }
+                    // save changes
+                    context.SaveChanges();
+                }
             }
             // if everything is successful- set result to OK and close form
             DialogResult = DialogResult.OK;
