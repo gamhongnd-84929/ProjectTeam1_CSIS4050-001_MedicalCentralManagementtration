@@ -30,6 +30,72 @@ namespace ProjectTeam01MedicalCentreManagement
 
             dataGridViewPractitionerBookings.SelectionChanged += PrePopulateComment;
             buttonUpdateComment.Click += (s, e) => UpdateComment(practitionerID);
+            buttonCancelBooking.Click += (s, e) => CancelBooing(practitionerID);
+        }
+
+        /// <summary>
+        /// Method to cancel booking
+        /// </summary>
+        /// <param name="practitionerID"></param>
+        private void CancelBooing(int practitionerID)
+        {
+            // make sure a booking is selected
+            if(dataGridViewPractitionerBookings.SelectedRows.Count != 1)
+            {
+                MessageBox.Show("One Booking needs to be selected to perform cancellation");
+                return;
+            }
+
+            // get booking date and time
+            string date = (string)dataGridViewPractitionerBookings.SelectedRows[0].Cells[4].Value;
+            string time = (string)dataGridViewPractitionerBookings.SelectedRows[0].Cells[3].Value;
+            // create date object
+            DateTime bookingDate = DateTime.ParseExact(date + " " + time, "yyyy-MM-dd HH:mm", null);
+
+            // if the date is in the past date display error message
+            if(DateTime.Now > bookingDate)
+            {
+                MessageBox.Show("Cannot cancel past bookings!");
+                return;
+            }
+
+            // get the bookingID
+            int bookingID = Convert.ToInt32(dataGridViewPractitionerBookings.SelectedRows[0].Cells[0].Value);
+
+            // if a booking is paid
+            if ((string)dataGridViewPractitionerBookings.SelectedRows[0].Cells[6].Value == "Paid")
+            {
+                // using unit of work
+                using(MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
+                {
+                    // find the payment for this booking
+                    List<Payment> paymentToRefund = context.Payments.Where(p => p.BookingID == bookingID).ToList();
+                    // set payment's status to Refunded
+                    foreach(Payment payment in paymentToRefund)
+                    {
+                        payment.PaymentStatus = "Refunded";
+                    }
+                    // save changes
+                    context.SaveChanges();
+                }
+            }
+
+            // whether the booing is paid or not - change it to Cancelled
+            using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
+            {
+                // find booking by PK
+                Booking bookingToChange = context.Bookings.Find(bookingID);
+                // set new values
+                bookingToChange.BookingStatus = "Cancelled";
+                bookingToChange.BookingPrice = 0.0m;
+                bookingToChange.Date = "N/A";
+                bookingToChange.Time = "N/A";
+                // save changes
+                context.SaveChanges();
+            }
+            // update booking view
+            InitializePractitionersBookings(dataGridViewPractitionerBookings, practitionerID);
+
         }
 
         /// <summary>

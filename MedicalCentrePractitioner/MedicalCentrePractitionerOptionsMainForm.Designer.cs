@@ -36,6 +36,7 @@
             this.textBoxComment = new System.Windows.Forms.TextBox();
             this.labelComment = new System.Windows.Forms.Label();
             this.buttonUpdateComment = new System.Windows.Forms.Button();
+            this.buttonCancelBooking = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPractitionerBookings)).BeginInit();
             this.SuspendLayout();
             // 
@@ -66,7 +67,7 @@
             // 
             // buttonUpdatePractitioner
             // 
-            this.buttonUpdatePractitioner.Location = new System.Drawing.Point(696, 94);
+            this.buttonUpdatePractitioner.Location = new System.Drawing.Point(696, 63);
             this.buttonUpdatePractitioner.Name = "buttonUpdatePractitioner";
             this.buttonUpdatePractitioner.Size = new System.Drawing.Size(110, 65);
             this.buttonUpdatePractitioner.TabIndex = 3;
@@ -75,7 +76,7 @@
             // 
             // buttonBookHoursOff
             // 
-            this.buttonBookHoursOff.Location = new System.Drawing.Point(696, 187);
+            this.buttonBookHoursOff.Location = new System.Drawing.Point(696, 143);
             this.buttonBookHoursOff.Name = "buttonBookHoursOff";
             this.buttonBookHoursOff.Size = new System.Drawing.Size(110, 69);
             this.buttonBookHoursOff.TabIndex = 4;
@@ -107,11 +108,21 @@
             this.buttonUpdateComment.Text = "Update Comment";
             this.buttonUpdateComment.UseVisualStyleBackColor = true;
             // 
+            // buttonCancelBooking
+            // 
+            this.buttonCancelBooking.Location = new System.Drawing.Point(696, 231);
+            this.buttonCancelBooking.Name = "buttonCancelBooking";
+            this.buttonCancelBooking.Size = new System.Drawing.Size(109, 70);
+            this.buttonCancelBooking.TabIndex = 8;
+            this.buttonCancelBooking.Text = "Cancel Booking";
+            this.buttonCancelBooking.UseVisualStyleBackColor = true;
+            // 
             // MedicalCentrePractitionerOptionsMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(849, 369);
+            this.Controls.Add(this.buttonCancelBooking);
             this.Controls.Add(this.buttonUpdateComment);
             this.Controls.Add(this.labelComment);
             this.Controls.Add(this.textBoxComment);
@@ -138,5 +149,6 @@
         private System.Windows.Forms.TextBox textBoxComment;
         private System.Windows.Forms.Label labelComment;
         private System.Windows.Forms.Button buttonUpdateComment;
+        private System.Windows.Forms.Button buttonCancelBooking;
     }
 }
