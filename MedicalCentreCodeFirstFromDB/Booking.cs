@@ -22,19 +22,18 @@ namespace MedicalCentreCodeFirstFromDB
 
         public int PractitionerID { get; set; }
 
-        public string Time { get; set; }
+        public TimeSpan? Time { get; set; }
 
      
-        public string Date { get; set; }
+        public DateTime? Date { get; set; }
 
         [Column(TypeName = "text")]
         public string PractitionerComment { get; set; }
 
         public decimal BookingPrice { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string BookingStatus { get; set; }
+        [EnumDataType(typeof(BookingStatus))]
+        public BookingStatus BookingStatus { get; set; }
 
         public virtual Customer Customer { get; set; }
 

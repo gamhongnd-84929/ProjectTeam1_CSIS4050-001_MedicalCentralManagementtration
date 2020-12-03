@@ -16,7 +16,7 @@ namespace MedicalCentreValidation
         /// Method to ensure customer is valid
         /// </summary>
         /// <param name="customer"></param>
-        /// <returns></returns>
+        /// <returns> TRUE if VALID</returns>
         public static bool IsValidCustomer(this Customer customer)
         {
             // Make sure such User exists and MSP is valid
@@ -31,7 +31,7 @@ namespace MedicalCentreValidation
         /// Can be either blank or has to be unique
         /// </summary>
         /// <param name="customer"> customer object to be validated </param>
-        /// <returns></returns>
+        /// <returns>TRUE if VALID</returns>
         private static bool IsValidMSP(this Customer customer)
         {
             if (Controller<MedicalCentreManagementEntities, Customer>.AnyExists(c => (c.MSP == customer.MSP) && (c.MSP != "")))

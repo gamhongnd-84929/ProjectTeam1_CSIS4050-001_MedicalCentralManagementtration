@@ -40,10 +40,10 @@ namespace ProjectTeam01MedicalCentreManagement
             {
                 CustomerID = 6,
                 PractitionerID = practitionerID,
-                Date = monthCalendarBookingDate.SelectionRange.Start.ToString("yyyy-MM-dd"),
-                Time = listBoxTime.SelectedItem.ToString(),
+                Date = monthCalendarBookingDate.SelectionRange.Start,
+                Time = (TimeSpan)listBoxTime.SelectedItem,
                 BookingPrice = 0,
-                BookingStatus = "Time Off",
+                BookingStatus = BookingStatus.TIME_OFF,
                 PractitionerComment = ""
             };
 
@@ -76,7 +76,7 @@ namespace ProjectTeam01MedicalCentreManagement
                 MessageBox.Show("Cannot book appointments before today's date!");
                 return;
             }
-            string dateRequested = monthCalendarBookingDate.SelectionRange.Start.ToString("yyyy-MM-dd");
+            DateTime dateRequested = monthCalendarBookingDate.SelectionRange.Start;
             using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
             {
                 var bookingOnThatDate = context.Bookings.Select(b => b).Where(b => b.PractitionerID == practitionerID && b.Date == dateRequested).ToList();

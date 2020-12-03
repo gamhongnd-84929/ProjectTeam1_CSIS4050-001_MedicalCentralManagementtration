@@ -30,17 +30,17 @@ namespace ProjectTeam01MedicalCentreManagement
 
             dataGridViewPractitionerBookings.SelectionChanged += PrePopulateComment;
             buttonUpdateComment.Click += (s, e) => UpdateComment(practitionerID);
-            buttonCancelBooking.Click += (s, e) => CancelBooing(practitionerID);
+            buttonCancelBooking.Click += (s, e) => CancelBooking(practitionerID);
         }
 
         /// <summary>
         /// Method to cancel booking
         /// </summary>
         /// <param name="practitionerID"></param>
-        private void CancelBooing(int practitionerID)
+        private void CancelBooking(int practitionerID)
         {
             // make sure a booking is selected
-            if(dataGridViewPractitionerBookings.SelectedRows.Count != 1)
+            if (dataGridViewPractitionerBookings.SelectedRows.Count != 1)
             {
                 MessageBox.Show("One Booking needs to be selected to perform cancellation");
                 return;
@@ -53,7 +53,7 @@ namespace ProjectTeam01MedicalCentreManagement
             DateTime bookingDate = DateTime.ParseExact(date + " " + time, "yyyy-MM-dd HH:mm", null);
 
             // if the date is in the past date display error message
-            if(DateTime.Now > bookingDate)
+            if (DateTime.Now > bookingDate)
             {
                 MessageBox.Show("Cannot cancel past bookings!");
                 return;
@@ -63,33 +63,33 @@ namespace ProjectTeam01MedicalCentreManagement
             int bookingID = Convert.ToInt32(dataGridViewPractitionerBookings.SelectedRows[0].Cells[0].Value);
 
             // if a booking is paid
-            if ((string)dataGridViewPractitionerBookings.SelectedRows[0].Cells[6].Value == "Paid")
+            if ((string)dataGridViewPractitionerBookings.SelectedRows[0].Cells[6].Value == BookingStatus.PAID.ToString())
             {
                 // using unit of work
-                using(MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
+                using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
                 {
                     // find the payment for this booking
                     List<Payment> paymentToRefund = context.Payments.Where(p => p.BookingID == bookingID).ToList();
                     // set payment's status to Refunded
-                    foreach(Payment payment in paymentToRefund)
+                    foreach (Payment payment in paymentToRefund)
                     {
-                        payment.PaymentStatus = "Refunded";
+                        payment.PaymentStatus = PaymentStatus.REFUNDED;
                     }
                     // save changes
                     context.SaveChanges();
                 }
             }
 
-            // whether the booing is paid or not - change it to Cancelled
+            // whether the booking is paid or not - change it to Cancelled
             using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
             {
                 // find booking by PK
                 Booking bookingToChange = context.Bookings.Find(bookingID);
                 // set new values
-                bookingToChange.BookingStatus = "Cancelled";
+                bookingToChange.BookingStatus = BookingStatus.CANCELLED;
                 bookingToChange.BookingPrice = 0.0m;
-                bookingToChange.Date = "N/A";
-                bookingToChange.Time = "N/A";
+                bookingToChange.Date = null;
+                bookingToChange.Time = null;
                 // save changes
                 context.SaveChanges();
             }
@@ -122,13 +122,13 @@ namespace ProjectTeam01MedicalCentreManagement
         /// </summary>
         private void UpdateComment(int practitionerID)
         {
-            if(dataGridViewPractitionerBookings.SelectedRows.Count != 1)
+            if (dataGridViewPractitionerBookings.SelectedRows.Count != 1)
             {
                 MessageBox.Show("Please Select a Booking to Update a Comment");
             }
             else
             {
-                if(textBoxComment.TextLength == 0)
+                if (textBoxComment.TextLength == 0)
                 {
                     MessageBox.Show("Please type some comment");
                     return;
@@ -141,18 +141,17 @@ namespace ProjectTeam01MedicalCentreManagement
                 // Updated the comment
                 string newComment = textBoxComment.Text;
                 bookingToUpdate.PractitionerComment = newComment;
-                
-                if(Controller<MedicalCentreManagementEntities, Booking>.UpdateEntity(bookingToUpdate) == false)
+
+                if (Controller<MedicalCentreManagementEntities, Booking>.UpdateEntity(bookingToUpdate) == false)
                 {
                     MessageBox.Show("Cannot update User to database");
                     return;
                 }
-                else
-                {
-                    var bookingUpdated = Controller<MedicalCentreManagementEntities, Booking>.FindEntity(bookingID);
-                    // reload the datagridview
-                    InitializePractitionersBookings(dataGridViewPractitionerBookings, practitionerID);
-                }
+
+
+                // reload the datagridview
+                InitializePractitionersBookings(dataGridViewPractitionerBookings, practitionerID);
+
             }
         }
 
@@ -187,10 +186,10 @@ namespace ProjectTeam01MedicalCentreManagement
                         booking.BookingID.ToString(),
                         context.Users.Find(booking.Customer.UserID).FirstName,
                         context.Users.Find(booking.Customer.UserID).LastName,
-                        booking.Time,
-                        booking.Date,
+                        booking.Time.ToString(),
+                        booking.Date.ToString(),
                         booking.PractitionerComment,
-                        booking.BookingStatus
+                        booking.BookingStatus.ToString()
                     };
                     // add to display
                     dataGridView.Rows.Add(rowAdd);
@@ -226,14 +225,14 @@ namespace ProjectTeam01MedicalCentreManagement
         {
             // if okay was clicked on the child
             var result = form.ShowDialog();
-            if(result == DialogResult.OK)
+            if (result == DialogResult.OK)
             {
                 InitializePractitionersBookings(dataGridViewPractitionerBookings, practitionerID);
                 GetGreeting(practitionerID);
             }
             // hide the child form
             form.Hide();
-            
+
         }
     }
 }

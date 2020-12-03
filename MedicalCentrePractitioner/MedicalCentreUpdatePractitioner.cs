@@ -12,6 +12,7 @@ using EFControllerUtilities;
 using System.Collections;
 using System.Globalization;
 using MedicalCentreValidation;
+using MedicalCentreUtilities;
 
 namespace ProjectTeam01MedicalCentreManagement
 {
@@ -33,7 +34,7 @@ namespace ProjectTeam01MedicalCentreManagement
         {
             string firstName = textBoxFirstName.Text;
             string lastName = textBoxLastName.Text;
-            string birthdate = dateTimePickerBirthDate.Value.ToShortDateString();
+           DateTime birthdate = dateTimePickerBirthDate.Value;
             string address = textBoxStreetAddress.Text;
             string city = textBoxCity.Text;
             string province = comboBoxProvince.GetItemText(comboBoxProvince.SelectedItem);
@@ -101,7 +102,7 @@ namespace ProjectTeam01MedicalCentreManagement
         /// <param name="practitionerID"></param>
         private void PrePopulateFields(int practitionerID)
         {
-            PopulateProvinceComboBox();
+            BaseMethods.PopulateProvinceComboBox(comboBoxProvince);
             PopulatePractitionerTypeComboBox();
             using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
             {
@@ -109,7 +110,7 @@ namespace ProjectTeam01MedicalCentreManagement
                 var user = context.Users.Find(practitioner.UserID);
                 textBoxFirstName.Text = user.FirstName;
                 textBoxLastName.Text = user.LastName;
-                dateTimePickerBirthDate.Value = DateTime.ParseExact(user.Birthdate, "yyyy-mm-dd", CultureInfo.InvariantCulture);
+                dateTimePickerBirthDate.Value = (DateTime)user.Birthdate;
                 textBoxStreetAddress.Text = user.Address;
                 textBoxCity.Text = user.City;
                 comboBoxProvince.SelectedIndex = comboBoxProvince.FindStringExact(user.Province);
@@ -130,12 +131,6 @@ namespace ProjectTeam01MedicalCentreManagement
 
         }
 
-        /// <summary>
-        /// Populate province combo box
-        /// </summary>
-        private void PopulateProvinceComboBox()
-        {
-            comboBoxProvince.Items.AddRange(new string[] { "AB", "BC", "SK", "MB", "NL", "PE", "NS", "NB", "QB", "ON" });
-        }
+      
     }
 }

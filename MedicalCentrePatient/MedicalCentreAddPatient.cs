@@ -1,4 +1,5 @@
-﻿using MedicalCentreCodeFirstFromDB;
+﻿using MedicalCentreUtilities;
+using MedicalCentreCodeFirstFromDB;
 using MedicalCentreValidation;
 using System;
 using System.Windows.Forms;
@@ -13,21 +14,11 @@ namespace ProjectTeam01MedicalCentreManagement
             Text = "Medical Centre:Register New Patient";
             InitializeComponent();
             // populate the provinces
-            PopulateProvinceComboBox();
+            BaseMethods.PopulateProvinceComboBox(comboBoxProvince);
             // add event to button
-            buttonAddNewPatient.Click +=AddNewPatient;
+            buttonAddNewPatient.Click += AddNewPatient;
         }
 
-        /// <summary>
-        /// Method to add a range of accepted province values to a combobox
-        /// </summary>
-        private void PopulateProvinceComboBox()
-        {
-            // set style to dropdown- so user cannot edit
-            comboBoxProvince.DropDownStyle = ComboBoxStyle.DropDownList;
-            // add items
-            comboBoxProvince.Items.AddRange( new string[] { "AB", "BC", "SK","MB", "NL", "PE", "NS", "NB","QB","ON" });
-        }
 
         /// <summary>
         /// Adding a new patient
@@ -39,7 +30,7 @@ namespace ProjectTeam01MedicalCentreManagement
             // get all values from input controls
             string firstName = textBoxFirstName.Text;
             string lastName = textBoxLastName.Text;
-            string birthdate = dateTimePickerBirthDate.Value.ToShortDateString();
+            DateTime birthdate = dateTimePickerBirthDate.Value;
             string address = textBoxAddress.Text;
             string city = textBoxCity.Text;
             string province = comboBoxProvince.GetItemText(comboBoxProvince.SelectedItem);
@@ -59,12 +50,12 @@ namespace ProjectTeam01MedicalCentreManagement
                 PhoneNumber = phoneNumber,
                 Email = email,
             };
-            
+
             // validate user information
             if (newUser.InfoIsInvalid())
             {
                 // error if invalid
-                MessageBox.Show("Patient information need to filled!");
+                MessageBox.Show("Patient information is not valid!");
                 return;
             }
             // using a unit-of-work context
@@ -89,7 +80,8 @@ namespace ProjectTeam01MedicalCentreManagement
                 };
 
                 // validate Customer information
-                if (newCustomer.IsValidCustomer()){
+                if (!newCustomer.IsValidCustomer())
+                {
                     MessageBox.Show("MSP must be unique or blank!");
                     return;
                 }
@@ -103,6 +95,9 @@ namespace ProjectTeam01MedicalCentreManagement
                     MessageBox.Show("Customer was not added into a database!");
                     return;
                 }
+
+                BaseMethods.ClearAllControls(this);
+
             }
             // If successful- set result to OK and close form
             DialogResult = DialogResult.OK;

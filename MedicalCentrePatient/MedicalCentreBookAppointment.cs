@@ -26,6 +26,9 @@ namespace ProjectTeam01MedicalCentreManagement
             monthCalendarBooking.DateChanged += (s, e) => GetPractitionerAvailability();
             listBoxTime.SelectedIndexChanged += (s, e) => GetBookingInformation(customerID);
             buttonCreateBooking.Click += (s, e) => CreateBooking(customerID);
+            dataGridViewPractitioners.SelectionChanged += (s, e) => {
+                if (dataGridViewPractitioners.SelectedRows.Count == 1) GetBookingInformation(customerID);
+            };
             // for services if selection changes and time + practitioner are selected- update totals
             listBoxServices.SelectedIndexChanged += (s, e) => { if (dataGridViewPractitioners.SelectedRows.Count == 1 && listBoxTime.SelectedIndex != -1) GetBookingInformation(customerID); };
         }
@@ -53,12 +56,20 @@ namespace ProjectTeam01MedicalCentreManagement
 
             // make sure only 1 day can be selected on calendar
             monthCalendarBooking.MaxSelectionCount = 1;
+            
+
             // make sure no times are displayed
-            listBoxTime.Items.Clear();
+            listBoxTime.DataSource = null;
+           
+            // make sure no selection is made
+            dataGridViewPractitioners.ClearSelection();
             // prevent user inputting a custom practitioner type
             comboBoxPractitionerTypes.DropDownStyle = ComboBoxStyle.DropDownList;
             // load types into the combobox
-            comboBoxPractitionerTypes.DataSource = Controller<MedicalCentreManagementEntities, Practitioner_Types>.GetEntities();
+           comboBoxPractitionerTypes.DataSource = Controller<MedicalCentreManagementEntities, Practitioner_Types>.GetEntities();
+
+            // clear labels
+            ResetBookingInformation();
         }
 
         /// <summary>
@@ -66,15 +77,15 @@ namespace ProjectTeam01MedicalCentreManagement
         /// </summary>
         private void GetListOfPractitionersAndServices()
         {
-            // make sure booking information and times are cleared
-            ResetBookingInformation();
-            listBoxTime.Items.Clear();
+            // make sure times are cleared
+            listBoxTime.DataSource = null;
             // get id of the selected type
             int typeId = (comboBoxPractitionerTypes.SelectedItem as Practitioner_Types).TypeID;
             // get and display list of services that matches the type of practitioner
             listBoxServices.DataSource = Controller<MedicalCentreManagementEntities, Service>.GetEntities().Where(s => s.PractitionerTypeID == typeId).ToList();
             // load practitioners into datagridview
             LoadPractitionersIntoDataGridView(dataGridViewPractitioners, typeId);
+            ResetBookingInformation(); // clear label
         }
 
         /// <summary>
@@ -129,13 +140,29 @@ namespace ProjectTeam01MedicalCentreManagement
             ResetBookingInformation();
 
             // get the date requested from month control
-            string dateRequested = monthCalendarBooking.SelectionRange.Start.ToShortDateString();
-            // load possible times
-            LoadAllPossibleTimes();
+            DateTime dateRequested = monthCalendarBooking.SelectionRange.Start;
+          
             // get selected practitioner's id
             int selectedPractitionerId = Convert.ToInt32(dataGridViewPractitioners.SelectedRows[0].Cells[0].Value);
 
-            // using unit-of-work context
+            LoadAllAvailableTimes(dateRequested, selectedPractitionerId);
+
+
+        }
+
+        /// <summary>
+        /// Get all available times for a doctor on a requested date
+        /// </summary>
+        /// <param name="dateRequested"> date requested </param>
+        /// <param name="selectedPractitionerId"> id of the practitioner requested</param>
+        private void LoadAllAvailableTimes(DateTime dateRequested, int selectedPractitionerId)
+        {
+            List<TimeSpan> times = new List<TimeSpan>();
+            for (int hour = 9; hour <= 16; hour++)
+            {
+                times.Add(new TimeSpan(hour, 0, 0));
+            }
+
             using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
             {
                 // get all bookings for that doctor on that date
@@ -144,20 +171,13 @@ namespace ProjectTeam01MedicalCentreManagement
                 // remove from the list all times that match
                 foreach (Booking b in bookingsOnThatDate)
                 {
-                    listBoxTime.Items.Remove(b.Time);
+                    times.Remove((TimeSpan)b.Time);
                 }
             }
-        }
 
-        /// <summary>
-        /// Method to load all possible times into a listbox
-        /// </summary>
-        private void LoadAllPossibleTimes()
-        {
-            // clear previous values
-            listBoxTime.Items.Clear();
+            
             // add new range
-            listBoxTime.Items.AddRange(new string[] { "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00" });
+            listBoxTime.DataSource = times;
         }
 
         /// <summary>
@@ -166,10 +186,11 @@ namespace ProjectTeam01MedicalCentreManagement
         /// <param name="customerID"> id of the patient requesting a booking</param>
         private void GetBookingInformation(int customerID)
         {
+           
             // get the practitioner/date and time from controls
             int practitionerId = Convert.ToInt32(dataGridViewPractitioners.SelectedRows[0].Cells[0].Value);
             string date = monthCalendarBooking.SelectionRange.Start.ToShortDateString();
-            string time = listBoxTime.SelectedItem.ToString();
+            string time = listBoxTime.SelectedItem?.ToString();
 
             // using unit-of-work context
             using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
@@ -219,10 +240,10 @@ namespace ProjectTeam01MedicalCentreManagement
             {
                 CustomerID = customerID,
                 PractitionerID = Convert.ToInt32(dataGridViewPractitioners.SelectedRows[0].Cells[0].Value),
-                Date = monthCalendarBooking.SelectionRange.Start.ToShortDateString(),
-                Time = listBoxTime.SelectedItem.ToString(),
+                Date = monthCalendarBooking.SelectionRange.Start,
+                Time = (TimeSpan?)listBoxTime.SelectedItem,
                 BookingPrice = decimal.Parse(Regex.Replace(labelPriceAmount.Text, @"[^\d.]", "")),
-                BookingStatus = "Not Paid",
+                BookingStatus = BookingStatus.NOT_PAID,
                 PractitionerComment = ""
             };
             // add all selected services to the booking

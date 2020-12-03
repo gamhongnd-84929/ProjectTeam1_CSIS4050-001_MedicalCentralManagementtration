@@ -12,6 +12,7 @@ using MedicalCentreCodeFirstFromDB;
 using System.Data.Entity;
 using MedicalCentreValidation;
 using EFControllerUtilities;
+using MedicalCentreUtilities;
 
 namespace ProjectTeam01MedicalCentreManagement
 {
@@ -21,7 +22,7 @@ namespace ProjectTeam01MedicalCentreManagement
         {
             this.Text = "Medical Centre: Register New Practitioner";
             InitializeComponent();
-            PopulateProvinceComboBox();
+            BaseMethods.PopulateProvinceComboBox(comboBoxProvince);
             PopulatePractitionerTypeComboBox();
             buttonRegisterNewPractitioner.Click += AddNewPractitioner;
         }
@@ -33,7 +34,7 @@ namespace ProjectTeam01MedicalCentreManagement
         {
             comboBoxPractitionerType.DropDownStyle = ComboBoxStyle.DropDownList;
 
-        comboBoxPractitionerType.DataSource = Controller<MedicalCentreManagementEntities, Practitioner_Types>.GetEntities();
+            comboBoxPractitionerType.DataSource = Controller<MedicalCentreManagementEntities, Practitioner_Types>.GetEntities();
 
         }
 
@@ -46,13 +47,12 @@ namespace ProjectTeam01MedicalCentreManagement
         {
             string firstName = textBoxFirstName.Text;
             string lastName = textBoxLastName.Text;
-            string birthdate = dateTimePickerBirthDate.Value.ToShortDateString();
+            DateTime birthdate = dateTimePickerBirthDate.Value;
             string address = textBoxStreetAddress.Text;
             string city = textBoxCity.Text;
             string province = comboBoxProvince.GetItemText(comboBoxProvince.SelectedItem);
             string phoneNumber = textBoxPhoneNumber.Text;
             string email = textBoxEmail.Text;
-            string practitionalType = comboBoxPractitionerType.GetItemText(comboBoxPractitionerType.SelectedItem);
             int typeId = (comboBoxPractitionerType.SelectedItem as Practitioner_Types).TypeID;
             User newUser = new User
             {
@@ -73,8 +73,8 @@ namespace ProjectTeam01MedicalCentreManagement
                 return;
             }
 
-            
-            
+
+
 
             // check practitionalType is selected
             if (comboBoxPractitionerType.SelectedIndex == -1)
@@ -95,11 +95,11 @@ namespace ProjectTeam01MedicalCentreManagement
 
                     UserID = addedUser.UserID,
                     TypeID = typeId,
-                
+
                 };
 
                 // validate practitioner
-                if (newPractitioner.IsValidPractitioner())
+                if (!newPractitioner.IsValidPractitioner())
                 {
                     MessageBox.Show("Practitioner must picked from User");
                     return;
@@ -108,17 +108,11 @@ namespace ProjectTeam01MedicalCentreManagement
                 context.Practitioners.Add(newPractitioner);
                 context.SaveChanges();
             }
-
+            BaseMethods.ClearAllControls(this);
             this.DialogResult = DialogResult.OK;
             Close();
         }
 
-        /// <summary>
-        /// Populate province combo box
-        /// </summary>
-        private void PopulateProvinceComboBox()
-        {
-            comboBoxProvince.Items.AddRange(new string[] { "AB", "BC", "SK", "MB", "NL", "PE", "NS", "NB", "QB", "ON" });
-        }
+
     }
 }

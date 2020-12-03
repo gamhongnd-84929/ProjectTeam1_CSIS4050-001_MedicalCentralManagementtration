@@ -20,6 +20,7 @@ namespace EFControllerUtilities
     /// <typeparam name="E">Entity type</typeparam>
     public static class Controller<C, E> where E : class where C : DbContext, new()
     {
+      
         /// <summary>
         /// Enable logging of sql statements to output window. Defaults to true.
         /// </summary>

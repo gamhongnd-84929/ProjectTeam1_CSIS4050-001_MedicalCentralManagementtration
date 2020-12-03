@@ -118,9 +118,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EFControllerUtilities\EFControllerUtilities.csproj">
+    <ProjectReference Include="..\EFControllerUtilities\MedicalCentreUtilities.csproj">
       <Project>{cb1e5f5d-a033-4b72-ac56-2959b64dd758}</Project>
-      <Name>EFControllerUtilities</Name>
+      <Name>MedicalCentreUtilities</Name>
     </ProjectReference>
     <ProjectReference Include="..\MedicalCentreCodeFirstFromDB\MedicalCentreCodeFirstFromDB.csproj">
       <Project>{e5429cce-4af7-4e54-9c4e-f490d086d883}</Project>

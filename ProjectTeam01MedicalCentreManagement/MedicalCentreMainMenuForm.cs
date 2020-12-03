@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Entity;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,7 @@ namespace ProjectTeam01MedicalCentreManagement
     {
         public MedicalCentreMainMenuForm()
         {
+           
             // title
             Text = "Medical Centre: Main Menu";
             InitializeComponent();

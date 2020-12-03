@@ -27,7 +27,7 @@ namespace MedicalCentreCodeFirstFromDB
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-           
+         // Database.SetInitializer<MedicalCentreManagementEntities>(null);
 
             modelBuilder.Entity<Booking>()
                 .Property(e => e.PractitionerComment)
@@ -38,8 +38,7 @@ namespace MedicalCentreCodeFirstFromDB
                 .HasPrecision(18, 0);
 
             modelBuilder.Entity<Booking>()
-                .Property(e => e.BookingStatus)
-                .IsUnicode(false);
+                .Property(e => e.BookingStatus);
 
             modelBuilder.Entity<Booking>()
                 .HasMany(e => e.Payments)
@@ -83,16 +82,15 @@ namespace MedicalCentreCodeFirstFromDB
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Payment>()
-                .Property(e => e.Date)
-                .IsFixedLength();
+                .Property(e => e.Date);
+           
 
             modelBuilder.Entity<Payment>()
                 .Property(e => e.TotalAmountPaid)
                 .HasPrecision(18, 2);
 
             modelBuilder.Entity<Payment>()
-                .Property(e => e.PaymentStatus)
-                .IsUnicode(false);
+                .Property(e => e.PaymentStatus);
 
             modelBuilder.Entity<Practitioner_Types>()
                 .Property(e => e.Title)

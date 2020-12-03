@@ -1,4 +1,4 @@
-﻿using EFControllerUtilities;
+﻿using MedicalCentreUtilities;
 using MedicalCentreCodeFirstFromDB;
 using MedicalCentreValidation;
 using System;
@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using EFControllerUtilities;
 
 namespace ProjectTeam01MedicalCentreManagement
 {
@@ -34,7 +35,7 @@ namespace ProjectTeam01MedicalCentreManagement
         private void PrePopulateFields(int customerID)
         {
             // set up province combobox
-            PopulateProvinceComboBox();
+            BaseMethods.PopulateProvinceComboBox(comboBoxProvince);
             // using unit-of-work context
             using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
             {
@@ -46,7 +47,7 @@ namespace ProjectTeam01MedicalCentreManagement
                 // populate controls
                 textBoxFirstName.Text = user.FirstName;
                 textBoxLastName.Text = user.LastName;
-                dateTimePickerBirthDate.Value = DateTime.ParseExact(user.Birthdate, "yyyy-mm-dd", CultureInfo.InvariantCulture);
+                dateTimePickerBirthDate.Value = (DateTime)user.Birthdate;
                 textBoxAddress.Text = user.Address;
                 textBoxCity.Text = user.City;
                 comboBoxProvince.SelectedIndex = comboBoxProvince.FindStringExact(user.Province);
@@ -56,27 +57,13 @@ namespace ProjectTeam01MedicalCentreManagement
             }
         }
 
-        /// <summary>
-        /// Helper method to prepopulate all provinces to the combobox
-        /// </summary>
-        private void PopulateProvinceComboBox()
-        {
-            // make sure user cannot edit provinces
-            comboBoxProvince.DropDownStyle = ComboBoxStyle.DropDownList;
-            // add acceptable range of values
-            comboBoxProvince.Items.AddRange(new string[] { "AB", "BC", "SK", "MB", "NL", "PE", "NS", "NB", "QB", "ON" });
-        }
-
-        /// <summary>
-        /// Method to update customer's information
-        /// </summary>
-        /// <param name="customerID"> id of the customer to update</param>
+        
         private void UpdatePatient(int customerID)
         {
             // get all fields from controls
             string firstName = textBoxFirstName.Text;
             string lastName = textBoxLastName.Text;
-            string birthdate = dateTimePickerBirthDate.Value.ToShortDateString();
+            DateTime birthdate = dateTimePickerBirthDate.Value;
             string address = textBoxAddress.Text;
             string city = textBoxCity.Text;
             string province = comboBoxProvince.GetItemText(comboBoxProvince.SelectedItem);
@@ -141,15 +128,14 @@ namespace ProjectTeam01MedicalCentreManagement
                 using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
                 {
                     // get list of unpaid bookings for the customer
-                    var listOfUnpaidBookings = context.Bookings.Where(b => (b.CustomerID == customerID && b.BookingStatus == "Not Paid")).ToList();
+                    var listOfUnpaidBookings = context.Bookings.Where(b => (b.CustomerID == customerID && b.BookingStatus == BookingStatus.NOT_PAID)).ToList();
 
                     // for each check if past or present
                     foreach (Booking booking in listOfUnpaidBookings)
                     {
-                        DateTime bookingDate = DateTime.ParseExact(booking.Date + " " + booking.Time, "yyyy-MM-dd HH:mm",
-                                         null);
+                       
                         // if in the future (greater than today)
-                        if (DateTime.Now < bookingDate)
+                        if (DateTime.Now < booking.Date)
                         {
                             // recalculate new price
                             // by adding service prices

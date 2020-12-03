@@ -88,7 +88,7 @@ namespace ProjectTeam01MedicalCentreManagement
                 foreach (Booking booking in customer.Bookings)
                 {
                     // get the needed information
-                    string[] rowAdd = { booking.BookingID.ToString(), context.Users.Find(booking.Practitioner.UserID).LastName, booking.Time, booking.Date, booking.PractitionerComment, booking.BookingPrice.ToString("C2"), booking.BookingStatus };
+                    string[] rowAdd = { booking.BookingID.ToString(), context.Users.Find(booking.Practitioner.UserID).LastName, booking.Time.ToString(), booking.Date?.ToString("yyyy-MM-dd"), booking.PractitionerComment, booking.BookingPrice.ToString("C2"), booking.BookingStatus.ToString() };
                     // add to display
                     datagridview.Rows.Add(rowAdd);
                 }
@@ -126,7 +126,7 @@ namespace ProjectTeam01MedicalCentreManagement
                 foreach (Payment payment in customer.Payments)
                 {
                     // get the needed information
-                    string[] rowAdd = { payment.Date, payment.Time, payment.TotalAmountPaid?.ToString("C2"), payment.Payment_Types.ToString(), payment.PaymentStatus };
+                    string[] rowAdd = { payment.Date?.ToString("yyyy-MM-dd"), payment.Time?.ToString("hh\\:mm"), payment.TotalAmountPaid?.ToString("C2"), payment.Payment_Types.ToString(), payment.PaymentStatus.ToString() };
                     // add to display
                     datagridview.Rows.Add(rowAdd);
                 }
@@ -177,7 +177,7 @@ namespace ProjectTeam01MedicalCentreManagement
                 foreach (Booking booking in customer.Bookings)
                 {
                     // if not paid- load form
-                    if (booking.BookingStatus == "Not Paid")
+                    if (booking.BookingStatus == BookingStatus.NOT_PAID)
                     {
                         ChildPatientActionsForm(new MedicalCentreMakePaymentForm(customerID), customerID);
                         return;
@@ -206,7 +206,7 @@ namespace ProjectTeam01MedicalCentreManagement
             string date = (string)dataGridViewPatientBookings.SelectedRows[0].Cells[3].Value;
             string time = (string)dataGridViewPatientBookings.SelectedRows[0].Cells[2].Value;
             // create date object
-            DateTime bookingDate = DateTime.ParseExact(date + " " + time, "yyyy-MM-dd HH:mm",
+            DateTime bookingDate = DateTime.ParseExact(date + " " + time, "yyyy-MM-dd HH:mm:ss",
                                              null);
             // if in the past (less than today)
             if (DateTime.Now > bookingDate)
@@ -217,7 +217,7 @@ namespace ProjectTeam01MedicalCentreManagement
             }
 
             // if a booking is paid
-            if ((string)dataGridViewPatientBookings.SelectedRows[0].Cells[6].Value == "Paid")
+            if ((string)dataGridViewPatientBookings.SelectedRows[0].Cells[6].Value == BookingStatus.PAID.ToString())
             {
                 // using unit-of-work
                 using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
@@ -228,7 +228,7 @@ namespace ProjectTeam01MedicalCentreManagement
                     var paymentToRefund = context.Payments.Where(p => p.BookingID == bookingID).ToList();
                     // set payment's status to Refunded
                     foreach (Payment payment in paymentToRefund)
-                        payment.PaymentStatus = "Refunded";
+                        payment.PaymentStatus = PaymentStatus.REFUNDED;
                     // save changes
                     context.SaveChanges();
                 }
@@ -242,10 +242,10 @@ namespace ProjectTeam01MedicalCentreManagement
                 // find booking by PK
                 var bookingToChange = context.Bookings.Find(Convert.ToInt32(dataGridViewPatientBookings.SelectedRows[0].Cells[0].Value));
                 // set new values
-                bookingToChange.BookingStatus = "Cancelled";
+                bookingToChange.BookingStatus = BookingStatus.CANCELLED;
                 bookingToChange.BookingPrice = 0.0m;
-                bookingToChange.Date = "N/A";
-                bookingToChange.Time = "N/A";
+                bookingToChange.Date = null;
+                bookingToChange.Time = null;
                 //save changes
                 context.SaveChanges();
             }

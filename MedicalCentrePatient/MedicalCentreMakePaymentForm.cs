@@ -65,9 +65,9 @@ namespace ProjectTeam01MedicalCentreManagement
                 foreach (Booking booking in customer.Bookings)
                 {
                     // if status is not paid - add
-                    if (booking.BookingStatus == "Not Paid")
+                    if (booking.BookingStatus == BookingStatus.NOT_PAID)
                     {
-                        string[] rowAdd = { booking.BookingID.ToString(), context.Users.Find(booking.Practitioner.UserID).LastName, booking.Time, booking.Date, booking.BookingPrice.ToString("C2") };
+                        string[] rowAdd = { booking.BookingID.ToString(), context.Users.Find(booking.Practitioner.UserID).LastName, booking.Time.ToString(), booking.Date?.ToString("yy-MM-dd"), booking.BookingPrice.ToString("C2") };
                         // add to display
                         dataGridViewBookings.Rows.Add(rowAdd);
                     }
@@ -124,9 +124,9 @@ namespace ProjectTeam01MedicalCentreManagement
                 TotalAmountPaid = decimal.Parse(Regex.Replace(labelTotalAmountNumber.Text, @"[^\d.]", "")),
                 BookingID = Convert.ToInt32(dataGridViewBookings.SelectedRows[0].Cells[0].Value),
                 PaymentTypeID = (comboBoxPaymentType.SelectedItem as Payment_Types).PaymentTypeID,
-                PaymentStatus = "Approved",
-                Date = DateTime.Now.ToString("MM-dd-yyyy"),
-                Time = DateTime.Now.ToString("HH:mm"),
+                PaymentStatus = PaymentStatus.APPROVED,
+                Date = DateTime.Now.Date,
+                Time = DateTime.Now.TimeOfDay,
 
             };
 
@@ -146,7 +146,7 @@ namespace ProjectTeam01MedicalCentreManagement
             // update that booking's status to Paid
             using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
             {
-                context.Bookings.Find(newPayment.BookingID).BookingStatus = "Paid";
+                context.Bookings.Find(newPayment.BookingID).BookingStatus = BookingStatus.PAID;
                 context.SaveChanges();
             }
             // if successful- set result to OK and close form

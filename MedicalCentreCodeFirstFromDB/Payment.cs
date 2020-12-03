@@ -22,15 +22,14 @@ namespace MedicalCentreCodeFirstFromDB
 
         public int PaymentTypeID { get; set; }
 
-        public string Time { get; set; }
+        public TimeSpan? Time { get; set; }
 
-        [StringLength(10)]
-        public string Date { get; set; }
+        public DateTime? Date { get; set; }
 
         public decimal? TotalAmountPaid { get; set; }
 
-        [StringLength(50)]
-        public string PaymentStatus { get; set; }
+        [EnumDataType(typeof(PaymentStatus))]
+        public PaymentStatus PaymentStatus { get; set; }
 
         public virtual Booking Booking { get; set; }
 

@@ -19,8 +19,8 @@ namespace MedicalCentreValidation
         public static bool InfoIsInvalid(this Booking booking)
         {
             // make sure fields are filled and such customer, services and practitioner exist!
-            return (!booking.IsValidCustomerId() || !booking.IsValidPractitionerID() || !booking.IsValidServices() || booking.Time == ""
-                || booking.Date == "" || booking.BookingPrice < 0 || booking.BookingStatus == "");
+            return (!booking.IsValidCustomerId() || !booking.IsValidPractitionerID() || !booking.IsValidServices() || booking.Time < new TimeSpan(9,0,0)|| booking.Time > new TimeSpan(16,0,0)
+                || booking.Date < DateTime.Now || booking.BookingPrice < 0 || booking.BookingStatus == BookingStatus.NOT_VALID);
         }
 
         /// <summary>

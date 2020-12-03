@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedicalCentreMainMenu", "Pr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedicalCentreCodeFirstFromDB", "MedicalCentreCodeFirstFromDB\MedicalCentreCodeFirstFromDB.csproj", "{E5429CCE-4AF7-4E54-9C4E-F490D086D883}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFControllerUtilities", "EFControllerUtilities\EFControllerUtilities.csproj", "{CB1E5F5D-A033-4B72-AC56-2959B64DD758}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedicalCentreUtilities", "EFControllerUtilities\MedicalCentreUtilities.csproj", "{CB1E5F5D-A033-4B72-AC56-2959B64DD758}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataTableAccessLayer", "DataTableAccessLayer\DataTableAccessLayer.csproj", "{49CDD6D6-41AD-43BE-AE20-F94E546CED0D}"
 EndProject

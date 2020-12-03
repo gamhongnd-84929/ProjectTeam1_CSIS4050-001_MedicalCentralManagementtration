@@ -62,7 +62,7 @@ namespace MedicalCentreValidation
         {
             // make sure that all fields are filled and CustomerID,BookingID and PaymentTypeID exist!
             return (!payment.IsValidCustomerId() || !payment.IsValidBookingId() || !payment.IsValidPaymentTypeId()||
-                    payment.Time == "" || payment.Date == "" || payment.TotalAmountPaid == 0 || payment.PaymentStatus == "");
+                     payment.Date > DateTime.Now || payment.TotalAmountPaid == 0 || payment.PaymentStatus == PaymentStatus.NOT_VALID);
         }
 
         
