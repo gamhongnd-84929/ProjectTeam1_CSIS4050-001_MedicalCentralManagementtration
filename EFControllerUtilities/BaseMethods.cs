@@ -22,21 +22,25 @@ namespace MedicalCentreUtilities
         }
 
         /// <summary>
-        /// Method to clear all fields upon successful addition
+        /// Method to clear all fields in any form
         /// </summary>
         /// <param name="form"> Form to clear all controls </param>
-        public static  void ClearAllControls(Form form)
+        public static void ClearAllControls(Form form)
         {
             foreach (Control c in form.Controls)
             {
                 if (c is TextBox)
                     (c as TextBox).Clear();
-                else if (c is MonthCalendar)
+                else if (c is DateTimePicker)
                     (c as DateTimePicker).Value = DateTime.Now;
                 else if (c is ComboBox)
                     (c as ComboBox).SelectedIndex = -1;
+                else if (c is DateTimePicker)
+                    (c as DateTimePicker).Value = DateTime.Now;
+                else if (c is ListBox)
+                    (c as ListBox).DataSource = null;
             }
-        }
 
+        }
     }
 }

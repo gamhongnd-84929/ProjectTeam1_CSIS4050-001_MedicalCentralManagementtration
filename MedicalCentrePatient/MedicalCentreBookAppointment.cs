@@ -1,5 +1,6 @@
 ﻿using EFControllerUtilities;
 using MedicalCentreCodeFirstFromDB;
+using MedicalCentreUtilities;
 using MedicalCentreValidation;
 using System;
 using System.Collections.Generic;
@@ -26,8 +27,9 @@ namespace ProjectTeam01MedicalCentreManagement
             monthCalendarBooking.DateChanged += (s, e) => GetPractitionerAvailability();
             listBoxTime.SelectedIndexChanged += (s, e) => GetBookingInformation(customerID);
             buttonCreateBooking.Click += (s, e) => CreateBooking(customerID);
-            dataGridViewPractitioners.SelectionChanged += (s, e) => {
-                if (dataGridViewPractitioners.SelectedRows.Count == 1) GetBookingInformation(customerID);
+            dataGridViewPractitioners.SelectionChanged += (s, e) =>
+            {
+                if (dataGridViewPractitioners.SelectedRows.Count == 1) { GetPractitionerAvailability(); GetBookingInformation(customerID); };
             };
             // for services if selection changes and time + practitioner are selected- update totals
             listBoxServices.SelectedIndexChanged += (s, e) => { if (dataGridViewPractitioners.SelectedRows.Count == 1 && listBoxTime.SelectedIndex != -1) GetBookingInformation(customerID); };
@@ -40,6 +42,8 @@ namespace ProjectTeam01MedicalCentreManagement
         /// <param name="e"></param>
         private void BookAppointmentForm_Load(object sender, EventArgs e)
         {
+
+
             // set number of columns of the practitioners
             dataGridViewPractitioners.ColumnCount = 7;
             // Set the column header names.
@@ -56,17 +60,16 @@ namespace ProjectTeam01MedicalCentreManagement
 
             // make sure only 1 day can be selected on calendar
             monthCalendarBooking.MaxSelectionCount = 1;
-            
 
             // make sure no times are displayed
             listBoxTime.DataSource = null;
-           
+
             // make sure no selection is made
             dataGridViewPractitioners.ClearSelection();
             // prevent user inputting a custom practitioner type
             comboBoxPractitionerTypes.DropDownStyle = ComboBoxStyle.DropDownList;
             // load types into the combobox
-           comboBoxPractitionerTypes.DataSource = Controller<MedicalCentreManagementEntities, Practitioner_Types>.GetEntities();
+            comboBoxPractitionerTypes.DataSource = Controller<MedicalCentreManagementEntities, Practitioner_Types>.GetEntities();
 
             // clear labels
             ResetBookingInformation();
@@ -141,7 +144,7 @@ namespace ProjectTeam01MedicalCentreManagement
 
             // get the date requested from month control
             DateTime dateRequested = monthCalendarBooking.SelectionRange.Start;
-          
+
             // get selected practitioner's id
             int selectedPractitionerId = Convert.ToInt32(dataGridViewPractitioners.SelectedRows[0].Cells[0].Value);
 
@@ -175,7 +178,7 @@ namespace ProjectTeam01MedicalCentreManagement
                 }
             }
 
-            
+
             // add new range
             listBoxTime.DataSource = times;
         }
@@ -186,7 +189,7 @@ namespace ProjectTeam01MedicalCentreManagement
         /// <param name="customerID"> id of the patient requesting a booking</param>
         private void GetBookingInformation(int customerID)
         {
-           
+
             // get the practitioner/date and time from controls
             int practitionerId = Convert.ToInt32(dataGridViewPractitioners.SelectedRows[0].Cells[0].Value);
             string date = monthCalendarBooking.SelectionRange.Start.ToShortDateString();
@@ -258,12 +261,27 @@ namespace ProjectTeam01MedicalCentreManagement
                 MessageBox.Show("Booking information is invalid!");
                 return;
             }
+
             // try to add Booking
-            if (Controller<MedicalCentreManagementEntities, Booking>.AddEntity(newBooking) == null)
+            using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
             {
-                MessageBox.Show("Cannot add booking to database"); // error if didn't work
-                return;
+                // attach services to context to prevent creating new rows in the Services table!
+                foreach (Service s in newBooking.Services)
+                {
+                    context.Services.Attach(s);
+                }
+                // try to add
+                if (context.Bookings.Add(newBooking) == null)
+                {
+                    MessageBox.Show("Cannot add booking to database"); // error if didn't work
+                    return;
+                }
+                context.SaveChanges(); // save changes
             }
+
+            // clear calendar before quitting
+            monthCalendarBooking.SelectionStart = DateTime.Now;
+
             // if add was successful- set result to OK and close form
             DialogResult = DialogResult.OK;
             Close();

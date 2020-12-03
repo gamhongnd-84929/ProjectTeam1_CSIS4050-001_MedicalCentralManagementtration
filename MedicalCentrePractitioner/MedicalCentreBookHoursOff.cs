@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using MedicalCentreCodeFirstFromDB;
 using EFControllerUtilities;
 using MedicalCentreValidation;
+using MedicalCentreUtilities;
 
 namespace ProjectTeam01MedicalCentreManagement
 {
@@ -19,8 +20,8 @@ namespace ProjectTeam01MedicalCentreManagement
         {
             InitializeComponent();
             monthCalendarBookingDate.MaxSelectionCount = 1;
-            listBoxTime.Items.Clear();
-            monthCalendarBookingDate.DateChanged += (s, e) => { GetPractitionerAvailability(practitionerID); };
+            BaseMethods.ClearAllControls(this);
+            monthCalendarBookingDate.DateChanged += (s, e) => GetPractitionerAvailability(practitionerID);
             buttonBookTimeOff.Click += (s, e) => BookTimeOff(practitionerID);
         }
 
@@ -59,7 +60,7 @@ namespace ProjectTeam01MedicalCentreManagement
                 MessageBox.Show("Cannot add time off booking to database");
                 return;
             }
-
+            BaseMethods.ClearAllControls(this);
             this.DialogResult = DialogResult.OK;
             Close();
         }
@@ -70,31 +71,35 @@ namespace ProjectTeam01MedicalCentreManagement
         /// <param name="practitionerID"></param>
         private void GetPractitionerAvailability(int practitionerID)
         {
-            LoadAllPossibleTimes();
+
             if (monthCalendarBookingDate.SelectionRange.Start < monthCalendarBookingDate.TodayDate)
             {
                 MessageBox.Show("Cannot book appointments before today's date!");
                 return;
             }
             DateTime dateRequested = monthCalendarBookingDate.SelectionRange.Start;
+            List<TimeSpan> times = new List<TimeSpan>();
+            for (int hour = 9; hour <= 16; hour++)
+            {
+                times.Add(new TimeSpan(hour, 0, 0));
+            }
+
             using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
             {
-                var bookingOnThatDate = context.Bookings.Select(b => b).Where(b => b.PractitionerID == practitionerID && b.Date == dateRequested).ToList();
+                // get all bookings for that doctor on that date
+                var bookingsOnThatDate = context.Bookings.Where(b => b.PractitionerID == practitionerID && b.Date == dateRequested).ToList();
 
-                foreach (Booking b in bookingOnThatDate)
+                // remove from the list all times that match
+                foreach (Booking b in bookingsOnThatDate)
                 {
-                    listBoxTime.Items.Remove(b.Time);
+                    times.Remove((TimeSpan)b.Time);
                 }
             }
+
+
+            // add new range
+            listBoxTime.DataSource = times;
         }
 
-        /// <summary>
-        /// Getting all the possible timesand add it to the time listbox
-        /// </summary>
-        private void LoadAllPossibleTimes()
-        {
-            listBoxTime.Items.Clear();
-            listBoxTime.Items.AddRange(new string[] { "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00" });
-        }
     }
 }
