@@ -22,7 +22,7 @@ namespace ProjectTeam01MedicalCentreManagement
         {
             this.Text = "Medical Centre: Register New Practitioner";
             InitializeComponent();
-            BaseMethods.PopulateProvinceComboBox(comboBoxProvince);
+            BaseFormMethods.PopulateProvinceComboBox(comboBoxProvince);
             PopulatePractitionerTypeComboBox();
             buttonRegisterNewPractitioner.Click += AddNewPractitioner;
         }
@@ -108,7 +108,7 @@ namespace ProjectTeam01MedicalCentreManagement
                 context.Practitioners.Add(newPractitioner);
                 context.SaveChanges();
             }
-            BaseMethods.ClearAllControls(this);
+            BaseFormMethods.ClearAllControls(this);
             this.DialogResult = DialogResult.OK;
             Close();
         }

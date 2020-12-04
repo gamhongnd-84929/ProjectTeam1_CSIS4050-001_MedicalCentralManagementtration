@@ -71,20 +71,22 @@
             // labelFirstName
             // 
             this.labelFirstName.AutoSize = true;
+            this.labelFirstName.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelFirstName.Location = new System.Drawing.Point(54, 107);
             this.labelFirstName.Name = "labelFirstName";
-            this.labelFirstName.Size = new System.Drawing.Size(80, 17);
+            this.labelFirstName.Size = new System.Drawing.Size(102, 17);
             this.labelFirstName.TabIndex = 2;
-            this.labelFirstName.Text = "First Name:";
+            this.labelFirstName.Text = "First Name* :";
             // 
             // labelLastName
             // 
             this.labelLastName.AutoSize = true;
+            this.labelLastName.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelLastName.Location = new System.Drawing.Point(54, 160);
             this.labelLastName.Name = "labelLastName";
-            this.labelLastName.Size = new System.Drawing.Size(80, 17);
+            this.labelLastName.Size = new System.Drawing.Size(101, 17);
             this.labelLastName.TabIndex = 4;
-            this.labelLastName.Text = "Last Name:";
+            this.labelLastName.Text = "Last Name* :";
             // 
             // textBoxLastName
             // 
@@ -161,11 +163,12 @@
             // labelPhone
             // 
             this.labelPhone.AutoSize = true;
+            this.labelPhone.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelPhone.Location = new System.Drawing.Point(54, 391);
             this.labelPhone.Name = "labelPhone";
-            this.labelPhone.Size = new System.Drawing.Size(107, 17);
+            this.labelPhone.Size = new System.Drawing.Size(131, 17);
             this.labelPhone.TabIndex = 13;
-            this.labelPhone.Text = "Phone Number:";
+            this.labelPhone.Text = "Phone Number* :";
             // 
             // textBoxPhoneNumber
             // 
@@ -177,11 +180,12 @@
             // labelEmail
             // 
             this.labelEmail.AutoSize = true;
+            this.labelEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelEmail.Location = new System.Drawing.Point(54, 438);
             this.labelEmail.Name = "labelEmail";
-            this.labelEmail.Size = new System.Drawing.Size(46, 17);
+            this.labelEmail.Size = new System.Drawing.Size(63, 17);
             this.labelEmail.TabIndex = 15;
-            this.labelEmail.Text = "Email:";
+            this.labelEmail.Text = "Email* :";
             // 
             // textBoxEmail
             // 

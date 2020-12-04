@@ -102,7 +102,7 @@ namespace ProjectTeam01MedicalCentreManagement
         /// <param name="practitionerID"></param>
         private void PrePopulateFields(int practitionerID)
         {
-            BaseMethods.PopulateProvinceComboBox(comboBoxProvince);
+            BaseFormMethods.PopulateProvinceComboBox(comboBoxProvince);
             PopulatePractitionerTypeComboBox();
             using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
             {

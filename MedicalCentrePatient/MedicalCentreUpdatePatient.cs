@@ -35,7 +35,7 @@ namespace ProjectTeam01MedicalCentreManagement
         private void PrePopulateFields(int customerID)
         {
             // set up province combobox
-            BaseMethods.PopulateProvinceComboBox(comboBoxProvince);
+            BaseFormMethods.PopulateProvinceComboBox(comboBoxProvince);
             // using unit-of-work context
             using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
             {
@@ -57,7 +57,11 @@ namespace ProjectTeam01MedicalCentreManagement
             }
         }
 
-        
+
+        /// <summary>
+        /// Method to update customer Information in DB
+        /// </summary>
+        /// <param name="customerID"> id of the customer to update</param>
         private void UpdatePatient(int customerID)
         {
             // get all fields from controls
@@ -122,8 +126,28 @@ namespace ProjectTeam01MedicalCentreManagement
             }
 
             // after successful update:
+            // check if MSP was changed - if recalculation of future prices is required:
+            CheckMSPChange(oldMSP, msp, customerID);
+
+            // if everything is successful- set result to OK and close form
+            DialogResult = DialogResult.OK;
+            Close();
+        }
+
+        /// <summary>
+        /// Check whether msp was changed
+        /// Adjust future booking prices accordingly
+        /// </summary>
+        /// <param name="oldMSP"> previous msp </param>
+        /// <param name="newMSP"> newly inputted msp </param>
+        /// <param name="customerID"> customer id </param>
+        private void CheckMSPChange(string oldMSP, string newMSP, int customerID)
+        {
+            if (oldMSP == newMSP)
+                return;
+
             // if Customer lost their MSP - adjust price for unpaid booking in the future!
-            if (msp != oldMSP && msp == "")
+            if (newMSP == "")
             {
                 using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
                 {
@@ -133,7 +157,7 @@ namespace ProjectTeam01MedicalCentreManagement
                     // for each check if past or present
                     foreach (Booking booking in listOfUnpaidBookings)
                     {
-                       
+
                         // if in the future (greater than today)
                         if (DateTime.Now < booking.Date)
                         {
@@ -151,9 +175,35 @@ namespace ProjectTeam01MedicalCentreManagement
                     context.SaveChanges();
                 }
             }
-            // if everything is successful- set result to OK and close form
-            DialogResult = DialogResult.OK;
-            Close();
+            // else if user got MSP - recalculate prices for future unpaid  bookings to include discount
+            else if (oldMSP == "")
+            {
+                using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
+                {
+                    // get list of unpaid bookings for the customer
+                    var listOfUnpaidBookings = context.Bookings.Where(b => (b.CustomerID == customerID && b.BookingStatus == BookingStatus.NOT_PAID)).ToList();
+
+                    // for each check if past or present
+                    foreach (Booking booking in listOfUnpaidBookings)
+                    {
+
+                        // if in the future (greater than today)
+                        if (DateTime.Now < booking.Date)
+                        {
+                            // recalculate new price
+                            // by adding service prices
+                            decimal newPrice = 0.0m;
+                            foreach (Service s in booking.Services)
+                            {
+                                newPrice += (s.ServicePrice * (1 - s.MSPCoverage));
+                            }
+                            booking.BookingPrice = newPrice;// set new price
+                        }
+                    }
+                    // save changes
+                    context.SaveChanges();
+                }
+            }
         }
     }
 

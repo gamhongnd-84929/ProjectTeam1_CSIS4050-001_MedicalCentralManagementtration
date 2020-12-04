@@ -20,7 +20,7 @@ namespace ProjectTeam01MedicalCentreManagement
         {
             InitializeComponent();
             monthCalendarBookingDate.MaxSelectionCount = 1;
-            BaseMethods.ClearAllControls(this);
+            BaseFormMethods.ClearAllControls(this);
             monthCalendarBookingDate.DateChanged += (s, e) => GetPractitionerAvailability(practitionerID);
             buttonBookTimeOff.Click += (s, e) => BookTimeOff(practitionerID);
         }
@@ -60,7 +60,7 @@ namespace ProjectTeam01MedicalCentreManagement
                 MessageBox.Show("Cannot add time off booking to database");
                 return;
             }
-            BaseMethods.ClearAllControls(this);
+            BaseFormMethods.ClearAllControls(this);
             this.DialogResult = DialogResult.OK;
             Close();
         }

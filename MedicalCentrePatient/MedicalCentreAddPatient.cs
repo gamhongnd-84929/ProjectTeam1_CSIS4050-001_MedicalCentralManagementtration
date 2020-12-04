@@ -14,7 +14,7 @@ namespace ProjectTeam01MedicalCentreManagement
             Text = "Medical Centre:Register New Patient";
             InitializeComponent();
             // populate the provinces
-            BaseMethods.PopulateProvinceComboBox(comboBoxProvince);
+            BaseFormMethods.PopulateProvinceComboBox(comboBoxProvince);
             // add event to button
             buttonAddNewPatient.Click += AddNewPatient;
         }
@@ -96,7 +96,7 @@ namespace ProjectTeam01MedicalCentreManagement
                     return;
                 }
 
-                BaseMethods.ClearAllControls(this);
+                BaseFormMethods.ClearAllControls(this);
 
             }
             // If successful- set result to OK and close form
@@ -104,5 +104,7 @@ namespace ProjectTeam01MedicalCentreManagement
             Close();
 
         }
+
+     
     }
 }

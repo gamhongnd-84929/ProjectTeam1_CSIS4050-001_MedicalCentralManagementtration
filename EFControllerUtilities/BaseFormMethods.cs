@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace MedicalCentreUtilities
 {
-    public static class BaseMethods
+    public static class BaseFormMethods
     {
 
         /// <summary>
