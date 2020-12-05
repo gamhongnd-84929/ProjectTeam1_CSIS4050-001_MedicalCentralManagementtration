@@ -106,7 +106,7 @@ namespace MedicalCentreCodeFirstFromDB
             List<Booking> bookings = new List<Booking>()
             {
                 new Booking {CustomerID =1, PractitionerID = 1, Time= new TimeSpan(13,0,0), Date = new DateTime(2020,12,09), BookingPrice=250,BookingStatus=BookingStatus.NOT_PAID},
-                new Booking {CustomerID =1, PractitionerID = 2, Time= new TimeSpan(13,0,0), Date = new DateTime(2020,11,30), BookingPrice=250,BookingStatus=BookingStatus.NOT_PAID},
+                new Booking {CustomerID =1, PractitionerID = 2, Time= new TimeSpan(13,0,0), Date = new DateTime(2020,11,06), BookingPrice=250,BookingStatus=BookingStatus.NOT_PAID},
                 new Booking {CustomerID =2, PractitionerID = 2, Time= new TimeSpan(10,0,0), Date = new DateTime(2020,12,01), BookingPrice=200,BookingStatus=BookingStatus.NOT_PAID},
                 new Booking {CustomerID =2, PractitionerID = 3, Time= new TimeSpan(10,0,0), Date = new DateTime(2020,11,30), BookingPrice=250,BookingStatus=BookingStatus.NOT_PAID},
                 new Booking {CustomerID =3, PractitionerID = 3, Time = new TimeSpan(13,0,0), Date = new DateTime(2020,11,09), BookingPrice=300,BookingStatus=BookingStatus.PAID},

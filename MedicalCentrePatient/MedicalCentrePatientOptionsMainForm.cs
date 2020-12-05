@@ -42,6 +42,7 @@ namespace ProjectTeam01MedicalCentreManagement
             GetGreeting(customerID);
             InitializePatientsBookings(dataGridViewPatientBookings, customerID);
             InitializePatientsPayments(dataGridViewPatientPayments, customerID);
+            IsActiveCustomer(customerID);
         }
 
         /// <summary>
@@ -155,6 +156,7 @@ namespace ProjectTeam01MedicalCentreManagement
                 InitializePatientsBookings(dataGridViewPatientBookings, customerID);
                 InitializePatientsPayments(dataGridViewPatientPayments, customerID);
                 GetGreeting(customerID);
+                IsActiveCustomer(customerID);
 
             }
             // hide the child form
@@ -184,7 +186,7 @@ namespace ProjectTeam01MedicalCentreManagement
                     }
                 }
                 // if no not paid bookings- message
-                MessageBox.Show("This Customer has no Unpaid Bookings!");
+               MessageBox.Show("This Customer has no Unpaid Bookings!");
 
             }
 
@@ -252,6 +254,33 @@ namespace ProjectTeam01MedicalCentreManagement
             //update booking view
             InitializePatientsBookings(dataGridViewPatientBookings, customerID);
 
+        }
+
+        /// <summary>
+        /// Method to check if a customer is able to make bookings or if their account was suspended
+        /// </summary>
+        /// <param name="customerID"> id of the customer </param>
+        private void IsActiveCustomer(int customerID)
+        {
+            // using unit-of-work context
+            using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
+            {
+                // find customer
+                Customer customer = context.Customers.Find(customerID);
+                // loop through all bookings
+                foreach (Booking booking in customer.Bookings)
+                {
+                    DateTime bookingDate = (DateTime)(booking.Date);
+                   if (bookingDate.AddDays(7) < DateTime.Today.Date && booking.BookingStatus == BookingStatus.NOT_PAID)
+                    {
+                        MessageBox.Show("Your account is suspended due to outstanding balance! Please make a payment to be able to make appointments!");
+                        buttonBookAppointment.Enabled = false;
+                        return;
+                    }
+                }
+                buttonBookAppointment.Enabled = true;
+
+            }
         }
     }
 }
