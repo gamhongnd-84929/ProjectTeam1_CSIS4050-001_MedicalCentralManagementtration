@@ -55,7 +55,12 @@ namespace MedicalCentreCodeFirstFromDB
                 new Service{ ServiceName= "Neuro Exam", ServiceDescription="Performing Neuro Exam", PractitionerTypeID =2 ,ServicePrice=500, MSPCoverage =0.40m},
                 new Service{ ServiceName= "Skin Exam", ServiceDescription="Examining any Skin Conditions", PractitionerTypeID =1 ,ServicePrice=800,MSPCoverage = 0.6m},
                 new Service{ ServiceName= "Cholesterol Exam", ServiceDescription="Test cholesterol in blood", PractitionerTypeID =3, ServicePrice= 300, MSPCoverage=0.8m},
-                new Service{ ServiceName= "Eye Exam", ServiceDescription="Test eye vision", PractitionerTypeID = 4, ServicePrice = 200, MSPCoverage = 0.7m}
+                new Service{ ServiceName= "Eye Exam", ServiceDescription="Test eye vision", PractitionerTypeID = 4, ServicePrice = 200, MSPCoverage = 0.7m},
+                new Service{ ServiceName= "Skin Peeling Treatment", ServiceDescription="Peeling of dead skin cells", PractitionerTypeID =1, ServicePrice= 190, MSPCoverage=0.1m},
+                new Service{ ServiceName= "Brain MRI", ServiceDescription="Performing MRI of the brain", PractitionerTypeID = 2, ServicePrice = 1200, MSPCoverage = 0.5m},
+                new Service{ ServiceName= "Blood Glucose Exam", ServiceDescription="Test blood sugar- diabetes prevention", PractitionerTypeID =3, ServicePrice= 100, MSPCoverage=0.8m},
+                new Service{ ServiceName= "Glasses Fitting", ServiceDescription="Pick the glasses", PractitionerTypeID = 4, ServicePrice = 80, MSPCoverage = 0.7m},
+                new Service{ ServiceName= "Condition Diagnosis", ServiceDescription="Diagnose medical eye conditions", PractitionerTypeID = 4, ServicePrice = 350, MSPCoverage = 0.9m},
             };
             context.Services.AddRange(services);
             context.SaveChanges();
@@ -115,8 +120,10 @@ namespace MedicalCentreCodeFirstFromDB
                 new Booking {CustomerID =4, PractitionerID = 5, Time= new TimeSpan(14,0,0), Date = new DateTime(2020,11,27), BookingPrice=200,BookingStatus=BookingStatus.PAID},
                 new Booking {CustomerID =5, PractitionerID = 5, Time= new TimeSpan(12,0,0), Date = new DateTime(2020,12,15), BookingPrice=400,BookingStatus=BookingStatus.NOT_PAID},
                 new Booking {CustomerID =5, PractitionerID = 4, Time=new TimeSpan(14,0,0), Date = new DateTime(2020,12,19), BookingPrice=400,BookingStatus=BookingStatus.NOT_PAID},
-                new Booking {CustomerID =6, PractitionerID = 5, Time= new TimeSpan(11,0,0), Date =new DateTime(2020,12,20), BookingPrice=500,BookingStatus=BookingStatus.NOT_PAID},
-                new Booking {CustomerID =6, PractitionerID = 1, Time= new TimeSpan(13,0,0), Date = new DateTime(2020,12,03), BookingPrice=500,BookingStatus=BookingStatus.NOT_PAID},
+                 new Booking {CustomerID =2, PractitionerID = 5, Time= new TimeSpan(11,0,0), Date = new DateTime(2020,12,11), BookingPrice=140,BookingStatus=BookingStatus.NOT_PAID},
+                new Booking {CustomerID =4, PractitionerID = 3, Time= new TimeSpan(9,0,0), Date = new DateTime(2020,12,31), BookingPrice=160,BookingStatus=BookingStatus.NOT_PAID},
+                new Booking {CustomerID =6, PractitionerID = 5, Time= new TimeSpan(11,0,0), Date =new DateTime(2020,12,20), BookingPrice=500,BookingStatus=BookingStatus.TIME_OFF},
+                new Booking {CustomerID =6, PractitionerID = 1, Time= new TimeSpan(13,0,0), Date = new DateTime(2020,12,03), BookingPrice=500,BookingStatus=BookingStatus.TIME_OFF},
             };
             context.Bookings.AddRange(bookings);
             context.SaveChanges();

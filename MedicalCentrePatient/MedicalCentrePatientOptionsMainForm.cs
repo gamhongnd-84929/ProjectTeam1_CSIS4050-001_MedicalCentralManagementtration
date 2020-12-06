@@ -258,6 +258,7 @@ namespace ProjectTeam01MedicalCentreManagement
 
         /// <summary>
         /// Method to check if a customer is able to make bookings or if their account was suspended
+        /// Suspended if any outstanding bills for 7 days!
         /// </summary>
         /// <param name="customerID"> id of the customer </param>
         private void IsActiveCustomer(int customerID)

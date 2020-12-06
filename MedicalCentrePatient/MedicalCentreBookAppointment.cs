@@ -32,7 +32,7 @@ namespace ProjectTeam01MedicalCentreManagement
                 if (dataGridViewPractitioners.SelectedRows.Count == 1) { GetPractitionerAvailability(); GetBookingInformation(customerID); };
             };
             // for services if selection changes and time + practitioner are selected- update totals
-            listBoxServices.SelectedIndexChanged += (s, e) => { if (dataGridViewPractitioners.SelectedRows.Count == 1 && listBoxTime.SelectedIndex != -1) GetBookingInformation(customerID); };
+            listBoxServices.SelectedIndexChanged += (s, e) => { if (dataGridViewPractitioners.SelectedRows.Count == 1) GetBookingInformation(customerID); };
         }
 
         /// <summary>
@@ -160,12 +160,20 @@ namespace ProjectTeam01MedicalCentreManagement
         /// <param name="selectedPractitionerId"> id of the practitioner requested</param>
         private void LoadAllAvailableTimes(DateTime dateRequested, int selectedPractitionerId)
         {
+            // create all times
             List<TimeSpan> times = new List<TimeSpan>();
+
             for (int hour = 9; hour <= 16; hour++)
             {
-                times.Add(new TimeSpan(hour, 0, 0));
+                TimeSpan appointmentTime = new TimeSpan(hour, 0, 0);
+                // make sure that today's past time appointments are not shown!
+                if (dateRequested != DateTime.Now.Date || appointmentTime > DateTime.Now.TimeOfDay)
+                {
+                    times.Add(appointmentTime);
+                }
+                
             }
-
+            // using unit-of-work
             using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
             {
                 // get all bookings for that doctor on that date
@@ -177,7 +185,6 @@ namespace ProjectTeam01MedicalCentreManagement
                     times.Remove((TimeSpan)b.Time);
                 }
             }
-
 
             // add new range
             listBoxTime.DataSource = times;

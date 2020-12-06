@@ -187,7 +187,7 @@ namespace ProjectTeam01MedicalCentreManagement
                         context.Users.Find(booking.Customer.UserID).FirstName,
                         context.Users.Find(booking.Customer.UserID).LastName,
                         booking.Time.ToString(),
-                        booking.Date.ToString(),
+                        booking.Date?.ToString("yyyy-MM-dd"),
                         booking.PractitionerComment,
                         booking.BookingStatus.ToString()
                     };

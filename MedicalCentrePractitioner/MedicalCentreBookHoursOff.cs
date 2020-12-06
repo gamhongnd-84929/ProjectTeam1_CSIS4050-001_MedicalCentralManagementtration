@@ -81,7 +81,12 @@ namespace ProjectTeam01MedicalCentreManagement
             List<TimeSpan> times = new List<TimeSpan>();
             for (int hour = 9; hour <= 16; hour++)
             {
-                times.Add(new TimeSpan(hour, 0, 0));
+                TimeSpan appointmentTime = new TimeSpan(hour, 0, 0);
+                // make sure that today's past time appointments are not shown!
+                if (dateRequested != DateTime.Now.Date || appointmentTime > DateTime.Now.TimeOfDay)
+                {
+                    times.Add(appointmentTime);
+                }
             }
 
             using (MedicalCentreManagementEntities context = new MedicalCentreManagementEntities())
